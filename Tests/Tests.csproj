@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Day01 - Chronal Calibration\Day01.csproj" />
+    <ProjectReference Include="..\Day02 - Inventory Management System\Day02.csproj" />
   </ItemGroup>
 
    <ItemGroup>
