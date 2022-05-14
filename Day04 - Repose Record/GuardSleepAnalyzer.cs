@@ -9,6 +9,8 @@ public class GuardSleepAnalyzer
 		_guardTimeRecords = guardTimeRecords;
 	}
 
+	public IEnumerable<int> GuardIds() => _guardTimeRecords.Select(gtr => gtr.GuardId).Distinct();
+
 	public int GetLongestSleepingGuardId() => GetLongestSleepingGuardId(out _);
 
 	public int GetLongestSleepingGuardId(out int minutesSlept)

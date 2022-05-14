@@ -17,4 +17,10 @@ public class Day04Tests : BaseDayTests<Day04Solver>
 	[InlineData("my-input.txt", "118599")]
 	public override void TestPart1(string inputFilename, string expectedResult)
 		=> base.TestPart1(inputFilename, expectedResult);
+
+	[Theory]
+	[InlineData("example-input.txt", "4455")]
+	[InlineData("my-input.txt", "33949")]
+	public override void TestPart2(string inputFilename, string expectedResult)
+		=> base.TestPart2(inputFilename, expectedResult);
 }
