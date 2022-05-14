@@ -1,0 +1,42 @@
+using AdventOfCode.Abstractions;
+
+namespace AdventOfCode.Year2018.Day04;
+
+public class Day04Solver : DaySolver
+{
+	private readonly List<GuardTimeRecord> _timeRecords;
+
+	public Day04Solver(string inputFilePath) : base(inputFilePath)
+	{
+		List<TimeRecord> timeRecords = InputLines.Select(TimeRecord.Parse).ToList();
+		timeRecords.Sort((tr1, tr2) => tr1.TimeStamp.CompareTo(tr2.TimeStamp));
+		if (timeRecords.First().GuardId is null)
+		{
+			throw new ApplicationException("First time records guard ID couldn't be inferred.");
+		}
+		int id = 0;
+		_timeRecords = timeRecords.Select(timeRecord =>
+		{
+			id = timeRecord.GuardId ?? id;
+			return GuardTimeRecord.FromTimeRecord(timeRecord, id);
+		}).ToList();
+	}
+
+	public override string SolvePart1()
+	{
+		var analyzer = new GuardSleepAnalyzer(_timeRecords);
+		int mostSleepyGuardId = analyzer.GetLongestSleepingGuardId();
+		int mostOftenSleptMinute = analyzer
+			.EnumerateMinutesAsleep(mostSleepyGuardId)
+			.GroupBy(dt => TimeOnly.FromDateTime(dt))
+			.MaxBy(g => g.Count())?.Key.Minute
+			?? throw new ApplicationException("No minutes were slept.");
+		int result = mostSleepyGuardId * mostOftenSleptMinute;
+		return result.ToString();
+	}
+
+	public override string SolvePart2()
+	{
+		return "UNSOLVED";
+	}
+}
