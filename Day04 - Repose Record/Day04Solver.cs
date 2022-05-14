@@ -37,6 +37,23 @@ public class Day04Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		var analyzer = new GuardSleepAnalyzer(_timeRecords);
+		HashSet<(int GuardId, int Minute, int Count)> sleepStatsByMinute = new();
+		foreach (int guardId in analyzer.GuardIds())
+		{
+			IGrouping<TimeOnly, DateTime>? grouping = analyzer
+				.EnumerateMinutesAsleep(guardId)
+				.GroupBy(dt => TimeOnly.FromDateTime(dt))
+				.MaxBy(g => g.Count());
+			if (grouping is null)
+			{
+				// Guard never slept.
+				continue;
+			}
+			sleepStatsByMinute.Add((guardId, grouping.Key.Minute, grouping.Count()));
+		}
+		var longestSleepStatsByMinute = sleepStatsByMinute.MaxBy(value => value.Count);
+		int result = longestSleepStatsByMinute.GuardId * longestSleepStatsByMinute.Minute;
+		return result.ToString();
 	}
 }
