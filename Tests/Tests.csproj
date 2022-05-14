@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Day01 - Chronal Calibration\Day01.csproj" />
     <ProjectReference Include="..\Day02 - Inventory Management System\Day02.csproj" />
+    <ProjectReference Include="..\Day03 - No Matter How You Slice It\Day03.csproj" />
   </ItemGroup>
 
    <ItemGroup>
