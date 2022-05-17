@@ -10,7 +10,7 @@ public class Day04Tests : BaseDayTests<Day04Solver>
 {
 	public override string DayInputsDirectory => "Day04";
 
-	protected override Day04Solver CreateSolver(string inputFilePath) => new Day04Solver(inputFilePath);
+	protected override Day04Solver CreateSolver(string inputFilePath) => new(inputFilePath);
 
 	[Theory]
 	[InlineData("example-input.txt", "240")]

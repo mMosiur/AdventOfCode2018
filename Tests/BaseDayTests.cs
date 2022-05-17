@@ -29,7 +29,7 @@ public abstract class BaseDayTests<T> where T : DaySolver
 	public virtual void TestPart1(string inputFilename, string expectedResult)
 	{
 		string filepath = GetInputFilePath(inputFilename);
-		var solver = CreateSolver(filepath);
+		T solver = CreateSolver(filepath);
 		string result = solver.SolvePart1();
 		Assert.Equal(expectedResult, result);
 	}
@@ -37,7 +37,7 @@ public abstract class BaseDayTests<T> where T : DaySolver
 	public virtual void TestPart2(string inputFilename, string expectedResult)
 	{
 		string filepath = GetInputFilePath(inputFilename);
-		var solver = CreateSolver(filepath);
+		T solver = CreateSolver(filepath);
 		string result = solver.SolvePart2();
 		Assert.Equal(expectedResult, result);
 	}
