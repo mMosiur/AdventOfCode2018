@@ -19,8 +19,6 @@ public class Polymer : IReadOnlyList<char>
 
 	public int Count => _polymerUnits.Length;
 
-	public int Length => _polymerUnits.Length;
-
 	public IEnumerator<char> GetEnumerator() => _polymerUnits.GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -46,7 +44,7 @@ public class Polymer : IReadOnlyList<char>
 				unitStack.Push(unit);
 			}
 		}
-		Polymer result = new(unitStack);
+		Polymer result = new(unitStack.Reverse());
 		return result;
 	}
 

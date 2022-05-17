@@ -2,11 +2,11 @@ namespace AdventOfCode.Year2018.Day05;
 
 public static class Helpers
 {
-	public static IEnumerable<(char Lower, char Upper)> GetAsciiAlphabetCasePair()
+	public static IEnumerable<(char Lower, char Upper)> GetAsciiAlphabetCasePairs()
 	{
-		for(char lower = 'a'; lower <= 'z'; lower++)
+		for(char upper = 'A'; upper <= 'Z'; upper++)
 		{
-			char upper = (char)(lower + 32);
+			char lower = (char)(upper + 32);
 			yield return (lower, upper);
 		}
 	}
