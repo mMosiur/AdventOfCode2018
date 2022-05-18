@@ -1,0 +1,28 @@
+using AdventOfCode.Abstractions;
+
+namespace AdventOfCode.Year2018.Day06;
+
+public class Day06Solver : DaySolver
+{
+	private readonly Point[] _points;
+
+	public Day06Solver(string inputFilePath) : base(inputFilePath)
+	{
+		_points = InputLines.Select(Point.Parse).ToArray();
+	}
+
+	public override string SolvePart1()
+	{
+		ClosestPointCoverageAnalyzer analyzer = new(_points);
+		Dictionary<Point, int?> areas = analyzer.GetAreasCovered();
+		(Point p, int? count) = areas.Where(kvp => kvp.Value is not null)
+			.MaxBy(kvp => kvp.Value);
+		int result = count!.Value;
+		return result.ToString();
+	}
+
+	public override string SolvePart2()
+	{
+		return "UNSOLVED";
+	}
+}
