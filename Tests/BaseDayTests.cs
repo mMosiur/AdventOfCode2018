@@ -14,7 +14,7 @@ public abstract class BaseDayTests<T> where T : DaySolver
 	/// </summary>
 	protected abstract T CreateSolver(string inputFilePath);
 
-	private string GetInputFilePath(string inputFilename)
+	protected string GetInputFilePath(string inputFilename)
 	{
 		string filepath = Path.Combine(
 			BaseInputsDirectory,

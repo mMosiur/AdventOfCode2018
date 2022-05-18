@@ -26,52 +26,48 @@ public class ClosestPointCoverageAnalyzer
 
 	private void CalculateBoundedAreas(Dictionary<Point, int?> areas, int minX, int maxX, int minY, int maxY)
 	{
-		for (int x = minX; x <= maxX; x++)
+		foreach (Point point in Helpers.GetPointsInArea(minX, maxX, minY, maxY))
 		{
-			for (int y = minY; y <= maxY; y++)
+			Point? closestPoint = GetClosestPointFrom(point, _points);
+			if (closestPoint is null)
 			{
-				Point point = new(x, y);
-				Point? closestPoint = point.GetClosestPointFrom(_points);
-				if (closestPoint is null)
-				{
-					continue;
-				}
-				areas[closestPoint.Value]++;
+				continue;
 			}
+			areas[closestPoint.Value]++;
 		}
 	}
 
 	private void RemoveInfiniteAreas(Dictionary<Point, int?> areas, int minX, int maxX, int minY, int maxY)
 	{
-		for (int x = minX - 1; x <= maxX + 1; x++)
+		foreach (Point point in Helpers.GetPointsInRectangleBorder(minX, maxX, minY, maxY))
 		{
-			Point point = new(x, minY - 1);
-			Point? closestPoint = point.GetClosestPointFrom(_points);
-			if (closestPoint is not null)
-			{
-				areas[closestPoint.Value] = null;
-			}
-			point = new(x, maxY + 1);
-			closestPoint = point.GetClosestPointFrom(_points);
+			Point? closestPoint = GetClosestPointFrom(point, _points);
 			if (closestPoint is not null)
 			{
 				areas[closestPoint.Value] = null;
 			}
 		}
-		for (int y = minY - 1; y <= maxY + 1; y++)
+	}
+
+	private static Point? GetClosestPointFrom(Point origin, IEnumerable<Point> targets)
+	{
+		Point? closestTarget = null;
+		int? closestDistance = null;
+		bool multipleClosest = false;
+		foreach (Point target in targets)
 		{
-			Point point = new(minX - 1, y);
-			Point? closestPoint = point.GetClosestPointFrom(_points);
-			if (closestPoint is not null)
+			int distance = Math.ManhattanDistance(origin, target);
+			if (closestDistance is null || distance < closestDistance)
 			{
-				areas[closestPoint.Value] = null;
+				closestTarget = target;
+				closestDistance = distance;
+				multipleClosest = false;
 			}
-			point = new(maxX + 1, y);
-			closestPoint = point.GetClosestPointFrom(_points);
-			if (closestPoint is not null)
+			else if (distance == closestDistance)
 			{
-				areas[closestPoint.Value] = null;
+				multipleClosest = true;
 			}
 		}
+		return multipleClosest ? null : closestTarget;
 	}
 }
