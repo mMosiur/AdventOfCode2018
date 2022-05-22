@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Check code style
-      run: dotnet format --verify-no-changes
+      run: dotnet format --verify-no-changes --no-restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
