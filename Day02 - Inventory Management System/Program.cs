@@ -35,7 +35,7 @@ catch (ApplicationException e)
 {
 	ConsoleColor previousColor = Console.ForegroundColor;
 	Console.ForegroundColor = ConsoleColor.Red;
-	if(Console.GetCursorPosition().Left > 0)
+	if (Console.GetCursorPosition().Left > 0)
 	{
 		Console.WriteLine();
 	}
