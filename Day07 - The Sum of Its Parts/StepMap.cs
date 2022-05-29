@@ -9,17 +9,26 @@ public class StepMap
 		Steps = steps;
 	}
 
-	public IEnumerable<Step> GetStepCompletionOrder()
+	private void ResetStepsFinishedStatus(bool status = false)
 	{
-		List<Step> orderedList = Steps
+		foreach (Step step in Steps)
+		{
+			step.Finished = status;
+		}
+	}
+
+	public IEnumerable<Step> GetAlphabeticalStepCompletionOrder()
+	{
+		List<Step> stepsLeft = Steps
 			.OrderBy(step => step.Letter)
 			.ToList();
-		while (orderedList.Any())
+
+		while (stepsLeft.Count > 0)
 		{
 			int firstFinishedStepIndex = -1;
-			for (int i = 0; i < orderedList.Count; i++)
+			for (int i = 0; i < stepsLeft.Count; i++)
 			{
-				Step step = orderedList[i];
+				Step step = stepsLeft[i];
 				if (step.Requirements.All(s => s.Finished))
 				{
 					step.Finished = true;
@@ -31,12 +40,58 @@ public class StepMap
 			{
 				throw new ApplicationException("No steps could be completed.");
 			}
-			yield return orderedList[firstFinishedStepIndex];
-			orderedList.RemoveAt(firstFinishedStepIndex);
+			yield return stepsLeft[firstFinishedStepIndex];
+			stepsLeft.RemoveAt(firstFinishedStepIndex);
 		}
-		foreach (Step step in Steps)
+
+		ResetStepsFinishedStatus();
+	}
+
+	private static int CalculateStepTime(Step step, int stepOverheadDuration)
+	{
+		int time = step.Letter - 'A' + 1;
+		if (time < 1 || time > 26) throw new Exception("Unexpected step letter.");
+		time += stepOverheadDuration;
+		return time;
+	}
+
+	public IEnumerable<StepWithFinishTime> GetSimultaneousStepCompletionOrder(int workersCount, int stepOverheadDuration)
+	{
+		List<Step> stepsLeft = Steps
+			.OrderBy(step => step.Letter)
+			.ToList();
+		PriorityQueue<StepWithFinishTime, int> currentSteps = new();
+
+		int currentTime = 0;
+		while (stepsLeft.Count + currentSteps.Count > 0)
 		{
-			step.Finished = false;
+			for (int i = 0; i < stepsLeft.Count; i++)
+			{
+				if (currentSteps.Count >= workersCount) break;
+				Step step = stepsLeft[i];
+				if (step.Requirements.All(s => s.Finished))
+				{
+					int stepFinishTime = currentTime + CalculateStepTime(step, stepOverheadDuration);
+					currentSteps.Enqueue(
+						new StepWithFinishTime(step, stepFinishTime),
+						stepFinishTime
+					);
+					stepsLeft.RemoveAt(i--);
+				}
+			}
+
+			StepWithFinishTime workedOnStep = currentSteps.Dequeue();
+			currentTime = workedOnStep.FinishTime;
+			workedOnStep.Step.Finished = true;
+			yield return workedOnStep;
+			while (currentSteps.Count > 0 && currentSteps.Peek().FinishTime <= currentTime)
+			{
+				workedOnStep = currentSteps.Dequeue();
+				workedOnStep.Step.Finished = true;
+				yield return workedOnStep;
+			}
 		}
+
+		ResetStepsFinishedStatus();
 	}
 }

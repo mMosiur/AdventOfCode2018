@@ -53,7 +53,7 @@ public class StepMapBuilder
 	{
 		private readonly HashSet<Step> _requirements = new();
 
-		public SingleStepBuilder(char letter, bool finished = false) : base(letter, finished) { }
+		public SingleStepBuilder(char letter) : base(letter) { }
 
 		public bool AddRequirement(Step requirement) => _requirements.Add(requirement);
 		public void TrimExcess() => _requirements.TrimExcess();

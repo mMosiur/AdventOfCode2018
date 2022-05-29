@@ -8,9 +8,8 @@ public abstract class Step
 
 	public bool Finished { get; set; }
 
-	public Step(char letter, bool finished = false)
+	public Step(char letter)
 	{
 		Letter = letter;
-		Finished = finished;
 	}
 }
