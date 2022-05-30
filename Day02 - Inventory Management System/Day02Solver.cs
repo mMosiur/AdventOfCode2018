@@ -4,7 +4,12 @@ namespace AdventOfCode.Year2018.Day02;
 
 public class Day02Solver : DaySolver
 {
-	public Day02Solver(string inputFilePath) : base(inputFilePath)
+	public Day02Solver(Day02SolverOptions options) : base(options)
+	{
+	}
+
+	public Day02Solver(Action<Day02SolverOptions>? configure = null)
+		: this(DaySolverOptions.FromConfigureAction(configure))
 	{
 	}
 

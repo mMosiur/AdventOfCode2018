@@ -6,11 +6,16 @@ public class Day01Solver : DaySolver
 {
 	private readonly IReadOnlyList<int> _numbers;
 
-	public Day01Solver(string inputFilePath) : base(inputFilePath)
+	public Day01Solver(Day01SolverOptions options) : base(options)
 	{
 		_numbers = InputLines
 			.Select(int.Parse)
 			.ToList();
+	}
+
+	public Day01Solver(Action<Day01SolverOptions>? configure = null)
+		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
 	}
 
 	public override string SolvePart1()

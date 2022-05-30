@@ -6,7 +6,7 @@ public class Day04Solver : DaySolver
 {
 	private readonly List<GuardTimeRecord> _timeRecords;
 
-	public Day04Solver(string inputFilePath) : base(inputFilePath)
+	public Day04Solver(Day04SolverOptions options) : base(options)
 	{
 		List<TimeRecord> timeRecords = InputLines.Select(TimeRecord.Parse).ToList();
 		timeRecords.Sort((tr1, tr2) => tr1.TimeStamp.CompareTo(tr2.TimeStamp));
@@ -20,6 +20,11 @@ public class Day04Solver : DaySolver
 			id = timeRecord.GuardId ?? id;
 			return GuardTimeRecord.FromTimeRecord(timeRecord, id);
 		}).ToList();
+	}
+
+	public Day04Solver(Action<Day04SolverOptions>? configure = null)
+		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
 	}
 
 	public override string SolvePart1()

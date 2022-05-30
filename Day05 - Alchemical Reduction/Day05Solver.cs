@@ -6,9 +6,14 @@ public class Day05Solver : DaySolver
 {
 	private readonly string _polymerUnits;
 
-	public Day05Solver(string inputFilePath) : base(inputFilePath)
+	public Day05Solver(Day05SolverOptions options) : base(options)
 	{
 		_polymerUnits = Input.Trim();
+	}
+
+	public Day05Solver(Action<Day05SolverOptions>? configure = null)
+		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
 	}
 
 	public override string SolvePart1()
