@@ -28,7 +28,7 @@
     <ProjectReference Include="..\Day04 - Repose Record\Day04.csproj" />
     <ProjectReference Include="..\Day05 - Alchemical Reduction\Day05.csproj" />
     <ProjectReference Include="..\Day06 - Chronal Coordinates\Day06.csproj" />
-    <!-- <ProjectReference Include="..\Day07 - The Sum of Its Parts\Day07.csproj" /> -->
+    <ProjectReference Include="..\Day07 - The Sum of Its Parts\Day07.csproj" />
   </ItemGroup>
 
    <ItemGroup>
