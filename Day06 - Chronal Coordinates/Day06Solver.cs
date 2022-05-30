@@ -4,18 +4,18 @@ namespace AdventOfCode.Year2018.Day06;
 
 public class Day06Solver : DaySolver
 {
-	private const int DefaultMaxTotalDistance = 10_000 - 1;
-	private readonly int _maxTotalDistance = DefaultMaxTotalDistance;
+	private readonly int _maxTotalDistance;
 	private readonly Point[] _points;
 
-	public Day06Solver(string inputFilePath) : base(inputFilePath)
+	public Day06Solver(Day06SolverOptions options) : base(options)
 	{
+		_maxTotalDistance = options.MaxTotalDistance;
 		_points = InputLines.Select(Point.Parse).ToArray();
 	}
 
-	public Day06Solver(string inputFilePath, int maxTotalDistance) : this(inputFilePath)
+	public Day06Solver(Action<Day06SolverOptions>? configure = null)
+		: this(DaySolverOptions.FromConfigureAction(configure))
 	{
-		_maxTotalDistance = maxTotalDistance;
 	}
 
 	public override string SolvePart1()

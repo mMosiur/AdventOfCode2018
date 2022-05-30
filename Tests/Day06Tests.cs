@@ -10,9 +10,13 @@ public class Day06Tests : BaseDayTests<Day06Solver>
 {
 	public override string DayInputsDirectory => "Day06";
 
-	protected override Day06Solver CreateSolver(string inputFilePath) => new(inputFilePath);
+	protected override Day06Solver CreateSolver(string inputFilePath) => new(options => options.InputFilepath = inputFilePath);
 
-	protected Day06Solver CreateSolver(string inputFilePath, int maxTotalDistance) => new(inputFilePath, maxTotalDistance);
+	protected Day06Solver CreateSolver(string inputFilePath, int maxTotalDistance) => new(options =>
+	{
+		options.InputFilepath = inputFilePath;
+		options.MaxTotalDistance = maxTotalDistance;
+	});
 
 	[Theory]
 	[InlineData("example-input.txt", "17")]
