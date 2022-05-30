@@ -6,9 +6,14 @@ public class Day03Solver : DaySolver
 {
 	private readonly IReadOnlyList<ElfClaim> _claims;
 
-	public Day03Solver(string inputFilePath) : base(inputFilePath)
+	public Day03Solver(Day03SolverOptions options) : base(options)
 	{
 		_claims = InputLines.Select(ElfClaim.Parse).ToList();
+	}
+
+	public Day03Solver(Action<Day03SolverOptions>? configure = null)
+		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
 	}
 
 	public override string SolvePart1()
