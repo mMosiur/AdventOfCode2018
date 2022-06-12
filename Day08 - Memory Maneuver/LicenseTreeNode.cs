@@ -43,4 +43,15 @@ public class LicenseTreeNode
 	{
 		return MetadataEntries.Sum() + ChildNodes.Sum(c => c.CalculateMetadataEntriesSum());
 	}
+
+	public int CalculateValue()
+	{
+		return ChildNodes.Count == 0
+			? MetadataEntries.Sum()
+			: MetadataEntries
+				.Select(entry => entry - 1)
+				.Where(childIndex => childIndex >= 0 && childIndex < ChildNodes.Count)
+				.Select(childIndex => ChildNodes[childIndex])
+				.Sum(node => node.CalculateValue());
+	}
 }

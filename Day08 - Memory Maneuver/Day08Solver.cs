@@ -6,6 +6,10 @@ public class Day08Solver : DaySolver
 {
 	private readonly int[] _numbers;
 
+	private LicenseTree? _licenseTree;
+
+	public LicenseTree LicenseTree => _licenseTree ??= GenerateLicenseTree();
+
 	public Day08Solver(Day08SolverOptions options) : base(options)
 	{
 		_numbers = Input
@@ -14,6 +18,9 @@ public class Day08Solver : DaySolver
 			.ToArray();
 	}
 
+	private LicenseTree GenerateLicenseTree()
+		=> LicenseTree.BuildFromNumberStructure(_numbers);
+
 	public Day08Solver(Action<Day08SolverOptions>? configure = null)
 		: this(DaySolverOptions.FromConfigureAction(configure))
 	{
@@ -21,13 +28,13 @@ public class Day08Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		LicenseTree tree = LicenseTree.BuildFromNumberStructure(_numbers);
-		int result = tree.Root.CalculateMetadataEntriesSum();
+		int result = LicenseTree.Root.CalculateMetadataEntriesSum();
 		return result.ToString();
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		int result = LicenseTree.Root.CalculateValue();
+		return result.ToString();
 	}
 }
