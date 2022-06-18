@@ -30,31 +30,23 @@ public class Day09Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		PriorityQueue<Marble, int> marbles = new();
-		marbles.EnqueueRange(Enumerable.Range(0, LastMarbleValue + 1).Select(i => (Element: new Marble(i), Priority: i)));
-		MarbleCircle circle = new(marbles.Dequeue());
-		int currentPlayerIndex = -1;
-		int[] playerScores = new int[PlayerCount];
-		while (marbles.Count > 0)
-		{
-			currentPlayerIndex = (currentPlayerIndex + 1) % PlayerCount;
-			var marble = marbles.Dequeue();
-			if (marble.Number % 23 == 0)
-			{
-				playerScores[currentPlayerIndex] += marble.Number;
-				circle.MoveCounterClockwise(6);
-				Marble removedMarble = circle.RemoveMarbleCounterClockwise();
-				playerScores[currentPlayerIndex] += removedMarble.Number;
-				continue;
-			}
-			circle.MoveClockwise(1);
-			circle.InsertMarbleClockwise(marble);
-		}
-		return playerScores.Max().ToString();
+		int lastMarbleValue = LastMarbleValue;
+		IEnumerable<Marble> marbles = Enumerable
+			.Range(0, lastMarbleValue + 1)
+			.Select(i => new Marble(i));
+		MarbleGame game = new(marbles, PlayerCount);
+		(int winningPlayerIndex, long winningPlayerScore) = game.Play();
+		return winningPlayerScore.ToString();
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		int lastMarbleValue = LastMarbleValue * 100;
+		IEnumerable<Marble> marbles = Enumerable
+			.Range(0, lastMarbleValue + 1)
+			.Select(i => new Marble(i));
+		MarbleGame game = new(marbles, PlayerCount);
+		(int winningPlayerIndex, long winningPlayerScore) = game.Play();
+		return winningPlayerScore.ToString();
 	}
 }
