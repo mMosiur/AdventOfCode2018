@@ -3,7 +3,7 @@ using Xunit;
 
 namespace AdventOfCode.Year2018.Tests;
 
-[Trait("Year", "2019")]
+[Trait("Year", "2018")]
 [Trait("Day", "09")]
 [Trait("Day", "9")]
 public class Day09Tests : BaseDayTests<Day09Solver, Day09SolverOptions>
@@ -22,4 +22,9 @@ public class Day09Tests : BaseDayTests<Day09Solver, Day09SolverOptions>
 	[InlineData("my-input.txt", "398242")]
 	public override void TestPart1(string inputFilename, string expectedResult, Day09SolverOptions? options = null)
 		=> base.TestPart1(inputFilename, expectedResult, options);
+
+	[Theory]
+	[InlineData("my-input.txt", "3273842452")]
+	public override void TestPart2(string inputFilename, string expectedResult, Day09SolverOptions? options = null)
+		=> base.TestPart2(inputFilename, expectedResult, options);
 }
