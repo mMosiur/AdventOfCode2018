@@ -8,12 +8,14 @@ public class Sky
 	private readonly ICollection<SkyPoint> _points;
 	private readonly char _emptySkyRepresentation;
 	private readonly char _starInSkyRepresentation;
+	public int SecondsPassed { get; private set; }
 
 	public Sky(ICollection<SkyPoint> points, Day10SolverOptions options)
 	{
 		_points = points;
 		_emptySkyRepresentation = options.EmptySkyRepresentation;
 		_starInSkyRepresentation = options.StarInSkyRepresentation;
+		SecondsPassed = 0;
 	}
 
 	public void SimulateSecond()
@@ -22,6 +24,7 @@ public class Sky
 		{
 			point.Move();
 		}
+		SecondsPassed++;
 	}
 
 	public Rectangle GetBoundingBox()

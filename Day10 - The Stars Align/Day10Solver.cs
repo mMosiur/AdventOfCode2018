@@ -5,12 +5,12 @@ namespace AdventOfCode.Year2018.Day10;
 public class Day10Solver : DaySolver
 {
 	private readonly IEnumerable<SkyPoint> _points;
-	private readonly Day10SolverOptions _options;
+	private readonly SkySimulator _simulator;
 
 	public Day10Solver(Day10SolverOptions options) : base(options)
 	{
-		_options = options;
 		_points = InputLines.Select(SkyPoint.Parse);
+		_simulator = new SkySimulator(_points.ToList(), options);
 	}
 
 	public Day10Solver(Action<Day10SolverOptions>? configure = null)
@@ -20,13 +20,13 @@ public class Day10Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		SkySimulator simulator = new(_points.ToList(), _options);
-		simulator.Simulate();
-		return simulator.SmallestSkyRepresentation;
+		_simulator.SimulateTillSmallestSkyFound();
+		return _simulator.SmallestSkyRepresentation;
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		_simulator.SimulateTillSmallestSkyFound();
+		return _simulator.SecondsToSmallestSky.ToString();
 	}
 }
