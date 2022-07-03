@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day11;
 
 try
 {
-	string? filepath = args.Length switch
+	string? argument = args.Length switch
 	{
 		0 => null,
 		1 => args[0],
@@ -13,7 +13,14 @@ try
 
 	var solver = new Day11Solver(options =>
 	{
-		options.InputFilepath = filepath ?? options.InputFilepath;
+		if (argument is not null && int.TryParse(argument, out int gridSerialNumber))
+		{
+			options.GridSerialNumber = gridSerialNumber;
+		}
+		else
+		{
+			options.InputFilepath = argument ?? options.InputFilepath;
+		}
 	});
 
 	Console.Write("Part 1: ");
