@@ -18,8 +18,7 @@ public class Day11Tests : BaseDayTests<Day11Solver, Day11SolverOptions>
 	[InlineData(101, 153, 71, 4)]
 	public void TestPowerLevelCalculation(int x, int y, int gridSerialNumber, int expectedPowerLevel)
 	{
-		FuelCellGrid grid = new(gridSerialNumber);
-		int cellPower = grid.CalculateFuelCellPowerLevel(x, y);
+		int cellPower = FuelCellGrid.CalculateFuelCellPowerLevel(x, y, gridSerialNumber);
 		Assert.Equal(expectedPowerLevel, cellPower);
 	}
 
