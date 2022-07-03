@@ -4,53 +4,36 @@ public class FuelCellGrid
 {
 	private readonly int[,] _fuelCellsPowerLevels;
 
-	public int GridSerialNumber { get; }
+	public int SerialNumber { get; }
+	public int Size { get; }
 
-	public int Width => _fuelCellsPowerLevels.GetLength(0);
-	public int Height => _fuelCellsPowerLevels.GetLength(1);
-
-	public FuelCellGrid(int gridSerialNumber)
+	public FuelCellGrid(int size, int serialNumber)
 	{
-		GridSerialNumber = gridSerialNumber;
-		_fuelCellsPowerLevels = new int[300, 300];
-		for (int x = 1; x <= 300; x++)
+		SerialNumber = serialNumber;
+		Size = size;
+		_fuelCellsPowerLevels = new int[Size, Size];
+		for (int x = 1; x <= Size; x++)
 		{
-			for (int y = 1; y <= 300; y++)
+			for (int y = 1; y <= Size; y++)
 			{
-				_fuelCellsPowerLevels[x - 1, y - 1] = CalculateFuelCellPowerLevel(x, y);
+				_fuelCellsPowerLevels[x - 1, y - 1] = CalculateFuelCellPowerLevel(x, y, SerialNumber);
 			}
 		}
 	}
 
 	public int this[int x, int y]
 	{
-		get => _fuelCellsPowerLevels[x, y];
+		get => _fuelCellsPowerLevels[x - 1, y - 1];
 	}
 
-	public int SumSquarePowerLevels(int x, int y, int size)
+	public static int CalculateFuelCellPowerLevel(int x, int y, int gridSerialNumber)
 	{
-		int sum = 0;
-		for (int i = x; i < x + size; i++)
-		{
-			for (int j = y; j < y + size; j++)
-			{
-				sum += _fuelCellsPowerLevels[i - 1, j - 1];
-			}
-		}
-		return sum;
-	}
-
-	public int CalculateFuelCellPowerLevel(int x, int y)
-	{
-		checked
-		{
-			int rackId = x + 10;
-			int powerLevel = rackId * y;
-			powerLevel += GridSerialNumber;
-			powerLevel *= rackId;
-			powerLevel = powerLevel / 100 % 10;
-			powerLevel -= 5;
-			return powerLevel;
-		}
+		int rackId = x + 10; // Find the fuel cell's rack ID, which is its X coordinate plus 10.
+		int powerLevel = rackId * y; // Begin with a power level of the rack ID times the Y coordinate.
+		powerLevel += gridSerialNumber; // Increase the power level by the value of the grid serial number (your puzzle input).
+		powerLevel *= rackId; // Set the power level to itself multiplied by the rack ID.
+		powerLevel = powerLevel / 100 % 10; // Keep only the hundreds digit of the power level (so 12345 becomes 3; numbers with no hundreds digit become 0).
+		powerLevel -= 5; // Subtract 5 from the power level.
+		return powerLevel;
 	}
 }

@@ -6,11 +6,16 @@ public class Day11Solver : DaySolver
 {
 	private readonly int _inputNumber;
 
+	private readonly Lazy<FuelCellGrid> _grid;
+
+	public FuelCellGrid Grid => _grid.Value;
+
 	public Day11Solver(Day11SolverOptions options) : base(options)
 	{
 		try
 		{
 			_inputNumber = options.GridSerialNumber ?? int.Parse(Input);
+			_grid = new Lazy<FuelCellGrid>(() => new FuelCellGrid(options.GridSize, _inputNumber));
 		}
 		catch (FormatException e)
 		{
@@ -25,28 +30,15 @@ public class Day11Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		var grid = new FuelCellGrid(_inputNumber);
-		int max = int.MinValue;
-		int maxSumX = 0;
-		int maxSumY = 0;
-		for(int x = 1; x <= grid.Width - 3; x++)
-		{
-			for(int y = 1; y <= grid.Height - 3; y++)
-			{
-				int sum = grid.SumSquarePowerLevels(x, y, 3);
-				if(sum > max)
-				{
-					max = sum;
-					maxSumX = x;
-					maxSumY = y;
-				}
-			}
-		}
-		return $"{maxSumX},{maxSumY}";
+		FuelCellGridCalculator calc = new(Grid);
+		(int x, int y) = calc.FindMaxSumPowerLevelsCoord(3);
+		return $"{x},{y}";
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		FuelCellGridCalculator calc = new(Grid);
+		(int x, int y, int size) = calc.FindMaxSumPowerLevelsCoord();
+		return $"{x},{y},{size}";
 	}
 }
