@@ -1,4 +1,4 @@
-using AdventOfCode.Year2022.Day11;
+using AdventOfCode.Year2018.Day11;
 
 try
 {
