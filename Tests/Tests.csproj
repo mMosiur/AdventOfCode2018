@@ -32,6 +32,7 @@
     <ProjectReference Include="..\Day08 - Memory Maneuver\Day08.csproj" />
     <ProjectReference Include="..\Day09 - Marble Mania\Day09.csproj" />
     <ProjectReference Include="..\Day10 - The Stars Align\Day10.csproj" />
+    <ProjectReference Include="..\Day11 - Chronal Charge\Day11.csproj" />
   </ItemGroup>
 
    <ItemGroup>

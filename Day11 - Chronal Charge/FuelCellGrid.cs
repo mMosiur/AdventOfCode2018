@@ -40,7 +40,7 @@ public class FuelCellGrid
 		return sum;
 	}
 
-	private int CalculateFuelCellPowerLevel(int x, int y)
+	public int CalculateFuelCellPowerLevel(int x, int y)
 	{
 		checked
 		{
