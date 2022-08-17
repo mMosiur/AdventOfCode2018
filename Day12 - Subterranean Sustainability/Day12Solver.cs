@@ -47,7 +47,7 @@ public class Day12Solver : DaySolver
 	{
 		const long GENERATIONS_TO_SIMULATE = 20;
 		PotRow row = new(_initialPots);
-		for(int i = 0; i < GENERATIONS_TO_SIMULATE; i++)
+		for (int i = 0; i < GENERATIONS_TO_SIMULATE; i++)
 		{
 			row.NextGeneration(_notes);
 		}
@@ -63,17 +63,17 @@ public class Day12Solver : DaySolver
 		int lastSumDiff = 0;
 		int diffRepeats = 0;
 		long generationPassed = 0;
-		while(generationPassed < GENERATIONS_TO_SIMULATE)
+		while (generationPassed < GENERATIONS_TO_SIMULATE)
 		{
 			row.NextGeneration(_notes);
 			generationPassed++;
 			int sum = CalculatePlantIndexSum(row);
 			int sumDiff = sum - lastSum;
 			lastSum = sum;
-			if(lastSumDiff == sumDiff)
+			if (lastSumDiff == sumDiff)
 			{
 				diffRepeats++;
-				if(diffRepeats >= NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF)
+				if (diffRepeats >= NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF)
 				{
 					break;
 				}

@@ -54,7 +54,7 @@ public class PotRow
 				return _pots.AsSpan(startIndex, length);
 			}
 			PotState[] result = new PotState[length];
-			for(int i = 0; i < length; i++)
+			for (int i = 0; i < length; i++)
 			{
 				result[i] = this[startIndex + i + indexShift];
 			}
@@ -86,7 +86,7 @@ public class PotRow
 	public override string ToString()
 	{
 		StringBuilder builder = new();
-		for(int i = FirstNonEmptyIndex; i <= LastNonEmptyIndex; i++)
+		for (int i = FirstNonEmptyIndex; i <= LastNonEmptyIndex; i++)
 		{
 			char c = this[i] switch
 			{

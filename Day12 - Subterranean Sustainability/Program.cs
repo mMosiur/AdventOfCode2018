@@ -12,7 +12,7 @@ try
 		)
 	};
 	bool? assumeMissingNotesProduceEmpty = null;
-	if(args.Length == 2)
+	if (args.Length == 2)
 	{
 		assumeMissingNotesProduceEmpty = bool.Parse(args[1]);
 	}
