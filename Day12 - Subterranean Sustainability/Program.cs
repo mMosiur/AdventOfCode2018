@@ -6,14 +6,21 @@ try
 	{
 		0 => null,
 		1 => args[0],
+		2 => args[0],
 		_ => throw new ApplicationException(
 			$"Program was called with too many arguments. Proper usage: \"dotnet run [<input filepath>]\"."
 		)
 	};
+	bool? assumeMissingNotesProduceEmpty = null;
+	if(args.Length == 2)
+	{
+		assumeMissingNotesProduceEmpty = bool.Parse(args[1]);
+	}
 
 	var solver = new Day12Solver(options =>
 	{
 		options.InputFilepath = filepath ?? options.InputFilepath;
+		options.AssumeMissingNotesProduceEmpty = assumeMissingNotesProduceEmpty ?? options.AssumeMissingNotesProduceEmpty;
 	});
 
 	Console.Write("Part 1: ");

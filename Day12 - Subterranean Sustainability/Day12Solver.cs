@@ -5,6 +5,7 @@ namespace AdventOfCode.Year2018.Day12;
 
 public class Day12Solver : DaySolver
 {
+	private const int NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF = 100;
 	private readonly PotTransformNotes _notes;
 	private readonly IEnumerable<PotState> _initialPots;
 
@@ -35,21 +36,59 @@ public class Day12Solver : DaySolver
 	{
 	}
 
+	private static int CalculatePlantIndexSum(PotRow row)
+	{
+		return Enumerable.Range(row.FirstNonEmptyIndex, row.LastNonEmptyIndex - row.FirstNonEmptyIndex + 1)
+			.Where(i => row[i] is PotState.Plant)
+			.Sum();
+	}
+
 	public override string SolvePart1()
 	{
+		const long GENERATIONS_TO_SIMULATE = 20;
 		PotRow row = new(_initialPots);
-		for(int i = 0; i < 20; i++)
+		for(int i = 0; i < GENERATIONS_TO_SIMULATE; i++)
 		{
 			row.NextGeneration(_notes);
 		}
-		int sum = Enumerable.Range(row.FirstNonEmptyIndex, row.LastNonEmptyIndex - row.FirstNonEmptyIndex + 1)
-			.Where(i => row[i] is PotState.Plant)
-			.Sum();
+		int sum = CalculatePlantIndexSum(row);
 		return sum.ToString();
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		const long GENERATIONS_TO_SIMULATE = 50_000_000_000;
+		PotRow row = new(_initialPots);
+		int lastSum = CalculatePlantIndexSum(row);
+		int lastSumDiff = 0;
+		int diffRepeats = 0;
+		long generationPassed = 0;
+		while(generationPassed < GENERATIONS_TO_SIMULATE)
+		{
+			row.NextGeneration(_notes);
+			generationPassed++;
+			int sum = CalculatePlantIndexSum(row);
+			int sumDiff = sum - lastSum;
+			lastSum = sum;
+			if(lastSumDiff == sumDiff)
+			{
+				diffRepeats++;
+				if(diffRepeats >= NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF)
+				{
+					break;
+				}
+			}
+			else
+			{
+				diffRepeats = 1;
+			}
+			lastSumDiff = sumDiff;
+		}
+		long generationPassedToRepeat = GENERATIONS_TO_SIMULATE - generationPassed;
+		checked
+		{
+			long result = lastSum + generationPassedToRepeat * lastSumDiff;
+			return result.ToString();
+		}
 	}
 }
