@@ -2,18 +2,31 @@ using AdventOfCode.Year2018.Day14;
 
 try
 {
-	string? filepath = args.Length switch
+	string? argument = args.Length switch
 	{
 		0 => null,
 		1 => args[0],
 		_ => throw new ApplicationException(
-			$"Program was called with too many arguments. Proper usage: \"dotnet run [<input filepath>]\"."
+			$"Program was called with too many arguments. Proper usage: \"dotnet run [<input filepath> | <input number>]\"."
 		)
 	};
 
+	int? argumentNumber = int.TryParse(argument, out int num) ? num : null;
+
 	var solver = new Day14Solver(options =>
 	{
-		options.InputFilepath = filepath ?? options.InputFilepath;
+		if (argument is not null)
+		{
+			if (argumentNumber is not null)
+			{
+				options.InputNumber = argumentNumber;
+				options.InputReader = new StringReader(argument);
+			}
+			else
+			{
+				options.InputFilepath = argument;
+			}
+		}
 	});
 
 	Console.Write("Part 1: ");
