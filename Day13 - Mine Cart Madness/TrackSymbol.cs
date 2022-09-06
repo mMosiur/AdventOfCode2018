@@ -2,6 +2,8 @@ namespace AdventOfCode.Year2018.Day13;
 
 public enum TrackSymbol
 {
+	Unknown = default,
+
 	Empty = ' ',
     TrackHorizontal = '-',
 	TrackVertical = '|',
