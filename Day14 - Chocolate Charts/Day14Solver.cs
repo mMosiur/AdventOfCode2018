@@ -4,13 +4,15 @@ namespace AdventOfCode.Year2018.Day14;
 
 public class Day14Solver : DaySolver
 {
-	private readonly int _numberOfRecipesToSkip;
+	private readonly int _inputNumber;
+	private readonly byte[] _inputSequence;
 
 	public Day14Solver(Day14SolverOptions options) : base(options)
 	{
 		try
 		{
-			_numberOfRecipesToSkip = options.InputNumber ?? int.Parse(Input);
+			_inputNumber = int.Parse(Input);
+			_inputSequence = Input.Trim().Select(c => Convert.ToByte(char.GetNumericValue(c))).ToArray();
 		}
 		catch (Exception e) when (e is FormatException || e is ArgumentNullException)
 		{
@@ -29,16 +31,64 @@ public class Day14Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		HotChocolateScoreboard scoreboard = new(_numberOfRecipesToSkip);
-		while (scoreboard.Scores.Count < _numberOfRecipesToSkip + 10)
+		const int ScoresToFindCount = 10;
+
+		HotChocolateScoreboard scoreboard = new();
+		int scoresToSkipCount = _inputNumber;
+		scoreboard.EnsureCapacity(scoresToSkipCount + ScoresToFindCount + 1);
+		int neededScoreCount = scoresToSkipCount + ScoresToFindCount;
+		while (scoreboard.Scores.Count < neededScoreCount)
 		{
-			scoreboard.GenerateNextScores();
+			_ = scoreboard.GenerateNextScores();
 		}
-		return string.Join(string.Empty, scoreboard.Scores.Skip((int)_numberOfRecipesToSkip).Take(10));
+		IEnumerable<byte> resultScores = scoreboard.Scores.Skip(scoresToSkipCount).Take(ScoresToFindCount);
+		return string.Concat(resultScores);
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		const int BatchSize = 1000;
+		const int MaxSearchRange = int.MaxValue;
+
+		HotChocolateScoreboard scoreboard = new();
+		int scoresToTheLeftCount = 0;
+		// Buffer for new scores batch generation
+		List<byte> newScores = new(BatchSize + _inputSequence.Length + 1);
+		// Buffer for searching for the input sequence
+		byte[] sequence = new byte[_inputSequence.Length];
+		while (scoreboard.Scores.Count < MaxSearchRange)
+		{
+			newScores.Clear();
+			newScores.AddRange(scoreboard.Scores.TakeLast(_inputSequence.Length - 1));
+
+			int maxSize = BatchSize + newScores.Count;
+			while (newScores.Count < maxSize)
+			{
+				(byte FirstNewScore, byte? SecondNewScore) = scoreboard.GenerateNextScores();
+				newScores.Add(FirstNewScore);
+				if (SecondNewScore.HasValue)
+				{
+					newScores.Add(SecondNewScore.Value);
+				}
+			}
+			newScores.CopyTo(0, sequence, 0, sequence.Length);
+			for (int i = 0; i < newScores.Count - _inputSequence.Length; i++)
+			{
+				if (sequence.SequenceEqual(_inputSequence))
+				{
+					scoresToTheLeftCount += i;
+					return scoresToTheLeftCount.ToString();
+				}
+				sequence.AsSpan()[1..].CopyTo(sequence);
+				sequence[^1] = newScores[i + _inputSequence.Length];
+			}
+			scoresToTheLeftCount += newScores.Count - _inputSequence.Length;
+			if (sequence.SequenceEqual(_inputSequence))
+			{
+				return scoresToTheLeftCount.ToString();
+			}
+			scoresToTheLeftCount += 1; // Move for next batch search
+		}
+		throw new ApplicationException($"Input sequence not found to upper range of {MaxSearchRange}.");
 	}
 }

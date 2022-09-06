@@ -19,7 +19,6 @@ try
 		{
 			if (argumentNumber is not null)
 			{
-				options.InputNumber = argumentNumber;
 				options.InputReader = new StringReader(argument);
 			}
 			else
