@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day12", "Day12 - Subterrane
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day13", "Day13 - Mine Cart Madness\Day13.csproj", "{F2A98C52-CD14-4C5F-8A6D-30E1712B81AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day14", "Day14 - Chocolate Charts\Day14.csproj", "{196E3A50-60E7-4863-8425-987B30B606BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,5 +98,9 @@ Global
 		{F2A98C52-CD14-4C5F-8A6D-30E1712B81AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2A98C52-CD14-4C5F-8A6D-30E1712B81AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2A98C52-CD14-4C5F-8A6D-30E1712B81AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196E3A50-60E7-4863-8425-987B30B606BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196E3A50-60E7-4863-8425-987B30B606BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196E3A50-60E7-4863-8425-987B30B606BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196E3A50-60E7-4863-8425-987B30B606BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
