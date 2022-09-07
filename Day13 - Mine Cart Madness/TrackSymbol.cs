@@ -5,7 +5,7 @@ public enum TrackSymbol
 	Unknown = default,
 
 	Empty = ' ',
-    TrackHorizontal = '-',
+	TrackHorizontal = '-',
 	TrackVertical = '|',
 	TrackDownSlopeConnection = '\\',
 	TrackUpSlopeConnection = '/',
