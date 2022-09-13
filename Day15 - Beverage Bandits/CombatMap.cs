@@ -130,6 +130,6 @@ public class CombatMap
 			}
 			builder.AppendLine();
 		}
-		Console.WriteLine(builder.ToString());
+		Console.Write(builder.ToString());
 	}
 }

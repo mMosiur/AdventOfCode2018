@@ -34,13 +34,9 @@ public class CombatSimulator
 			throw new InvalidOperationException("Cannot simulate battle after a round has already been simulated.");
 		}
 		while (SimulateSingleRound()) { }
-		checked
-		{
-			int hitPointSum = _combatMap.EnumerateUnits()
-				.Sum(u => u.HitPoints);
-			int outcome = FullRoundsSimulated * hitPointSum;
-			return outcome;
-		}
+		int hitPointSum = _combatMap.EnumerateUnits().Sum(u => u.HitPoints);
+		int combatOutcome = FullRoundsSimulated * hitPointSum;
+		return combatOutcome;
 	}
 
 	private bool SimulateSingleRound()
@@ -90,7 +86,7 @@ public class CombatSimulator
 		return true;
 	}
 
-	private Path? ChoosePath(CombatMap map, Coordinate position, IEnumerable<Coordinate> targets)
+	private static Path? ChoosePath(CombatMap map, Coordinate position, IEnumerable<Coordinate> targets)
 	{
 		PathGenerator pathGenerator = new(map);
 		return pathGenerator.GenerateShortestPaths(position)

@@ -44,6 +44,8 @@ public class Path : IComparable<Path>
 		ArgumentNullException.ThrowIfNull(other);
 		int distResult = Distance.CompareTo(other.Distance);
 		if (distResult != 0) return distResult;
+		int endResult = End.CompareTo(other.End);
+		if (endResult != 0) return endResult;
 		return Enumerable.Zip(Trail, other.Trail, (a, b) => a.CompareTo(b)).FirstOrDefault(c => c != 0);
 	}
 
