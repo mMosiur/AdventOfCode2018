@@ -9,18 +9,18 @@ public class PathGenerator
 		_combatMap = combatMap;
 	}
 
-	public Dictionary<Coordinate, Path> GenerateShortestPaths(Coordinate start)
+	public Dictionary<Coordinate, PathSignature> GenerateShortestPaths(Coordinate start)
 	{
-		Path origin = new(start);
-		Dictionary<Coordinate, Path> shortestPaths = new() { [start] = origin };
+		PathSignature origin = new(start);
+		Dictionary<Coordinate, PathSignature> shortestPaths = new() { [start] = origin };
 
-		PathQueue queue = new() { origin };
-		while (queue.TryDequeue(out Path? currentPath))
+		PathSignatureQueue queue = new() { origin };
+		while (queue.TryDequeue(out PathSignature currentPath))
 		{
 			foreach (Coordinate nextPosition in _combatMap.AdjacentEmpty(currentPath.End))
 			{
-				Path newPath = currentPath.NewExtendedTo(nextPosition);
-				if (shortestPaths.TryGetValue(nextPosition, out Path? existingPath))
+				PathSignature newPath = currentPath.ExtendedTo(nextPosition);
+				if (shortestPaths.TryGetValue(nextPosition, out PathSignature existingPath))
 				{
 					if (existingPath <= newPath) continue;
 				}

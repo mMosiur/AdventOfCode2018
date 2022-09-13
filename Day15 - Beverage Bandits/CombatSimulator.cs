@@ -61,10 +61,15 @@ public class CombatSimulator
 					return false; // No enemies left, combat is over.
 				}
 				IEnumerable<Coordinate> moveTargetPositions = enemyPositions.SelectMany(p => _combatMap.AdjacentEmpty(p));
-				Path? path = ChoosePath(_combatMap, unit.Position, moveTargetPositions);
-				if (path is not null)
+				try
 				{
-					_combatMap.MoveUnit(unit, path.Trail[1]);
+					PathSignature path = ChoosePath(_combatMap, unit.Position, moveTargetPositions);
+					_combatMap.MoveUnit(unit, path.FirstStep);
+				}
+				catch(InvalidOperationException)
+				{
+					// No path to any enemy found, do nothing.
+					continue;
 				}
 			}
 			inRangeEnemyPositions = _combatMap.AdjacentOfType(unit.Position, enemyType);
@@ -86,14 +91,21 @@ public class CombatSimulator
 		return true;
 	}
 
-	private static Path? ChoosePath(CombatMap map, Coordinate position, IEnumerable<Coordinate> targets)
+	private static PathSignature ChoosePath(CombatMap map, Coordinate position, IEnumerable<Coordinate> targets)
 	{
 		PathGenerator pathGenerator = new(map);
-		return pathGenerator.GenerateShortestPaths(position)
-			.Where(kvp => targets.Contains(kvp.Key))
-			.Select(kvp => kvp.Value)
-			.OrderBy(path => path)
-			.FirstOrDefault();
+		try
+		{
+			return pathGenerator.GenerateShortestPaths(position)
+				.Where(kvp => targets.Contains(kvp.Key))
+				.Select(kvp => kvp.Value)
+				.OrderBy(path => path)
+				.First();
+		}
+		catch (InvalidOperationException e)
+		{
+			throw new InvalidOperationException("No path found.", e);
+		}
 	}
 
 	public void ResetCombat()
