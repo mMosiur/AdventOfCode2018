@@ -1,4 +1,5 @@
 using AdventOfCode.Abstractions;
+using AdventOfCode.Year2018.Day15.Exceptions;
 using AdventOfCode.Year2018.Day15.Map;
 
 namespace AdventOfCode.Year2018.Day15;
@@ -44,6 +45,24 @@ public class Day15Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		int elfAttackPower = 4;
+		bool elvesWonCombat = false;
+		int outcome = default;
+		while (!elvesWonCombat)
+		{
+			CombatSimulator simulator = new(_rawMap, true, elfAttackPower);
+			try
+			{
+				outcome = simulator.SimulateCombat();
+				elvesWonCombat = true;
+			}
+			catch (ElfKilledException)
+			{
+				elvesWonCombat = false;
+				elfAttackPower++;
+				continue;
+			}
+		}
+		return outcome.ToString();
 	}
 }

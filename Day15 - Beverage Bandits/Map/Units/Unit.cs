@@ -26,6 +26,8 @@ public abstract class Unit : MapSpot
 		AttackPower = attackPower;
 	}
 
+	protected Unit(int attackPower) : this(DefaultHitPoints, attackPower) { }
+
 	public Unit() : this(DefaultHitPoints, DefaultAttackPower)
 	{
 	}

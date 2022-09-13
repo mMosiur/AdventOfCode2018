@@ -1,3 +1,4 @@
+using AdventOfCode.Year2018.Day15.Exceptions;
 using AdventOfCode.Year2018.Day15.Map;
 using AdventOfCode.Year2018.Day15.Map.Units;
 
@@ -7,6 +8,9 @@ public class CombatSimulator
 {
 	private readonly MapSpotType[,] _rawMap;
 	private CombatMap _combatMap;
+
+	public bool ThrowOnElfDeath { get; } = false;
+	public int? CustomElfAttackPower { get; } = null;
 
 	public int FullRoundsSimulated { get; private set; }
 
@@ -20,11 +24,13 @@ public class CombatSimulator
 		}
 	}
 
-	public CombatSimulator(MapSpotType[,] rawMap)
+	public CombatSimulator(MapSpotType[,] rawMap, bool throwOnElfDeath = false, int? customElfAttackPower = null)
 	{
 		_rawMap = rawMap;
-		_combatMap = CombatMap.FromRawMap(_rawMap);
 		FullRoundsSimulated = 0;
+		ThrowOnElfDeath = throwOnElfDeath;
+		CustomElfAttackPower = customElfAttackPower;
+		_combatMap = CombatMap.FromRawMap(_rawMap, CustomElfAttackPower);
 	}
 
 	public int SimulateCombat()
@@ -66,7 +72,7 @@ public class CombatSimulator
 					PathSignature path = ChoosePath(_combatMap, unit.Position, moveTargetPositions);
 					_combatMap.MoveUnit(unit, path.FirstStep);
 				}
-				catch(InvalidOperationException)
+				catch (InvalidOperationException)
 				{
 					// No path to any enemy found, do nothing.
 					continue;
@@ -83,6 +89,10 @@ public class CombatSimulator
 				AttackResult attackResult = unit.Attack(targetUnit);
 				if (attackResult.TargetKilled)
 				{
+					if (ThrowOnElfDeath && targetUnit.Type is MapSpotType.Elf)
+					{
+						throw new ElfKilledException((GoblinUnit)unit, (ElfUnit)targetUnit);
+					}
 					_combatMap.DeleteUnit(attackTargetPosition);
 				}
 			}
@@ -110,7 +120,7 @@ public class CombatSimulator
 
 	public void ResetCombat()
 	{
-		_combatMap = CombatMap.FromRawMap(_rawMap);
+		_combatMap = CombatMap.FromRawMap(_rawMap, CustomElfAttackPower);
 		FullRoundsSimulated = 0;
 	}
 

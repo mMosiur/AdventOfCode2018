@@ -16,14 +16,14 @@ public class CombatMap
 		_map = map;
 	}
 
-	public static CombatMap FromRawMap(MapSpotType[,] map)
+	public static CombatMap FromRawMap(MapSpotType[,] map, int? customElfAttackPower = null)
 	{
 		MapSpot?[,] spots = new MapSpot[map.GetLength(0), map.GetLength(1)];
 		for (int x = 0; x < map.GetLength(0); x++)
 		{
 			for (int y = 0; y < map.GetLength(1); y++)
 			{
-				spots[x, y] = MapSpot.NewFromType(map[x, y], new Coordinate(x, y));
+				spots[x, y] = MapSpot.NewFromType(map[x, y], new Coordinate(x, y), customElfAttackPower);
 			}
 		}
 		return new CombatMap(spots);
