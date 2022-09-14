@@ -1,4 +1,5 @@
 using AdventOfCode.Abstractions;
+using AdventOfCode.Year2018.Day15.Combat;
 using AdventOfCode.Year2018.Day15.Exceptions;
 using AdventOfCode.Year2018.Day15.Map;
 

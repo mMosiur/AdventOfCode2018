@@ -1,4 +1,4 @@
-namespace AdventOfCode.Year2018.Day15;
+namespace AdventOfCode.Year2018.Day15.Path;
 
 public struct PathSignature : IComparable<PathSignature>, IEquatable<PathSignature>
 {

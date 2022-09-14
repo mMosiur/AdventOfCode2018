@@ -1,4 +1,6 @@
-namespace AdventOfCode.Year2018.Day15;
+using AdventOfCode.Year2018.Day15.Combat;
+
+namespace AdventOfCode.Year2018.Day15.Path;
 
 public class PathGenerator
 {

@@ -1,8 +1,9 @@
 using AdventOfCode.Year2018.Day15.Exceptions;
 using AdventOfCode.Year2018.Day15.Map;
 using AdventOfCode.Year2018.Day15.Map.Units;
+using AdventOfCode.Year2018.Day15.Path;
 
-namespace AdventOfCode.Year2018.Day15;
+namespace AdventOfCode.Year2018.Day15.Combat;
 
 public class CombatSimulator
 {
@@ -122,10 +123,5 @@ public class CombatSimulator
 	{
 		_combatMap = CombatMap.FromRawMap(_rawMap, CustomElfAttackPower);
 		FullRoundsSimulated = 0;
-	}
-
-	public void PrintMap(Coordinate? highlightPosition = null)
-	{
-		_combatMap.Print(highlightPosition);
 	}
 }

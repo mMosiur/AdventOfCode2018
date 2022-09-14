@@ -1,8 +1,7 @@
-using System.Text;
 using AdventOfCode.Year2018.Day15.Map;
 using AdventOfCode.Year2018.Day15.Map.Units;
 
-namespace AdventOfCode.Year2018.Day15;
+namespace AdventOfCode.Year2018.Day15.Combat;
 
 public class CombatMap
 {
@@ -107,29 +106,5 @@ public class CombatMap
 				yield return new Coordinate(x, y);
 			}
 		}
-	}
-
-	public void Print(Coordinate? highlightPosition = null)
-	{
-		StringBuilder builder = new();
-		for (int x = 0; x < Height; x++)
-		{
-			for (int y = 0; y < Width; y++)
-			{
-				Coordinate coordinate = new(x, y);
-				if (coordinate == highlightPosition)
-				{
-					builder.Append('@');
-				}
-				else
-				{
-					var v = this[x, y];
-					char c = v is null ? '.' : (char)v.Type;
-					builder.Append(c);
-				}
-			}
-			builder.AppendLine();
-		}
-		Console.Write(builder.ToString());
 	}
 }

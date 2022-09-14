@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace AdventOfCode.Year2018.Day15;
+namespace AdventOfCode.Year2018.Day15.Path;
 
 public class PathSignatureQueue : ICollection<PathSignature>
 {
