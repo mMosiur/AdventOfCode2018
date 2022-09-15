@@ -94,7 +94,7 @@ public class CombatSimulator
 					{
 						throw new ElfKilledException((GoblinUnit)unit, (ElfUnit)targetUnit);
 					}
-					_combatMap.DeleteUnit(attackTargetPosition);
+					_combatMap.DeleteUnit(targetUnit);
 				}
 			}
 		}
@@ -108,7 +108,7 @@ public class CombatSimulator
 		try
 		{
 			return pathGenerator.GenerateShortestPaths(position)
-				.Where(kvp => targets.Contains(kvp.Key))
+				.IntersectBy(targets, p => p.Key)
 				.Select(kvp => kvp.Value)
 				.OrderBy(path => path)
 				.First();

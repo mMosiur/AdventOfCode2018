@@ -42,7 +42,7 @@ public class CombatMap
 
 	public IEnumerable<Unit> EnumerateUnits()
 	{
-		return EnumerateCoordinates().Select(c => this[c]).OfType<Unit>();
+		return _map.OfType<Unit>();
 	}
 
 	public IEnumerable<Coordinate> PositionsOfType(MapSpotType type)
@@ -73,13 +73,9 @@ public class CombatMap
 		return Adjacent(coordinate).Where(c => this[c] is null);
 	}
 
-	public void DeleteUnit(Coordinate unitPosition)
+	public void DeleteUnit(Unit unit)
 	{
-		if (this[unitPosition] is not Unit)
-		{
-			throw new ArgumentException($"No unit at position {unitPosition}.", nameof(unitPosition));
-		}
-		this[unitPosition] = null;
+		this[unit.Position] = null;
 	}
 
 	public void MoveUnit(Unit unit, Coordinate targetPosition)
