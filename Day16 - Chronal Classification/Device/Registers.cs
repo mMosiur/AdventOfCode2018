@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day16.Device;
 
-public class Registers : IList<uint>, ICloneable, IEquatable<Registers>
+public class Registers : IReadOnlyRegisters, IList<uint>, IEquatable<Registers>
 {
 	private const uint DEFAULT_REGISTER_VALUE = 0;
 	private static readonly Regex _regex = new(@"\[((?>\d+)(?>, (?>\d+))*)\]", RegexOptions.Compiled);
@@ -23,9 +23,13 @@ public class Registers : IList<uint>, ICloneable, IEquatable<Registers>
 		Array.Fill(_registers, defaultValue);
 	}
 
-	private Registers(uint[] registers)
+	public Registers(uint[] registers)
 	{
-		_registers = registers;
+		_registers = (uint[])registers.Clone();
+	}
+
+	public Registers(Registers registers) : this(registers._registers)
+	{
 	}
 
 	public uint this[int index]
@@ -87,9 +91,14 @@ public class Registers : IList<uint>, ICloneable, IEquatable<Registers>
 
 	IEnumerator IEnumerable.GetEnumerator() => _registers.GetEnumerator();
 
-	object ICloneable.Clone() => Clone();
-
-	public Registers Clone() => new((uint[])_registers.Clone());
+	public void SetFrom(Registers registers)
+	{
+		if (registers.Count != Count)
+		{
+			throw new ArgumentException($"Register count mismatch ({Count} != {registers.Count}).");
+		}
+		registers._registers.CopyTo(_registers, 0);
+	}
 
 	public bool Equals(Registers? other)
 	{

@@ -1,5 +1,7 @@
 using System.Text.RegularExpressions;
 using AdventOfCode.Abstractions;
+using AdventOfCode.Year2018.Day16.Device;
+using AdventOfCode.Year2018.Day16.Device.CPUs;
 
 namespace AdventOfCode.Year2018.Day16;
 
@@ -9,11 +11,13 @@ public class Day16Solver : DaySolver
 		() => new Regex(@"\n{2,}", RegexOptions.Compiled)
 	);
 
+	private readonly Day16SolverOptions _options;
 	private readonly IReadOnlyCollection<Sample> _samples;
 	private readonly IReadOnlyList<Device.Instruction> _instructions;
 
 	public Day16Solver(Day16SolverOptions options) : base(options)
 	{
+		_options = options;
 		string[] parts = _inputFileRegexLazy.Value.Split(Input);
 		_samples = parts
 			.Take(parts.Length - 1)
@@ -22,7 +26,7 @@ public class Day16Solver : DaySolver
 		_instructions = parts
 			.Last()
 			.Split('\n', StringSplitOptions.RemoveEmptyEntries)
-			.Select(Device.Instruction.Parse)
+			.Select(Instruction.Parse)
 			.ToList();
 	}
 
@@ -33,22 +37,21 @@ public class Day16Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		IReadOnlyList<string> operations = new List<string>() { "addr", "addi", "mulr", "muli", "banr", "bani", "borr", "bori", "setr", "seti", "gtir", "gtri", "gtrr", "eqir", "eqri", "eqrr" };
 		int result = 0;
 		foreach (Sample sample in _samples)
 		{
 			int matches = 0;
-			Device.Cpu cpu = new(sample.RegistersBeforeOperation);
-			foreach (string operation in operations)
+			NamedOpcodeCPU cpu = new(sample.RegistersBeforeOperation);
+			foreach (string operation in OpcodeDictionary.OpcodeNames)
 			{
 				cpu.ForceExecuteOperation(operation, sample.Operation);
-				if (cpu.Registers == sample.RegistersAfterOperation)
+				if (cpu.CheckRegistersEquality(sample.RegistersAfterOperation))
 				{
 					matches++;
 				}
 				cpu.Reset();
 			}
-			if (matches >= 3)
+			if (matches >= _options.PartOneMinimumBehaviorMatches)
 			{
 				result++;
 			}
@@ -58,6 +61,10 @@ public class Day16Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		OpcodeDictionaryResolver opcodeDictionaryResolver = new();
+		OpcodeDictionary opcodeDictionary = opcodeDictionaryResolver.ResolveFromSamples(_samples);
+		CPU cpu = new(new Registers(_options.RegisterSize), opcodeDictionary);
+		cpu.Execute(_instructions);
+		return cpu.Registers[_options.PartTwoResultValueRegister].ToString();
 	}
 }

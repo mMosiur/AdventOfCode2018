@@ -75,4 +75,6 @@ Ignoring the opcode numbers, **how many samples in your puzzle input behave like
 
 ## Part Two
 
-_Unsolved **yet**_
+Using the samples you collected, work out the number of each opcode and execute the test program (the second section of your puzzle input).
+
+**What value is contained in register `0` after executing the test program?**
