@@ -37,6 +37,7 @@
     <ProjectReference Include="..\Day13 - Mine Cart Madness\Day13.csproj" />
     <ProjectReference Include="..\Day14 - Chocolate Charts\Day14.csproj" />
     <ProjectReference Include="..\Day15 - Beverage Bandits\Day15.csproj" />
+    <ProjectReference Include="..\Day16 - Chronal Classification\Day16.csproj" />
   </ItemGroup>
 
    <ItemGroup>
