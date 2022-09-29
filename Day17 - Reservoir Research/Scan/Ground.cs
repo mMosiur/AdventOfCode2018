@@ -35,48 +35,18 @@ public class Ground : IEnumerable<GroundType>
 	{
 		get
 		{
-			if (!Area.XRange.Contains(x))
-			{
-				throw new ArgumentOutOfRangeException(nameof(x));
-			}
-			if (!Area.YRange.Contains(y))
-			{
-				throw new ArgumentOutOfRangeException(nameof(y));
-			}
 			return _ground[x - Area.XRange.Start, y - Area.YRange.Start];
 		}
 		private set
 		{
-			if (!Area.XRange.Contains(x))
-			{
-				throw new ArgumentOutOfRangeException(nameof(x));
-			}
-			if (!Area.YRange.Contains(y))
-			{
-				throw new ArgumentOutOfRangeException(nameof(y));
-			}
 			_ground[x - Area.XRange.Start, y - Area.YRange.Start] = value;
 		}
 	}
 
 	public GroundType this[Point point]
 	{
-		get
-		{
-			if (!Area.Contains(point))
-			{
-				throw new ArgumentOutOfRangeException(nameof(point));
-			}
-			return _ground[point.X - Area.XRange.Start, point.Y - Area.YRange.Start];
-		}
-		private set
-		{
-			if (!Area.Contains(point))
-			{
-				throw new ArgumentOutOfRangeException(nameof(point));
-			}
-			_ground[point.X - Area.XRange.Start, point.Y - Area.YRange.Start] = value;
-		}
+		get => this[point.X, point.Y];
+		private set => this[point.X, point.Y] = value;
 	}
 
 	private SpreadResult TrySpreadDownFrom(Point point)
@@ -159,7 +129,7 @@ public class Ground : IEnumerable<GroundType>
 			return SpreadResult.NotMoved;
 		}
 		SpreadResult spreadDownResult = TrySpreadDownFrom(point);
-		if (spreadDownResult.Spread is true || spreadDownResult.Directly is false)
+		if (spreadDownResult.HasSpread is true || spreadDownResult.Directly is false)
 		{
 			if (spreadDownResult == SpreadResult.MovedDirectly)
 			{
@@ -189,7 +159,7 @@ public class Ground : IEnumerable<GroundType>
 				_activeWaterPoints.Add(point.Right);
 			}
 		}
-		if (spreadLeftResult.Spread || spreadRightResult.Spread)
+		if (spreadLeftResult.HasSpread || spreadRightResult.HasSpread)
 		{
 			return new(true, spreadLeftResult.Directly || spreadRightResult.Directly);
 		}
@@ -288,7 +258,7 @@ public class Ground : IEnumerable<GroundType>
 		bool changed = false;
 		foreach (Point activeWaterPoint in _activeWaterPoints.ToArray())
 		{
-			changed |= SpreadFrom(activeWaterPoint).Spread;
+			changed |= SpreadFrom(activeWaterPoint).HasSpread;
 		}
 		if (changed)
 		{
@@ -314,7 +284,7 @@ public class Ground : IEnumerable<GroundType>
 
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-	private readonly record struct SpreadResult(bool Spread, bool Directly)
+	private readonly record struct SpreadResult(bool HasSpread, bool Directly)
 	{
 		/// <summary>
 		/// Result when the spread did not happen because it was blocked further down the line or movement ignored.
