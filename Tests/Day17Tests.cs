@@ -13,7 +13,7 @@ public class Day17Tests : BaseDayTests<Day17Solver, Day17SolverOptions>
 
 	[Theory]
 	[InlineData("example-input.txt", "57")]
-	// [InlineData("my-input.txt", "")]
+	[InlineData("my-input.txt", "37649")]
 	public override void TestPart1(string inputFilename, string expectedResult, Day17SolverOptions? options = null)
 		=> base.TestPart1(inputFilename, expectedResult, options);
 }
