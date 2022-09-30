@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using AdventOfCode.Abstractions;
 using AdventOfCode.Year2018.Day17.Geometry;
 using AdventOfCode.Year2018.Day17.Scan;
@@ -8,6 +9,9 @@ public class Day17Solver : DaySolver
 {
 	private readonly IEnumerable<ILine> _veinsOfClay;
 	private readonly Point _springOfWaterPosition;
+
+	private Area? _areaToConsider = null;
+	private Ground? _ground = null;
 
 	public Day17Solver(Day17SolverOptions options) : base(options)
 	{
@@ -20,23 +24,38 @@ public class Day17Solver : DaySolver
 	{
 	}
 
-	public override string SolvePart1()
+	[MemberNotNull(nameof(_ground))]
+	[MemberNotNull(nameof(_areaToConsider))]
+	private void BuildGround()
 	{
+		if(_ground is not null && _areaToConsider is not null)
+		{
+			return;
+		}
 		GroundBuilder groundBuilder = new();
 		groundBuilder.AddVeinsOfClay(_veinsOfClay);
-		Area areaToConsider = groundBuilder.CurrentArea;
+		_areaToConsider = groundBuilder.CurrentArea;
 		groundBuilder.AddSpringOfWater(_springOfWaterPosition);
-		Ground ground = groundBuilder.Build();
+		_ground = groundBuilder.Build();
+	}
 
-		ground.SimulateFlow();
-		int result = ground
-			.EnumerateArea(areaToConsider)
+	public override string SolvePart1()
+	{
+		BuildGround();
+		_ground.SimulateFlow();
+		int result = _ground
+			.EnumerateArea(_areaToConsider.Value)
 			.Count(gt => gt.IsWater());
 		return result.ToString();
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		BuildGround();
+		_ground.SimulateFlow();
+		int result = _ground
+			.EnumerateArea(_areaToConsider.Value)
+			.Count(gt => gt is GroundType.WaterResting);
+		return result.ToString();
 	}
 }
