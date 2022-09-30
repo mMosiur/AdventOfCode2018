@@ -28,7 +28,7 @@ public class Day17Solver : DaySolver
 	[MemberNotNull(nameof(_areaToConsider))]
 	private void BuildGround()
 	{
-		if(_ground is not null && _areaToConsider is not null)
+		if (_ground is not null && _areaToConsider is not null)
 		{
 			return;
 		}
