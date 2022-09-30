@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public struct Point : IEquatable<Point>
+public readonly struct Point
 {
 	public int X { get; }
 	public int Y { get; }

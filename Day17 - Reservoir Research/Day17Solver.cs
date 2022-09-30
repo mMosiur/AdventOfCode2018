@@ -12,7 +12,7 @@ public class Day17Solver : DaySolver
 	public Day17Solver(Day17SolverOptions options) : base(options)
 	{
 		_springOfWaterPosition = options.SpringOfWaterPosition;
-		_veinsOfClay = InputLines.Select(Line.Parse);
+		_veinsOfClay = InputLines.Select(StraightLine.Parse);
 	}
 
 	public Day17Solver(Action<Day17SolverOptions>? configure = null)

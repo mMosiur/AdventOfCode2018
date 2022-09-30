@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public struct HorizontalLine : ILine
+public readonly struct HorizontalLine : ILine
 {
 	public Range X { get; }
 	public int Y { get; }

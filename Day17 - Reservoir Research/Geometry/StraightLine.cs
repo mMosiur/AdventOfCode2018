@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public static class Line
+public static class StraightLine
 {
 	private static readonly Regex _regex = new(@"^(?<vertical>x ?= ?(?<x>\d+),[ \t]*y ?= ?(?<y1>\d+)\.\.(?<y2>\d+))|(?<horizontal>y ?= ?(?<y>\d+),[ \t]*x ?= ?(?<x1>\d+)\.\.(?<x2>\d+))$", RegexOptions.Compiled);
 
@@ -16,20 +16,20 @@ public static class Line
 			{
 				throw new FormatException("Invalid line format.");
 			}
-			if (match.Groups["vertical"].Success)
-			{
-				return new VerticalLine(
-					int.Parse(match.Groups["x"].Value),
-					int.Parse(match.Groups["y1"].Value),
-					int.Parse(match.Groups["y2"].Value)
-				);
-			}
-			else if (match.Groups["horizontal"].Success)
+			if (match.Groups["horizontal"].Success)
 			{
 				return new HorizontalLine(
 					int.Parse(match.Groups["x1"].Value),
 					int.Parse(match.Groups["x2"].Value),
 					int.Parse(match.Groups["y"].Value)
+				);
+			}
+			else if (match.Groups["vertical"].Success)
+			{
+				return new VerticalLine(
+					int.Parse(match.Groups["x"].Value),
+					int.Parse(match.Groups["y1"].Value),
+					int.Parse(match.Groups["y2"].Value)
 				);
 			}
 			else
