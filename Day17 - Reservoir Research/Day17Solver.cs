@@ -22,16 +22,16 @@ public class Day17Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		Ground ground = new GroundBuilder()
-			.SetSpringOfWaterPosition(_springOfWaterPosition)
-			.AddVeinsOfClay(_veinsOfClay)
-			.Build();
-		bool changed = true;
-		while(changed)
-		{
-			changed = ground.NextState();
-		}
-		int result = ground.Count(gt => gt.IsWater());
+		GroundBuilder groundBuilder = new();
+		groundBuilder.AddVeinsOfClay(_veinsOfClay);
+		Area areaToConsider = groundBuilder.CurrentArea;
+		groundBuilder.AddSpringOfWater(_springOfWaterPosition);
+		Ground ground = groundBuilder.Build();
+
+		ground.SimulateFlow();
+		int result = ground
+			.EnumerateArea(areaToConsider)
+			.Count(gt => gt.IsWater());
 		return result.ToString();
 	}
 

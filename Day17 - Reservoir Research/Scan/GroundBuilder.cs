@@ -4,18 +4,22 @@ namespace AdventOfCode.Year2018.Day17.Scan;
 
 public class GroundBuilder
 {
-	private readonly List<ILine> _veinsOfClay;
-	private Point? _springOfWaterPosition;
+	private readonly List<ILine> _veinsOfClay = new();
+	private Point? _springOfWaterPosition = null;
+	private readonly AreaBuilder _areaBuilder = new(1, 0);
 
-	public GroundBuilder()
-	{
-		_veinsOfClay = new List<ILine>();
-		_springOfWaterPosition = null;
-	}
+	public Area CurrentArea => _areaBuilder.Build();
+	public IReadOnlyCollection<ILine> VeinsOfClay => _veinsOfClay;
+	public Point? SpringOfWaterPosition => _springOfWaterPosition;
 
-	public GroundBuilder SetSpringOfWaterPosition(Point position)
+	public GroundBuilder AddSpringOfWater(Point position)
 	{
+		if (_springOfWaterPosition is not null)
+		{
+			throw new InvalidOperationException("Spring of water position was already set.");
+		}
 		_springOfWaterPosition = position;
+		_areaBuilder.AddPoint(position);
 		return this;
 	}
 
@@ -23,6 +27,7 @@ public class GroundBuilder
 	{
 		ArgumentNullException.ThrowIfNull(veinOfClay);
 		_veinsOfClay.Add(veinOfClay);
+		_areaBuilder.AddLine(veinOfClay);
 		return this;
 	}
 
@@ -36,40 +41,13 @@ public class GroundBuilder
 		return this;
 	}
 
-	private static Area GetGroundScanArea(Point springOfWaterPosition, IEnumerable<ILine> veinsOfClay)
-	{
-		ArgumentNullException.ThrowIfNull(veinsOfClay);
-		int minX = springOfWaterPosition.X;
-		int maxX = springOfWaterPosition.X;
-		int minY = springOfWaterPosition.Y;
-		int maxY = springOfWaterPosition.Y;
-		foreach (ILine veinOfClay in veinsOfClay)
-		{
-			if (veinOfClay is VerticalLine verticalLine)
-			{
-				minX = Math.Min(minX, verticalLine.X);
-				maxX = Math.Max(maxX, verticalLine.X);
-				minY = Math.Min(minY, verticalLine.Y.Start);
-				maxY = Math.Max(maxY, verticalLine.Y.End);
-			}
-			else if (veinOfClay is HorizontalLine horizontalLine)
-			{
-				minX = Math.Min(minX, horizontalLine.X.Start);
-				maxX = Math.Max(maxX, horizontalLine.X.End);
-				minY = Math.Min(minY, horizontalLine.Y);
-				maxY = Math.Max(maxY, horizontalLine.Y);
-			}
-		}
-		return new Area(minX, maxX, minY, maxY);
-	}
-
 	public Ground Build()
 	{
 		if (_springOfWaterPosition is null)
 		{
 			throw new InvalidOperationException("Spring of water position must be set.");
 		}
-		Area area = GetGroundScanArea(_springOfWaterPosition.Value, _veinsOfClay);
+		Area area = _areaBuilder.Build();
 		GroundType[,] groundScan = new GroundType[area.Width, area.Height];
 		for (int x = 0; x < area.Width; x++)
 		{

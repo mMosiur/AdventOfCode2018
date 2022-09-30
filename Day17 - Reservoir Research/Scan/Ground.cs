@@ -7,7 +7,7 @@ public class Ground : IEnumerable<GroundType>
 {
 	private readonly GroundType[,] _ground;
 	private readonly HashSet<Point> _activeWaterPoints;
-	public Area Area { get; }
+	public readonly Area Area;
 
 	public int Width => Area.Width;
 	public int Height => Area.Height;
@@ -33,14 +33,8 @@ public class Ground : IEnumerable<GroundType>
 
 	public GroundType this[int x, int y]
 	{
-		get
-		{
-			return _ground[x - Area.XRange.Start, y - Area.YRange.Start];
-		}
-		private set
-		{
-			_ground[x - Area.XRange.Start, y - Area.YRange.Start] = value;
-		}
+		get => _ground[x - Area.XRange.Start, y - Area.YRange.Start];
+		private set => _ground[x - Area.XRange.Start, y - Area.YRange.Start] = value;
 	}
 
 	public GroundType this[Point point]
@@ -49,208 +43,188 @@ public class Ground : IEnumerable<GroundType>
 		private set => this[point.X, point.Y] = value;
 	}
 
-	private SpreadResult TrySpreadDownFrom(Point point)
+	private FlowResult TryFlowDownFrom(Point point)
 	{
-		Point pointBelow = point.Below;
-		if (!Area.Contains(pointBelow))
+		bool hasSpread = false;
+		bool blocked = false;
+		while (Area.Contains(point.Below))
 		{
-			return SpreadResult.NotMoved;
-		}
-		GroundType groundBelow = this[pointBelow];
-		if (groundBelow.IsBlocked())
-		{
-			return SpreadResult.BlockedDirectly;
-		}
-		if (groundBelow.IsPassable())
-		{
-			this[pointBelow] = GroundType.WaterFlowing;
-			return SpreadResult.MovedDirectly;
-		}
-		if (groundBelow.IsSpreading())
-		{
-			return SpreadFrom(pointBelow) with { Directly = false };
-		}
-		throw new InvalidOperationException("Unexpected ground type.");
-	}
-
-	private SpreadResult TrySpreadLeftFrom(Point point)
-	{
-		Point pointLeft = point.Left;
-		if (!Area.Contains(pointLeft))
-		{
-			return SpreadResult.NotMoved;
-		}
-		GroundType groundLeft = this[pointLeft];
-		if (groundLeft.IsBlocked())
-		{
-			return SpreadResult.BlockedDirectly;
-		}
-		if (groundLeft.IsPassable())
-		{
-			this[pointLeft] = GroundType.WaterFlowing;
-			return SpreadResult.MovedDirectly;
-		}
-		if (groundLeft.IsSpreading())
-		{
-			return SpreadFrom(pointLeft, rightLocked: true) with { Directly = false };
-		}
-		throw new InvalidOperationException("Unexpected ground type.");
-	}
-
-	private SpreadResult TrySpreadRightFrom(Point point)
-	{
-		Point pointRight = point.Right;
-		if (!Area.Contains(pointRight))
-		{
-			return SpreadResult.NotMoved;
-		}
-		GroundType groundRight = this[pointRight];
-		if (groundRight.IsBlocked())
-		{
-			return SpreadResult.BlockedDirectly;
-		}
-		if (groundRight.IsPassable())
-		{
-			this[pointRight] = GroundType.WaterFlowing;
-			return SpreadResult.MovedDirectly;
-		}
-		if (groundRight.IsSpreading())
-		{
-			return SpreadFrom(pointRight, leftLocked: true) with { Directly = false };
-		}
-		throw new InvalidOperationException("Unexpected ground type.");
-	}
-
-
-	private SpreadResult SpreadFrom(Point point, bool leftLocked = false, bool rightLocked = false)
-	{
-		if (!Area.Contains(point) || !this[point].IsSpreading())
-		{
-			return SpreadResult.NotMoved;
-		}
-		SpreadResult spreadDownResult = TrySpreadDownFrom(point);
-		if (spreadDownResult.HasSpread is true || spreadDownResult.Directly is false)
-		{
-			if (spreadDownResult == SpreadResult.MovedDirectly)
+			Point pointBelow = point.Below;
+			GroundType groundBelow = this[pointBelow];
+			if (!groundBelow.IsPassable())
 			{
-				_activeWaterPoints.Remove(point);
-				_activeWaterPoints.Add(point.Below);
+				blocked = groundBelow.IsBlocked();
+				break;
 			}
-			return spreadDownResult;
+			point = pointBelow;
+			this[point] = GroundType.WaterFlowing;
+			hasSpread = true;
 		}
-		// spreadDownResult is BlockedDirectly
-		SpreadResult spreadLeftResult = SpreadResult.NotMoved;
-		if (leftLocked is false)
+		return new FlowResult(hasSpread, blocked, point);
+	}
+
+	private FlowResult TryFlowLeftFrom(Point point)
+	{
+		bool hasSpread = false;
+		bool blocked = false;
+		while (Area.Contains(point.Left) && Area.Contains(point.Below) && this[point.Below].IsBlocked())
 		{
-			spreadLeftResult = TrySpreadLeftFrom(point);
-			if (spreadLeftResult == SpreadResult.MovedDirectly)
+			Point pointLeft = point.Left;
+			GroundType groundLeft = this[pointLeft];
+			if (!groundLeft.IsPassable())
 			{
-				_activeWaterPoints.Remove(point);
-				_activeWaterPoints.Add(point.Left);
+				blocked = groundLeft.IsBlocked();
+				break;
+			}
+			point = pointLeft;
+			this[point] = GroundType.WaterFlowing;
+			hasSpread = true;
+		}
+		return new FlowResult(hasSpread, blocked, point);
+	}
+
+	private FlowResult TryFlowRightFrom(Point point)
+	{
+		bool hasSpread = false;
+		bool blocked = false;
+		while (Area.Contains(point.Right) && Area.Contains(point.Below) && this[point.Below].IsBlocked())
+		{
+			Point pointRight = point.Right;
+			GroundType groundRight = this[pointRight];
+			if (!groundRight.IsPassable())
+			{
+				blocked = groundRight.IsBlocked();
+				break;
+			}
+			point = pointRight;
+			this[point] = GroundType.WaterFlowing;
+			hasSpread = true;
+		}
+		return new FlowResult(hasSpread, blocked, point);
+	}
+
+	private StabilizeResult TryStabilize(Point pointToConsider)
+	{
+		if (this[pointToConsider] is not GroundType.WaterFlowing || !Area.Contains(pointToConsider.Below))
+		{
+			return StabilizeResult.NotStabilized;
+		}
+		Point leftmostPoint = pointToConsider;
+		while (this[leftmostPoint] is GroundType.WaterFlowing)
+		{
+			if (!this[leftmostPoint.Below].IsBlocked())
+			{
+				return StabilizeResult.NotStabilized;
+			}
+			leftmostPoint = leftmostPoint.Left;
+			if (!Area.Contains(leftmostPoint))
+			{
+				return StabilizeResult.NotStabilized;
 			}
 		}
-		SpreadResult spreadRightResult = SpreadResult.NotMoved;
-		if (rightLocked is false)
+		if (!this[leftmostPoint].IsBlocked())
 		{
-			spreadRightResult = TrySpreadRightFrom(point);
-			if (spreadRightResult == SpreadResult.MovedDirectly)
+			return StabilizeResult.NotStabilized;
+		}
+		leftmostPoint = leftmostPoint.Right;
+		Point rightmostPoint = pointToConsider;
+		while (this[rightmostPoint] is GroundType.WaterFlowing)
+		{
+			if (!this[rightmostPoint.Below].IsBlocked())
 			{
-				_activeWaterPoints.Remove(point);
-				_activeWaterPoints.Add(point.Right);
+				return StabilizeResult.NotStabilized;
+			}
+			rightmostPoint = rightmostPoint.Right;
+			if (!Area.Contains(rightmostPoint))
+			{
+				return StabilizeResult.NotStabilized;
 			}
 		}
-		if (spreadLeftResult.HasSpread || spreadRightResult.HasSpread)
+		if (!this[rightmostPoint].IsBlocked())
 		{
-			return new(true, spreadLeftResult.Directly || spreadRightResult.Directly);
+			return StabilizeResult.NotStabilized;
 		}
-		return new(false, spreadLeftResult.Directly && spreadRightResult.Directly);
+		rightmostPoint = rightmostPoint.Left;
+		Point stabilizingPoint = leftmostPoint;
+		Point rightEdgePoint = rightmostPoint.Right;
+		while (stabilizingPoint != rightEdgePoint)
+		{
+			this[stabilizingPoint] = GroundType.WaterResting;
+			stabilizingPoint = stabilizingPoint.Right;
+		}
+		return StabilizeResult.Stabilized(leftmostPoint, rightmostPoint);
 	}
 
-	private bool TryStabilizeArea(int y, int leftEdgeX, int rightEdgeX)
+	private bool FlowFrom(Point point)
 	{
-		if (rightEdgeX <= leftEdgeX)
+		_activeWaterPoints.Remove(point);
+		// Try flow down
+		FlowResult flowResult = TryFlowDownFrom(point);
+		if (flowResult.HasSpread)
 		{
-			throw new ArgumentException("Right edge must be greater than left edge.", nameof(rightEdgeX));
+			if (flowResult.Blocked)
+			{
+				_activeWaterPoints.Add(flowResult.FinalActivePoint);
+			}
+			return true;
 		}
-		int lowerY = y + 1;
-		if (!Area.YRange.Contains(y) || !Area.YRange.Contains(lowerY) || !Area.XRange.Contains(leftEdgeX) || !Area.XRange.Contains(rightEdgeX))
+		if (!flowResult.Blocked)
 		{
 			return false;
 		}
-		if (!this[leftEdgeX, y].IsBlocked() || !this[rightEdgeX, y].IsBlocked())
+		// Flow sideways
+		bool hasChanged = false;
+		// Flow left
+		flowResult = TryFlowLeftFrom(point);
+		if (flowResult.HasSpread)
 		{
-			return false;
+			_activeWaterPoints.Add(flowResult.FinalActivePoint);
+			hasChanged = true;
 		}
-		for (int x = leftEdgeX + 1; x < rightEdgeX; x++)
+		else
 		{
-			// If any square under the current one is not blocked or is not flowing water, the current one cannot be stabilized.
-			if (this[x, y] is not GroundType.WaterFlowing || !this[x, lowerY].IsBlocked())
+			StabilizeResult stabilizeResult = TryStabilize(flowResult.FinalActivePoint);
+			if (stabilizeResult.HasStabilized)
 			{
-				return false;
-			}
-		}
-		for (int x = leftEdgeX + 1; x < rightEdgeX; x++)
-		{
-			this[x, y] = GroundType.WaterResting;
-		}
-		return true;
-	}
-
-	private bool TryStabilizeWaters()
-	{
-		bool updated = false;
-		for (int y = Area.YRange.Start; y < Area.YRange.End; y++) // Last row excluded as it can't be stabilized.
-		{
-			// Look for '#|||||#' pattern (clay at the ends, flowing water in the middle).
-			int? leftEdgeX = null;
-			bool hasWater = false;
-			int? rightEdgeX = null;
-			for (int x = Area.XRange.Start; x <= Area.XRange.End; x++)
-			{
-				switch (this[x, y])
+				hasChanged = true;
+				Point potentialNewActiveWaterPoint = stabilizeResult.LeftmostStabilizedPoint.Above;
+				Point aboveStabilizationEdgePoint = stabilizeResult.RightmostStabilizedPoint.Right.Above;
+				while (potentialNewActiveWaterPoint != aboveStabilizationEdgePoint)
 				{
-					case GroundType.Clay:
-						if (hasWater) rightEdgeX = x;
-						else leftEdgeX = x;
-						break;
-					case GroundType.WaterFlowing:
-						if (leftEdgeX.HasValue) hasWater = true;
-						break;
-					default:
-						leftEdgeX = null;
-						hasWater = false;
-						rightEdgeX = null;
-						break;
-				}
-				if (leftEdgeX.HasValue && hasWater && rightEdgeX.HasValue)
-				{
-					// Pattern found, try to stabilize if possible.
-					bool stabilized = TryStabilizeArea(y, leftEdgeX.Value, rightEdgeX.Value);
-					if (stabilized)
+					if (this[potentialNewActiveWaterPoint].IsSpreading())
 					{
-						updated = true;
-						int yAbove = y - 1;
-						for (int stabilizingX = leftEdgeX.Value + 1; stabilizingX < rightEdgeX.Value; stabilizingX++)
-						{
-							_activeWaterPoints.Remove(new(stabilizingX, y));
-							// If any square above the stabilized area is flowing water, it can spread again.
-							if (Area.YRange.Contains(yAbove) && this[stabilizingX, yAbove].IsSpreading())
-							{
-								_activeWaterPoints.Add(new(stabilizingX, yAbove));
-							}
-						}
-						leftEdgeX = rightEdgeX;
+						_activeWaterPoints.Add(potentialNewActiveWaterPoint);
 					}
-					else
-					{
-						leftEdgeX = null;
-					}
-					hasWater = false;
-					rightEdgeX = null;
+					potentialNewActiveWaterPoint = potentialNewActiveWaterPoint.Right;
 				}
 			}
 		}
-		return updated;
+		// Flow right
+		flowResult = TryFlowRightFrom(point);
+		if (flowResult.HasSpread)
+		{
+			_activeWaterPoints.Add(flowResult.FinalActivePoint);
+			hasChanged = true;
+		}
+		else if (flowResult.Blocked)
+		{
+			StabilizeResult stabilizeResult = TryStabilize(flowResult.FinalActivePoint);
+			if (stabilizeResult.HasStabilized)
+			{
+				hasChanged = true;
+				Point potentialNewActiveWaterPoint = stabilizeResult.LeftmostStabilizedPoint.Above;
+				Point aboveStabilizationEdgePoint = stabilizeResult.RightmostStabilizedPoint.Right.Above;
+				while (potentialNewActiveWaterPoint != aboveStabilizationEdgePoint)
+				{
+					if (this[potentialNewActiveWaterPoint].IsSpreading())
+					{
+						_activeWaterPoints.Add(potentialNewActiveWaterPoint);
+					}
+					potentialNewActiveWaterPoint = potentialNewActiveWaterPoint.Right;
+				}
+			}
+		}
+		return hasChanged;
 	}
 
 	public bool NextState()
@@ -258,52 +232,50 @@ public class Ground : IEnumerable<GroundType>
 		bool changed = false;
 		foreach (Point activeWaterPoint in _activeWaterPoints.ToArray())
 		{
-			changed |= SpreadFrom(activeWaterPoint).HasSpread;
+			changed |= FlowFrom(activeWaterPoint);
 		}
-		if (changed)
-		{
-			return true;
-		}
-		changed = TryStabilizeWaters();
 		return changed;
 	}
 
-	public void Print()
+	public void SimulateFlow()
 	{
+		while (NextState()) { }
+	}
+
+	public override string ToString()
+	{
+		System.Text.StringBuilder sb = new();
 		for (int y = Area.YRange.Start; y <= Area.YRange.End; y++)
 		{
 			for (int x = Area.XRange.Start; x <= Area.XRange.End; x++)
 			{
-				Console.Write(this[x, y].ToChar());
+				char c = this[x, y].ToChar();
+				sb.Append(c);
 			}
-			Console.WriteLine();
+			sb.Append('\n');
 		}
+		sb.Remove(sb.Length - 1, 1);
+		return sb.ToString();
 	}
 
 	public IEnumerator<GroundType> GetEnumerator() => _ground.Cast<GroundType>().GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-	private readonly record struct SpreadResult(bool HasSpread, bool Directly)
+	public IEnumerable<GroundType> EnumerateArea(Area area)
 	{
-		/// <summary>
-		/// Result when the spread did not happen because it was blocked further down the line or movement ignored.
-		/// </summary>
-		public static readonly SpreadResult NotMoved = new(false, false);
+		if (!Area.Contains(area))
+		{
+			throw new ArgumentException("Area is not fully contained in the ground.");
+		}
+		return area.EnumeratePoints().Select(p => this[p]);
+	}
 
-		/// <summary>
-		/// Result when the spread did not happen because it was directly blocked from that point.
-		/// </summary>
-		public static readonly SpreadResult BlockedDirectly = new(false, true);
+	private readonly record struct FlowResult(bool HasSpread, bool Blocked, Point FinalActivePoint);
 
-		/// <summary>
-		/// Result when the spread did happened further down the line.
-		/// </summary>
-		public static readonly SpreadResult MovedDownTheLine = new(true, false);
-
-		/// <summary>
-		/// Result when the spread did happened directly from that point.
-		/// </summary>
-		public static readonly SpreadResult MovedDirectly = new(true, true);
+	private readonly record struct StabilizeResult(bool HasStabilized, Point LeftmostStabilizedPoint, Point RightmostStabilizedPoint)
+	{
+		public static StabilizeResult Stabilized(Point leftmostStabilizedPoint, Point rightmostStabilizedPoint) => new(true, leftmostStabilizedPoint, rightmostStabilizedPoint);
+		public static readonly StabilizeResult NotStabilized = new(false, default, default);
 	}
 }

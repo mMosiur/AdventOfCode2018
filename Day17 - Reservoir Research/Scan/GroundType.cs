@@ -2,8 +2,6 @@ namespace AdventOfCode.Year2018.Day17.Scan;
 
 public enum GroundType
 {
-	Unknown = default, // To handle uninitialized values
-
 	Sand,
 	Clay,
 	WaterResting,

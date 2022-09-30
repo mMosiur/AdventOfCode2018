@@ -19,5 +19,7 @@ public struct Range
 
 	public bool Contains(int value) => value >= Start && value <= End;
 
+	public bool Contains(Range range) => range.Start >= Start && range.End <= End;
+
 	public override string ToString() => $"{Start}..{End}";
 }

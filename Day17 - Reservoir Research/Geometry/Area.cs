@@ -1,17 +1,12 @@
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public struct Area
+public readonly struct Area
 {
 	public Range XRange { get; }
 	public Range YRange { get; }
 
 	public int Width => XRange.Length;
 	public int Height => YRange.Length;
-
-	public Point TopLeft => new(XRange.Start, YRange.Start);
-	public Point TopRight => new(XRange.End, YRange.Start);
-	public Point BottomLeft => new(XRange.Start, YRange.End);
-	public Point BottomRight => new(XRange.End, YRange.End);
 
 	public Area(Range xRange, Range yRange)
 	{
@@ -28,6 +23,8 @@ public struct Area
 	}
 
 	public bool Contains(Point point) => XRange.Contains(point.X) && YRange.Contains(point.Y);
+
+	public bool Contains(Area area) => XRange.Contains(area.XRange) && YRange.Contains(area.YRange);
 
 	public IEnumerable<Point> EnumeratePoints()
 	{
