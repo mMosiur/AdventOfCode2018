@@ -1,6 +1,7 @@
 using System.Text;
 using AdventOfCode.Year2018.Day18.Geometry;
 using AdventOfCode.Year2018.Day18.StringExtensions;
+using Microsoft.Toolkit.HighPerformance;
 
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
@@ -110,6 +111,24 @@ public class LumberCollectionArea : ICloneable
 			}
 		}
 		return new(area);
+	}
+
+	public string Compress() => Encoding.Unicode.GetString(_area.AsMemory().AsBytes().Span);
+
+	public static LumberCollectionArea Decompress(string compressed, int height, int width)
+	{
+		LumberCollectionArea area = new(new AcreContent[height, width]);
+		area.LoadCompressed(compressed);
+		return area;
+	}
+
+	public void LoadCompressed(string compressed)
+	{
+		if (compressed.Length * sizeof(char) != Height * Width * sizeof(AcreContent))
+		{
+			throw new ArgumentException("Invalid compressed area size.", nameof(compressed));
+		}
+		Encoding.Unicode.GetBytes(compressed, _area.AsSpan().AsBytes());
 	}
 
 	public override string ToString()

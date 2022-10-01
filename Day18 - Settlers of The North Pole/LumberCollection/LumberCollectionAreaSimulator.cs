@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day18.Geometry;
 
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public class LumberCollectionAreaSimulator
+public abstract class LumberCollectionAreaSimulator
 {
 	private LumberCollectionArea _nextArea;
 	public LumberCollectionArea Area { get; private set; }
@@ -36,15 +36,5 @@ public class LumberCollectionAreaSimulator
 		(_nextArea, Area) = (Area, _nextArea);
 	}
 
-	public void Simulate(int minutes)
-	{
-		if (minutes < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(minutes), "Number of minutes to simulate must be non-negative.");
-		}
-		for (int i = 0; i < minutes; i++)
-		{
-			SimulateMinute();
-		}
-	}
+	public abstract void Simulate(int minutes);
 }

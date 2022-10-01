@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public enum AcreContent
+public enum AcreContent : byte
 {
 	Unknown,
 
