@@ -40,6 +40,7 @@
     <ProjectReference Include="..\Day16 - Chronal Classification\Day16.csproj" />
     <ProjectReference Include="..\Day17 - Reservoir Research\Day17.csproj" />
     <ProjectReference Include="..\Day18 - Settlers of The North Pole\Day18.csproj" />
+    <ProjectReference Include="..\Day19 - Go With The Flow\Day19.csproj" />
   </ItemGroup>
 
    <ItemGroup>
