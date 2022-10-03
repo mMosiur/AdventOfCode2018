@@ -7,9 +7,9 @@ public class OpcodeDictionaryResolver : OpcodeDictionary
 	protected readonly Dictionary<byte, string> _resolvedOpcodeNumberToNameDictionary;
 	protected readonly Dictionary<string, byte> _resolvedOpcodeNameToNumberDictionary;
 
-	public override IReadOnlyDictionary<byte, string> OpcodeNumberFromName => _resolvedOpcodeNumberToNameDictionary;
+	public override IReadOnlyDictionary<byte, string> OpcodeNumberToName => _resolvedOpcodeNumberToNameDictionary;
 
-	public override IReadOnlyDictionary<string, byte> OpcodeNameFromNumber => _resolvedOpcodeNameToNumberDictionary;
+	public override IReadOnlyDictionary<string, byte> OpcodeNameToNumber => _resolvedOpcodeNameToNumberDictionary;
 
 	public bool IsFullyResolved => _unresolvedOperations.Count == 0;
 

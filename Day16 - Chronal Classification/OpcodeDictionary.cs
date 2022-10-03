@@ -13,7 +13,7 @@ public abstract class OpcodeDictionary
 		"eqir", "eqri", "eqrr", // Equality testing
 	};
 
-	public abstract IReadOnlyDictionary<byte, string> OpcodeNumberFromName { get; }
+	public abstract IReadOnlyDictionary<byte, string> OpcodeNumberToName { get; }
 
-	public abstract IReadOnlyDictionary<string, byte> OpcodeNameFromNumber { get; }
+	public abstract IReadOnlyDictionary<string, byte> OpcodeNameToNumber { get; }
 }

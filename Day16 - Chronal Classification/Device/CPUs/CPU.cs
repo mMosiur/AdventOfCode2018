@@ -8,22 +8,22 @@ public class CPU : BaseCPU
 	{
 		_operations = new()
 		{
-			{ opcodeDictionary.OpcodeNameFromNumber["addr"], ExecuteAddRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["addi"], ExecuteAddImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["mulr"], ExecuteMultiplyRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["muli"], ExecuteMultiplyImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["banr"], ExecuteBitwiseAndRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["bani"], ExecuteBitwiseAndImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["borr"], ExecuteBitwiseOrRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["bori"], ExecuteBitwiseOrImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["setr"], ExecuteSetRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["seti"], ExecuteSetImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["gtir"], ExecuteGreaterThanImmediateRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["gtri"], ExecuteGreaterThanRegisterImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["gtrr"], ExecuteGreaterThanRegisterRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["eqir"], ExecuteEqualImmediateRegister },
-			{ opcodeDictionary.OpcodeNameFromNumber["eqri"], ExecuteEqualRegisterImmediate },
-			{ opcodeDictionary.OpcodeNameFromNumber["eqrr"], ExecuteEqualRegisterRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["addr"], ExecuteAddRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["addi"], ExecuteAddImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["mulr"], ExecuteMultiplyRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["muli"], ExecuteMultiplyImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["banr"], ExecuteBitwiseAndRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["bani"], ExecuteBitwiseAndImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["borr"], ExecuteBitwiseOrRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["bori"], ExecuteBitwiseOrImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["setr"], ExecuteSetRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["seti"], ExecuteSetImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["gtir"], ExecuteGreaterThanImmediateRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["gtri"], ExecuteGreaterThanRegisterImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["gtrr"], ExecuteGreaterThanRegisterRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["eqir"], ExecuteEqualImmediateRegister },
+			{ opcodeDictionary.OpcodeNameToNumber["eqri"], ExecuteEqualRegisterImmediate },
+			{ opcodeDictionary.OpcodeNameToNumber["eqrr"], ExecuteEqualRegisterRegister },
 		};
 	}
 
