@@ -1,11 +1,11 @@
-namespace AdventOfCode.Year2018.Day19.Device;
+namespace AdventOfCode.Year2018.Day19.Device.CPUs;
 
-public class CPU
+public abstract class BaseCPU : ICPU
 {
-	private readonly Program _program;
-	private readonly Registers _registers;
-	private int _instructionPointer;
-	private int? _instructionPointerBoundRegisterNumber;
+	protected readonly Registers _registers;
+	protected Program? _program;
+	protected int _instructionPointer;
+	protected int? _instructionPointerBoundRegisterNumber;
 
 	private readonly Dictionary<Opcode, Action<Instruction>> _instructionOperations;
 	private readonly Dictionary<DeclarationType, Action<Declaration>> _declarationOperations;
@@ -43,14 +43,15 @@ public class CPU
 	private void ExecuteEqualRegisterRegister(Instruction i) => _registers[i.C] = InputAsRegister(i.A) == InputAsRegister(i.B) ? 1U : 0U;
 	#endregion Instruction operations
 
-	public IReadOnlyList<Declaration> Declarations => _program.Declarations;
-	public IReadOnlyList<Instruction> Instructions => _program.Instructions;
 	public IReadOnlyRegisters Registers => _registers;
 
-	public CPU(Program program, int numberOfRegisters)
+	public BaseCPU(int numberOfRegisters) : this(new Registers(numberOfRegisters))
 	{
-		_program = program;
-		_registers = new Registers(numberOfRegisters);
+	}
+
+	public BaseCPU(Registers registers)
+	{
+		_registers = registers;
 		_instructionPointer = 0;
 		_instructionPointerBoundRegisterNumber = null;
 		_instructionOperations = new()
@@ -78,8 +79,12 @@ public class CPU
 		};
 	}
 
-	private void ExecuteDeclarations()
+	protected void ExecuteDeclarations()
 	{
+		if (_program is null)
+		{
+			throw new InvalidOperationException("Program is not set.");
+		}
 		foreach (Declaration declaration in _program.Declarations)
 		{
 			if (!_declarationOperations.TryGetValue(declaration.Type, out Action<Declaration>? operation))
@@ -90,13 +95,17 @@ public class CPU
 		}
 	}
 
-	private bool ExecuteNextInstruction()
+	protected bool ExecuteNextInstruction()
 	{
-		if (_instructionPointer < 0 || _instructionPointer >= Instructions.Count)
+		if (_program is null)
+		{
+			throw new InvalidOperationException("Program is not set.");
+		}
+		if (_instructionPointer < 0 || _instructionPointer >= _program.Instructions.Count)
 		{
 			return false;
 		}
-		Instruction instruction = Instructions[_instructionPointer];
+		Instruction instruction = _program.Instructions[_instructionPointer];
 		if (_instructionPointerBoundRegisterNumber.HasValue)
 		{
 			_registers[_instructionPointerBoundRegisterNumber.Value] = (uint)_instructionPointer;
@@ -114,9 +123,12 @@ public class CPU
 		return true;
 	}
 
-	public void ExecuteProgram()
+	public void Execute(Program program)
 	{
-		ExecuteDeclarations();
-		while (ExecuteNextInstruction()) { }
+		_program = program;
+		_instructionPointer = 0;
+		ExecuteMemberProgram();
 	}
+
+	protected abstract void ExecuteMemberProgram();
 }
