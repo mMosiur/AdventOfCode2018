@@ -26,6 +26,15 @@ public class Day19Solver : DaySolver
 		return cpu.Registers[_options.ResultRegisterNumber];
 	}
 
+	private bool CheckBaseProgramOnRiggedCPU()
+	{
+		ICPU cpuProper = new CPU(6);
+		ICPU cpuRigged = new RiggedCPU(6);
+		uint resultProper = GetResultAfterExecution(cpuProper, _program);
+		uint resultRigged = GetResultAfterExecution(cpuRigged, _program);
+		return resultProper == resultRigged;
+	}
+
 	public override string SolvePart1()
 	{
 		ICPU cpu = new CPU(_options.NumberOfRegisters);
@@ -35,6 +44,23 @@ public class Day19Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		if (!CheckBaseProgramOnRiggedCPU())
+		{
+			throw new ApplicationException("Base program does not work on rigged CPU.");
+		}
+		Registers registers = new(_options.NumberOfRegisters)
+		{
+			[_options.PartTwoChangedRegisterNumber] = _options.PartTwoChangedRegisterValue
+		};
+		ICPU cpu = new RiggedCPU(registers);
+		try
+		{
+			uint result = GetResultAfterExecution(cpu, _program);
+			return result.ToString();
+		}
+		catch (RiggedCPUException e)
+		{
+			throw new ApplicationException("The disassembled program is not compatible with the rigged CPU.", e);
+		}
 	}
 }

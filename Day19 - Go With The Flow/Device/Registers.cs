@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day19.Device;
 
-public class Registers : IReadOnlyRegisters, IList<uint>, IEquatable<Registers>
+public class Registers : IReadOnlyRegisters, IEquatable<Registers>
 {
 	private const uint DEFAULT_REGISTER_VALUE = 0;
 	private static readonly Regex _regex = new(@"\[((?>\d+)(?>, (?>\d+))*)\]", RegexOptions.Compiled);
@@ -12,8 +12,6 @@ public class Registers : IReadOnlyRegisters, IList<uint>, IEquatable<Registers>
 	private readonly uint[] _registers;
 
 	public int Count => _registers.Length;
-
-	public bool IsReadOnly => false;
 
 	public Registers(int registerCount) : this(registerCount, DEFAULT_REGISTER_VALUE) { }
 
@@ -36,6 +34,11 @@ public class Registers : IReadOnlyRegisters, IList<uint>, IEquatable<Registers>
 	{
 		get => _registers[index];
 		set => _registers[index] = value;
+	}
+
+	public void Clear()
+	{
+		Array.Fill(_registers, DEFAULT_REGISTER_VALUE);
 	}
 
 	public override string ToString()
@@ -71,34 +74,9 @@ public class Registers : IReadOnlyRegisters, IList<uint>, IEquatable<Registers>
 		}
 	}
 
-	public int IndexOf(uint item) => ((IList<uint>)_registers).IndexOf(item);
-
-	public void Insert(int index, uint item) => ((IList<uint>)_registers).Insert(index, item);
-
-	public void RemoveAt(int index) => ((IList<uint>)_registers).RemoveAt(index);
-
-	public void Add(uint item) => ((ICollection<uint>)_registers).Add(item);
-
-	public void Clear() => ((ICollection<uint>)_registers).Clear();
-
-	public bool Contains(uint item) => ((ICollection<uint>)_registers).Contains(item);
-
-	public void CopyTo(uint[] array, int arrayIndex) => ((ICollection<uint>)_registers).CopyTo(array, arrayIndex);
-
-	public bool Remove(uint item) => ((ICollection<uint>)_registers).Remove(item);
-
 	public IEnumerator<uint> GetEnumerator() => ((IEnumerable<uint>)_registers).GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator() => _registers.GetEnumerator();
-
-	public void SetFrom(Registers registers)
-	{
-		if (registers.Count != Count)
-		{
-			throw new ArgumentException($"Register count mismatch ({Count} != {registers.Count}).");
-		}
-		registers._registers.CopyTo(_registers, 0);
-	}
 
 	public bool Equals(Registers? other)
 	{
