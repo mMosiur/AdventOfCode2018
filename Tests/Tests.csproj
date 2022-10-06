@@ -41,6 +41,7 @@
     <ProjectReference Include="..\Day17 - Reservoir Research\Day17.csproj" />
     <ProjectReference Include="..\Day18 - Settlers of The North Pole\Day18.csproj" />
     <ProjectReference Include="..\Day19 - Go With The Flow\Day19.csproj" />
+    <ProjectReference Include="..\Day20 - A Regular Map\Day20.csproj" />
   </ItemGroup>
 
    <ItemGroup>
