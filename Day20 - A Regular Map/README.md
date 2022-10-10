@@ -1,4 +1,4 @@
-# [Day 20](https://adventofcode.com/2018/day/20)
+# [Day 20 - A Regular Map](https://adventofcode.com/2018/day/20)
 
 ## Part One
 
@@ -156,4 +156,6 @@ Furthest room requires passing 31 doors
 
 ## Part Two
 
-_Unsolved **yet**_
+Okay, so the facility is **big**.
+
+**How many rooms have a shortest path from your current location that pass through at least `1000` doors?**

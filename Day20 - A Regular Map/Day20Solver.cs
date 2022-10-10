@@ -4,12 +4,14 @@ namespace AdventOfCode.Year2018.Day20;
 
 public class Day20Solver : DaySolver
 {
+	private readonly int _partTwoMinDistance;
 	private readonly Lazy<RoomDistances> _roomDistances;
 
 	private RoomDistances RoomDistances => _roomDistances.Value;
 
 	public Day20Solver(Day20SolverOptions options) : base(options)
 	{
+		_partTwoMinDistance = options.PartTwoMinDistance;
 		_roomDistances = new Lazy<RoomDistances>(GenerateRoomDistances);
 	}
 
@@ -32,6 +34,7 @@ public class Day20Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		int result = RoomDistances.Count(kvp => kvp.Value >= _partTwoMinDistance);
+		return result.ToString();
 	}
 }
