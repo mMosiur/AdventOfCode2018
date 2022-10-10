@@ -1,208 +1,128 @@
+using AdventOfCode.Year2018.Day20.Geometry;
+
 namespace AdventOfCode.Year2018.Day20;
 
 public class PathRegex
 {
 	private readonly string _regex;
 
+	private ReadOnlySpan<char> MeaningfulRegexPart => _regex.AsSpan()[1..^1];
+
 	public PathRegex(string regex)
 	{
-		_regex = regex;
-		CharEnumerator it = regex.GetEnumerator();
-		if (!it.MoveNext())
+		ReadOnlyMemory<char> c = regex.AsMemory();
+		ArgumentNullException.ThrowIfNull(regex);
+		_regex = regex.Trim();
+		try
 		{
-			throw new ArgumentException("Empty regex.");
+			AssertRegexFormat(_regex);
 		}
-		if (it.Current != '^')
+		catch (SystemException e)
 		{
-			throw new ArgumentException("Only `^` bound regex supported.");
+			throw new ArgumentException("Invalid regex syntax.", nameof(regex), e);
 		}
-		Stack<IPathPart> startedPaths = new();
-		startedPaths.Push(new ComplexPath());
-		while (it.MoveNext())
+	}
+
+	private static void AssertRegexFormat(ReadOnlySpan<char> regex)
+	{
+		if (regex.Length < 2 || regex[0] != '^' || regex[^1] != '$')
 		{
-			char c = it.Current;
-			if (DirectionHelpers.TryParse(c, out Direction nextDirection))
+			throw new ArgumentException("Regex must start with '^' and end with '$'.", nameof(regex));
+		}
+		int openedGroups = 0;
+		foreach (char c in regex[1..^1])
+		{
+			if (!PathCharacters.IsDefined(c))
 			{
-				if (startedPaths.Peek() is SimplePath simplePath)
+				throw new FormatException($"Invalid character '{c}'.");
+			}
+			PathChar pathChar = (PathChar)c;
+			switch (pathChar)
+			{
+				case PathChar.GroupStart:
+					openedGroups++;
+					break;
+				case PathChar.GroupEnd:
+					if (openedGroups <= 0)
+					{
+						throw new FormatException($"Unmatched '{(char)PathChar.GroupEnd}'.");
+					}
+					openedGroups--;
+					break;
+				case PathChar.BranchSeparator:
+					break;
+				case PathChar.North or PathChar.South or PathChar.West or PathChar.East:
+					break;
+				default:
+					throw new FormatException($"Invalid character '{c}'.");
+			}
+		}
+		if (openedGroups != 0)
+		{
+			throw new FormatException($"Unmatched '{(char)PathChar.GroupStart}'.");
+		}
+	}
+
+	public RoomDistances BuildRoomDistances()
+	{
+		Position currentRoomPosition = Position.Origin;
+		Dictionary<Position, int> distances = new()
+		{
+			[currentRoomPosition] = 0
+		};
+		Stack<Position> activePositions = new();
+		foreach (char c in MeaningfulRegexPart)
+		{
+			if (DirectionHelpers.TryParse(c, out Direction direction))
+			{
+				Position previousRoomPosition = currentRoomPosition;
+				currentRoomPosition += Vector.FromDirection(direction);
+				int newDistance = distances[previousRoomPosition] + 1;
+				if (distances.TryGetValue(currentRoomPosition, out int prevDistance))
 				{
-					simplePath.Add(nextDirection);
+					distances[currentRoomPosition] = Math.Min(prevDistance, newDistance);
 				}
 				else
 				{
-					startedPaths.Push(new SimplePath(nextDirection));
+					distances[currentRoomPosition] = distances[previousRoomPosition] + 1;
 				}
 				continue;
 			}
-			else if (c is (char)PathChars.GroupStart)
+			switch ((PathChar)c)
 			{
-				startedPaths.Push(new ComplexPath());
-			}
-			else if (c is (char)PathChars.GroupEnd)
-			{
-				Stack<IPathPart> subPaths = new();
-				while (startedPaths.TryPop(out IPathPart? pathPart))
-				{
-					if (pathPart is ComplexPath complexPath)
-					{
-						complexPath.Add(subPaths);
-						break;
-					}
-					subPaths.Push(pathPart);
-				}
-			}
-			else if (c is (char)PathChars.BranchSeparator)
-			{
-				IPathPart path = startedPaths.Pop();
-				if (startedPaths.Count == 0)
-				{
-					throw new ArgumentException("Unbalanced `|`.");
-				}
-				if (startedPaths.Peek() is ComplexPath complexPath)
-				{
-					complexPath.Add(path);
-				}
-				else
-				{
-					throw new ArgumentException("Unexpected `|`.");
-				}
-				startedPaths.Push(new ComplexPath());
-			}
-			else
-			{
-				throw new ArgumentException($"Unexpected character: '{c}'");
+				case PathChar.GroupStart:
+					activePositions.Push(currentRoomPosition);
+					break;
+				case PathChar.GroupEnd:
+					currentRoomPosition = activePositions.Pop();
+					break;
+				case PathChar.BranchSeparator:
+					currentRoomPosition = activePositions.Peek();
+					break;
+				default: throw new FormatException($"Invalid character '{c}'.");
 			}
 		}
+		if (activePositions.Count != 0)
+		{
+			throw new FormatException("Unmatched group start.");
+		}
+		return new RoomDistances(distances);
 	}
 }
 
-public enum PathChars
+public enum PathChar : ushort
 {
+	North = 'N',
+	South = 'S',
+	West = 'W',
+	East = 'E',
+	BranchSeparator = '|',
 	GroupStart = '(',
 	GroupEnd = ')',
-	BranchSeparator = '|',
 }
 
-public interface IPathPart
+public static class PathCharacters
 {
-	public bool Started { get; }
-	public bool Finished { get; }
-	public void Finish();
+	public static bool IsDefined(char c) => (PathChar)c is PathChar.North or PathChar.South or PathChar.West or PathChar.East or PathChar.BranchSeparator or PathChar.GroupStart or PathChar.GroupEnd;
+	public static bool IsDirection(PathChar c) => c is PathChar.North or PathChar.South or PathChar.West or PathChar.East;
 }
-
-public class ComplexPath : IPathPart
-{
-	private readonly List<IPathPart> _parts = new();
-
-	public IReadOnlyList<IPathPart> Parts => _parts;
-	public int PartCount => _parts.Count;
-	public IPathPart LastPart => _parts.Count > 0 ? _parts[^1] : throw new InvalidOperationException("There is no last part.");
-	public bool Started => _parts.Count > 0 && _parts[0].Started;
-	public bool Finished { get; private set; } = false;
-
-	public void Add(IPathPart path)
-	{
-		ArgumentNullException.ThrowIfNull(path);
-		if (Finished)
-		{
-			throw new InvalidOperationException("This path is already marked as finished.");
-		}
-		if (!path.Finished)
-		{
-			throw new ArgumentException("Added path part is not finished.");
-		}
-		_parts.Add(path);
-	}
-
-	public void Add(IEnumerable<IPathPart> paths)
-	{
-		ArgumentNullException.ThrowIfNull(paths);
-		foreach (IPathPart path in paths)
-		{
-			Add(path);
-		}
-	}
-
-	public void Finish()
-	{
-		Finished = true;
-	}
-
-	public override string ToString() => string.Concat(_parts);
-}
-
-public class BranchingPath : IPathPart
-{
-	private readonly List<IPathPart> _possiblePaths = new();
-
-	public IReadOnlyList<IPathPart> PossiblePaths => _possiblePaths;
-	public bool Started => _possiblePaths.Count > 0;
-	public bool Finished { get; private set; } = false;
-
-	public void Add(IPathPart path)
-	{
-		ArgumentNullException.ThrowIfNull(path);
-		if (Finished)
-		{
-			throw new InvalidOperationException("This path is already marked as finished.");
-		}
-		if (!path.Finished)
-		{
-			throw new ArgumentException("Added path is not finished.");
-		}
-		_possiblePaths.Add(path);
-	}
-
-	public void Finish()
-	{
-		_possiblePaths.TrimExcess();
-		Finished = true;
-	}
-
-	public override string ToString() => $"({string.Join('|', _possiblePaths)})";
-}
-
-public class SimplePath : IPathPart
-{
-	private readonly List<Direction> _directions = new();
-
-	public IReadOnlyList<Direction> Directions => _directions;
-	public bool Started => _directions.Count > 0;
-	public bool Finished { get; private set; } = false;
-
-	public SimplePath()
-	{
-	}
-
-	public SimplePath(Direction startingDirection)
-	{
-		_directions.Add(startingDirection);
-	}
-
-	public void Add(Direction direction)
-	{
-		if (!DirectionHelpers.IsDefined(direction))
-		{
-			throw new ArgumentException($"Invalid direction: '{direction}'");
-		}
-		if (Finished)
-		{
-			throw new InvalidOperationException("Cannot add to finished path.");
-		}
-		_directions.Add(direction);
-	}
-
-	public void Finish()
-	{
-		_directions.TrimExcess();
-		Finished = true;
-	}
-
-	public override string ToString() => string.Concat(_directions.Select(d => d.ToChar()));
-}
-// ^ENWWW(NEEE|SSE(EE|N))$
-// ENWWW
-// NEEE
-// SEE
-// EE
-// N
-

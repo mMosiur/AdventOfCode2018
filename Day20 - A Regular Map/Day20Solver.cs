@@ -4,11 +4,13 @@ namespace AdventOfCode.Year2018.Day20;
 
 public class Day20Solver : DaySolver
 {
+	private readonly Lazy<RoomDistances> _roomDistances;
+
+	private RoomDistances RoomDistances => _roomDistances.Value;
+
 	public Day20Solver(Day20SolverOptions options) : base(options)
 	{
-		// Initialize Day20 solver here.
-		// Property `Input` contains the raw input text.
-		// Property `InputLines` enumerates lines in the input text.
+		_roomDistances = new Lazy<RoomDistances>(GenerateRoomDistances);
 	}
 
 	public Day20Solver(Action<Day20SolverOptions>? configure = null)
@@ -16,9 +18,16 @@ public class Day20Solver : DaySolver
 	{
 	}
 
+	private RoomDistances GenerateRoomDistances()
+	{
+		PathRegex pathRegex = new(Input);
+		return pathRegex.BuildRoomDistances();
+	}
+
 	public override string SolvePart1()
 	{
-		return "UNSOLVED";
+		int result = RoomDistances.Max(kvp => kvp.Value);
+		return result.ToString();
 	}
 
 	public override string SolvePart2()
