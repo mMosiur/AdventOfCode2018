@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day18", "Day18 - Settlers o
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day19", "Day19 - Go With The Flow\Day19.csproj", "{56B118CC-796C-47E5-9278-95F1BD687C40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day20", "Day20 - A Regular Map\Day20.csproj", "{438D40DC-1B56-4795-82C0-39EC7C5BDFA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,5 +128,9 @@ Global
 		{56B118CC-796C-47E5-9278-95F1BD687C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56B118CC-796C-47E5-9278-95F1BD687C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56B118CC-796C-47E5-9278-95F1BD687C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438D40DC-1B56-4795-82C0-39EC7C5BDFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438D40DC-1B56-4795-82C0-39EC7C5BDFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438D40DC-1B56-4795-82C0-39EC7C5BDFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438D40DC-1B56-4795-82C0-39EC7C5BDFA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
