@@ -12,7 +12,7 @@ public class Day21Tests : BaseDayTests<Day21Solver, Day21SolverOptions>
 	protected override Day21Solver CreateSolver(Day21SolverOptions options) => new(options);
 
 	[Theory]
-	[InlineData("my-input.txt", "")]
+	[InlineData("my-input.txt", "212115")]
 	public override void TestPart1(string inputFilename, string expectedResult, Day21SolverOptions? options = null)
 		=> base.TestPart1(inputFilename, expectedResult, options);
 }

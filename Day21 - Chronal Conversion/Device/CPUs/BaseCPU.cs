@@ -11,9 +11,9 @@ public abstract class BaseCPU : ICPU
 	private readonly Dictionary<DeclarationType, Action<Declaration>> _declarationOperations;
 
 	#region Input helpers
-	private uint InputAsRegister(byte input) => _registers[input];
+	private uint InputAsRegister(uint input) => _registers[(int)input];
 #pragma warning disable CA1822 // We don't mark this as static to match it with InputAsRegister method.
-	private uint InputAsValue(byte input) => input;
+	private uint InputAsValue(uint input) => input;
 #pragma warning restore CA1822
 	#endregion Input helpers
 

@@ -39,4 +39,36 @@ public static class Opcodes
 		ArgumentNullException.ThrowIfNull(s);
 		return _opcodes.TryGetValue(s, out opcode);
 	}
+
+	public static bool IsComparison(this Opcode opcode)
+		=> opcode
+			is Opcode.GreaterThanImmediateRegister
+			or Opcode.GreaterThanRegisterImmediate
+			or Opcode.GreaterThanRegisterRegister
+			or Opcode.EqualImmediateRegister
+			or Opcode.EqualRegisterImmediate
+			or Opcode.EqualRegisterRegister;
+
+	public static bool HasRegisterOperand(this Opcode opcode)
+		=> opcode
+			is Opcode.AddRegister
+			or Opcode.MultiplyRegister
+			or Opcode.BitwiseAndRegister
+			or Opcode.BitwiseOrRegister
+			or Opcode.SetRegister
+			or Opcode.GreaterThanImmediateRegister
+			or Opcode.GreaterThanRegisterImmediate
+			or Opcode.GreaterThanRegisterRegister
+			or Opcode.EqualImmediateRegister
+			or Opcode.EqualRegisterImmediate
+			or Opcode.EqualRegisterRegister;
+
+	public static bool HasBothRegisterOperands(this Opcode opcode)
+		=> opcode
+			is Opcode.AddRegister
+			or Opcode.MultiplyRegister
+			or Opcode.BitwiseAndRegister
+			or Opcode.BitwiseOrRegister
+			or Opcode.GreaterThanRegisterRegister
+			or Opcode.EqualRegisterRegister;
 }
