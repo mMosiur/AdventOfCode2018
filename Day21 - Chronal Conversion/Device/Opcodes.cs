@@ -16,10 +16,10 @@ public static class Opcodes
 		["bori"] = Opcode.BitwiseOrImmediate,
 		["setr"] = Opcode.SetRegister,
 		["seti"] = Opcode.SetImmediate,
-		["eqir"] = Opcode.GreaterThanImmediateRegister,
+		["gtir"] = Opcode.GreaterThanImmediateRegister,
 		["gtri"] = Opcode.GreaterThanRegisterImmediate,
 		["gtrr"] = Opcode.GreaterThanRegisterRegister,
-		["gtir"] = Opcode.EqualImmediateRegister,
+		["eqir"] = Opcode.EqualImmediateRegister,
 		["eqri"] = Opcode.EqualRegisterImmediate,
 		["eqrr"] = Opcode.EqualRegisterRegister,
 	};
