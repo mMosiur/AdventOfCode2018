@@ -15,4 +15,9 @@ public class Day21Tests : BaseDayTests<Day21Solver, Day21SolverOptions>
 	[InlineData("my-input.txt", "212115")]
 	public override void TestPart1(string inputFilename, string expectedResult, Day21SolverOptions? options = null)
 		=> base.TestPart1(inputFilename, expectedResult, options);
+
+	[Theory]
+	[InlineData("my-input.txt", "9258470")]
+	public override void TestPart2(string inputFilename, string expectedResult, Day21SolverOptions? options = null)
+		=> base.TestPart2(inputFilename, expectedResult, options);
 }

@@ -19,7 +19,7 @@ public class StoppingPointCPU : BaseCPU
 		ExecuteDeclarations();
 		while (ExecuteNextInstruction())
 		{
-			if(_instructionPointer == _stoppingPoint)
+			if (_instructionPointer == _stoppingPoint)
 			{
 				break;
 			}

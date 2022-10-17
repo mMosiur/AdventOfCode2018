@@ -29,7 +29,7 @@ public class Day21Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		StoppingPointCPU cpu = new(_numberOfRegisters, SystemInfo.StoppingPoint);
+		StoppingPointCPU cpu = new(_numberOfRegisters, SystemInfo.TargetInstructionIndex);
 		cpu.Execute(_program);
 		ulong result = cpu.Registers[SystemInfo.TargetRegisterNumber];
 		return result.ToString();
@@ -37,6 +37,8 @@ public class Day21Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		RiggedCPU cpu = new(SystemInfo.TargetRegisterResetValue);
+		ulong result = cpu.FindNonHaltingValues().Last();
+		return result.ToString();
 	}
 }
