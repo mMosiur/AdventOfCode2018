@@ -4,3 +4,6 @@ obj/
 
 # VS Code
 .vscode
+
+# Ignore example input file I put in for testing and debugging
+example.txt
