@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2018.Day16;
 public class Day16Solver : DaySolver
 {
 	private static readonly Lazy<Regex> _inputFileRegexLazy = new(
-		() => new Regex(@"\n{2,}", RegexOptions.Compiled)
+		() => new Regex(@"(?>\r?\n){2,}", RegexOptions.Compiled)
 	);
 
 	private readonly Day16SolverOptions _options;

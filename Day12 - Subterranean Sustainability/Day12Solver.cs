@@ -11,7 +11,7 @@ public class Day12Solver : DaySolver
 
 	public Day12Solver(Day12SolverOptions options) : base(options)
 	{
-		Regex regex = new(@"initial state: (?<initialState>[#\.]+)\n+(?<notes>(?>[#\.]+\s*=>\s*[#\.](?:\n|$))+)");
+		Regex regex = new(@"initial state: (?<initialState>[#\.]+)(?>\r?\n)+(?<notes>(?>[#\.]+\s*=>\s*[#\.](?:(?>\r?\n)|$))+)");
 		Match match = regex.Match(Input);
 		IEnumerable<PotTransformNote> rawNotes = match.Groups["notes"].Value
 			.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
