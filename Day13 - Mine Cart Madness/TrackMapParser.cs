@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AdventOfCode.Year2018.Day13;
 
-public static class TrackMapParser
+static class TrackMapParser
 {
 	public static TrackSymbol[,] Parse(string[] input)
 	{

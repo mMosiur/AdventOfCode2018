@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day01;
 
-public class FrequencyDriftAnalyzer
+class FrequencyDriftAnalyzer
 {
 	public int StartingFrequency { get; }
 

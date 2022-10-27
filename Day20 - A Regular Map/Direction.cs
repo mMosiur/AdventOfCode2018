@@ -16,7 +16,7 @@ namespace AdventOfCode.Year2018.Day20;
 /// W = (0, -1);
 /// </code>
 /// </remarks>
-public enum Direction : byte
+enum Direction : byte
 {
 	East = 1, // 0b0001
 	West = 3, // 0b0011
@@ -24,7 +24,7 @@ public enum Direction : byte
 	North = 12, // 0b1100
 }
 
-public static class DirectionHelpers
+static class DirectionHelpers
 {
 	public static bool IsDefined(Direction direction) => direction is Direction.East or Direction.West or Direction.South or Direction.North;
 

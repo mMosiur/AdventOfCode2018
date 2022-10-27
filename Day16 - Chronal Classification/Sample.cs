@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day16.Device;
 
 namespace AdventOfCode.Year2018.Day16;
 
-public class Sample
+class Sample
 {
 	private static readonly Regex _regex = new(@"[ \t]*Before:[ \t]*(.+)\n[ \t]*(.+)\nAfter:[ \t]*(.+)[ \t]*\n?", RegexOptions.Compiled);
 

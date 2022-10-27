@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day10.Geometry;
 
 namespace AdventOfCode.Year2018.Day10;
 
-public class SkyPoint
+class SkyPoint
 {
 	private static readonly Regex _regex = new(
 		@"^(?: |\t)*position(?: |\t)*=(?: |\t)*<(?: |\t)*(?<positionX>\-?\d+)(?: |\t)*,(?: |\t)*(?<positionY>\-?\d+)(?: |\t)*>(?: |\t)*velocity(?: |\t)*=(?: |\t)*<(?: |\t)*(?<velocityX>\-?\d+)(?: |\t)*,(?: |\t)*(?<velocityY>\-?\d+)(?: |\t)*>(?: |\t)*$",

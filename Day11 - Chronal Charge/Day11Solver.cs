@@ -8,7 +8,7 @@ public class Day11Solver : DaySolver
 
 	private readonly Lazy<FuelCellGrid> _grid;
 
-	public FuelCellGrid Grid => _grid.Value;
+	private FuelCellGrid Grid => _grid.Value;
 
 	public Day11Solver(Day11SolverOptions options) : base(options)
 	{

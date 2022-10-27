@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day20.Geometry;
 
 namespace AdventOfCode.Year2018.Day20;
 
-public class RoomDistances : IReadOnlyDictionary<Position, int>
+class RoomDistances : IReadOnlyDictionary<Position, int>
 {
 	private readonly IReadOnlyDictionary<Position, int> _distances;
 

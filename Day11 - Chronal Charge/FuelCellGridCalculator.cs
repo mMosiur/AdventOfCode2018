@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day11;
 
-public class FuelCellGridCalculator
+class FuelCellGridCalculator
 {
 	private readonly FuelCellGrid _grid;
 

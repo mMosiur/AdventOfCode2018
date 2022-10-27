@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day15.Map.Units;
 
-public abstract class Unit : MapSpot
+abstract class Unit : MapSpot
 {
 	public const int DefaultHitPoints = 200;
 	public const int DefaultAttackPower = 3;

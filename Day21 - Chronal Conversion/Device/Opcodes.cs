@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AdventOfCode.Year2018.Day21.Device;
 
-public static class Opcodes
+static class Opcodes
 {
 	private static readonly Dictionary<string, Opcode> _opcodes = new()
 	{

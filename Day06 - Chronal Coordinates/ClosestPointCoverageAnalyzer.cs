@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day06;
 
-public class ClosestPointCoverageAnalyzer
+class ClosestPointCoverageAnalyzer
 {
 	private readonly IEnumerable<Point> _points;
 

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day21.Device;
 
-public static class DeclarationKeyword
+static class DeclarationKeyword
 {
 	public const string BindInstructionPointerKeyword = "ip";
 

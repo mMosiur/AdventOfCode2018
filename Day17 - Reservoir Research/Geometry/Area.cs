@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public readonly struct Area
+readonly struct Area
 {
 	public Range XRange { get; }
 	public Range YRange { get; }

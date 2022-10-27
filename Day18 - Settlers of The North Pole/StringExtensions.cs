@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day18.StringExtensions;
 
-public static class StringExtensions
+static class StringExtensions
 {
 	public static IEnumerable<string> EnumerateLines(this string text)
 	{

@@ -1,7 +1,7 @@
 namespace AdventOfCode.Year2018.Day13;
 
 [Serializable]
-public class LoneCartLeftException : Exception
+class LoneCartLeftException : Exception
 {
 	public Coordinate LoneCartPosition { get; }
 

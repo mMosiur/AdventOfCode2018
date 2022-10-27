@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day16;
 
-public abstract class OpcodeDictionary
+abstract class OpcodeDictionary
 {
 	public static readonly IReadOnlyCollection<string> OpcodeNames = new string[]
 	{

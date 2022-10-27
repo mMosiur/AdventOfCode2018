@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day10.Geometry;
 
-public record struct Vector(int X, int Y)
+record struct Vector(int X, int Y)
 {
 	public static Vector operator +(Vector vector1, Vector vector2)
 	{

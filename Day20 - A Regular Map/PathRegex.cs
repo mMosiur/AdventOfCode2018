@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day20.Geometry;
 
 namespace AdventOfCode.Year2018.Day20;
 
-public class PathRegex
+class PathRegex
 {
 	private readonly string _regex;
 
@@ -110,7 +110,7 @@ public class PathRegex
 	}
 }
 
-public enum PathChar : ushort
+enum PathChar : ushort
 {
 	North = 'N',
 	South = 'S',
@@ -121,7 +121,7 @@ public enum PathChar : ushort
 	GroupEnd = ')',
 }
 
-public static class PathCharacters
+static class PathCharacters
 {
 	public static bool IsDefined(char c) => (PathChar)c is PathChar.North or PathChar.South or PathChar.West or PathChar.East or PathChar.BranchSeparator or PathChar.GroupStart or PathChar.GroupEnd;
 	public static bool IsDirection(PathChar c) => c is PathChar.North or PathChar.South or PathChar.West or PathChar.East;

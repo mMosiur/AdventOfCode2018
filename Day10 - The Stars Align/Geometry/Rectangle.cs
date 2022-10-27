@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day10.Geometry;
 
-public ref struct Rectangle
+ref struct Rectangle
 {
 	public int MinX { get; }
 	public int MinY { get; }

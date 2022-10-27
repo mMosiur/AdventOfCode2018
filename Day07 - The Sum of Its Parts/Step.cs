@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day07;
 
-public abstract class Step
+abstract class Step
 {
 	public char Letter { get; }
 

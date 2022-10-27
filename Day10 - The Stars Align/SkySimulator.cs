@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day10.Geometry;
 
 namespace AdventOfCode.Year2018.Day10;
 
-public class SkySimulator
+class SkySimulator
 {
 	private readonly Sky _sky;
 	private readonly int _maxAreaToDisplay;

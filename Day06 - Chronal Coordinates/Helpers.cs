@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day06;
 
-public static class Helpers
+static class Helpers
 {
 	public static IEnumerable<Point> GetPointsInArea(int minX, int maxX, int minY, int maxY)
 	{

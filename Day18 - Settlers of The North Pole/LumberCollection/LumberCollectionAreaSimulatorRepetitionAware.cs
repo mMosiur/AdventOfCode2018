@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public class LumberCollectionAreaSimulatorRepetitionAware : LumberCollectionAreaSimulator
+class LumberCollectionAreaSimulatorRepetitionAware : LumberCollectionAreaSimulator
 {
 	public LumberCollectionAreaSimulatorRepetitionAware(LumberCollectionArea area) : base(area)
 	{

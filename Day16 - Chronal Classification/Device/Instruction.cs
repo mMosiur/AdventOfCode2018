@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day16.Device;
 
-public record struct Instruction(byte Opcode, byte A, byte B, byte C)
+record struct Instruction(byte Opcode, byte A, byte B, byte C)
 {
 	private static readonly Regex _regex = new(@"^[ \t]*(\d+) (\d+) (\d+) (\d+)[ \r\t]*$", RegexOptions.Compiled);
 

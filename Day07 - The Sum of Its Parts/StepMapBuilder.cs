@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day07;
 
-public class StepMapBuilder
+class StepMapBuilder
 {
 	private readonly HashSet<char> _allRegisteredSteps = new();
 	private readonly Dictionary<char, HashSet<char>> _requirements = new();

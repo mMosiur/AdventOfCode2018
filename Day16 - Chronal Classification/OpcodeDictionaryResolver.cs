@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day16;
 
-public class OpcodeDictionaryResolver : OpcodeDictionary
+class OpcodeDictionaryResolver : OpcodeDictionary
 {
 	private readonly List<string> _unresolvedOperations;
 

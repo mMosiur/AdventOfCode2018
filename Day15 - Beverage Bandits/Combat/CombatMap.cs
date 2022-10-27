@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day15.Map.Units;
 
 namespace AdventOfCode.Year2018.Day15.Combat;
 
-public class CombatMap
+class CombatMap
 {
 	private readonly MapSpot?[,] _map;
 

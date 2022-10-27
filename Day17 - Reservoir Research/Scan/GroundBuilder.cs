@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day17.Geometry;
 
 namespace AdventOfCode.Year2018.Day17.Scan;
 
-public class GroundBuilder
+class GroundBuilder
 {
 	private readonly List<ILine> _veinsOfClay = new();
 	private Point? _springOfWaterPosition = null;

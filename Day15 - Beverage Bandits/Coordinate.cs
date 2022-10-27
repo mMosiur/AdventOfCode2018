@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day15;
 
-public struct Coordinate : IComparable<Coordinate>, IEquatable<Coordinate>
+struct Coordinate : IComparable<Coordinate>, IEquatable<Coordinate>
 {
 	public int X { get; }
 	public int Y { get; }

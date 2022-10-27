@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day17.Geometry;
 
 namespace AdventOfCode.Year2018.Day17.Scan;
 
-public class Ground : IEnumerable<GroundType>
+class Ground : IEnumerable<GroundType>
 {
 	private readonly GroundType[,] _ground;
 	private readonly HashSet<Point> _activeWaterPoints;

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day13;
 
-public enum Orientation
+enum Orientation
 {
 	Unknown = default,
 

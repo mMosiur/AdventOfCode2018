@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day13;
 
-public class CartCrashAnalyzer
+class CartCrashAnalyzer
 {
 	private readonly TrackSymbol[,] _map;
 	private readonly IReadOnlyCollection<Cart> _carts;

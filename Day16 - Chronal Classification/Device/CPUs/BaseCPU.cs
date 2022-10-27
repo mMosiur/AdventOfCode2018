@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day16.Device.CPUs;
 
-public class BaseCPU
+class BaseCPU
 {
 	private readonly Registers _startingRegisters;
 

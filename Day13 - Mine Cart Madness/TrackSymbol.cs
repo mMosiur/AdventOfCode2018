@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day13;
 
-public enum TrackSymbol
+enum TrackSymbol
 {
 	Unknown = default,
 

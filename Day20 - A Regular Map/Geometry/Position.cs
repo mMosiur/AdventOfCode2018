@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day20.Geometry;
 
-public readonly struct Position
+readonly struct Position
 {
 	public int X { get; }
 	public int Y { get; }

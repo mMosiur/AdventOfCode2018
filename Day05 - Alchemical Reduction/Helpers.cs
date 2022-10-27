@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day05;
 
-public static class Helpers
+static class Helpers
 {
 	public static IEnumerable<(char Lower, char Upper)> GetAsciiAlphabetCasePairs()
 	{

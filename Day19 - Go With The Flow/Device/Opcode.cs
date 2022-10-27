@@ -1,7 +1,7 @@
 namespace AdventOfCode.Year2018.Day19.Device;
 
 // Opcodes are defined according to my own input result from day 16.
-public enum Opcode : byte
+enum Opcode : byte
 {
 	AddRegister = 10,
 	AddImmediate = 6,

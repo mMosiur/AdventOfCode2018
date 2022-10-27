@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day04;
 
-public enum EventType
+enum EventType
 {
 	BeginsShift,
 	FallsAsleep,

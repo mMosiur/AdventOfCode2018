@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day19.Device;
 
-public readonly struct Declaration
+readonly struct Declaration
 {
 	private static readonly Regex _regex = new(@"^[ \t]*#[ \t]*([a-z]+)[ \t]+(\d+)[ \t]*$", RegexOptions.Compiled);
 

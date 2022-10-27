@@ -5,7 +5,7 @@ using Microsoft.Toolkit.HighPerformance;
 
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public class LumberCollectionArea : ICloneable
+class LumberCollectionArea : ICloneable
 {
 	private readonly AcreContent[,] _area;
 

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day04;
 
-public record struct GuardTimeRecord(DateTime TimeStamp, EventType EventType, int GuardId)
+record struct GuardTimeRecord(DateTime TimeStamp, EventType EventType, int GuardId)
 {
 	public static GuardTimeRecord FromTimeRecord(TimeRecord timeRecord, int guardId)
 	{

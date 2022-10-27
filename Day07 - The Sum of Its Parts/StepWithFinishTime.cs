@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day07;
 
-public struct StepWithFinishTime
+struct StepWithFinishTime
 {
 	public Step Step { get; }
 	public int FinishTime { get; }

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day19.Device;
 
-public class Registers : IReadOnlyRegisters, IEquatable<Registers>
+class Registers : IReadOnlyRegisters, IEquatable<Registers>
 {
 	private const uint DEFAULT_REGISTER_VALUE = 0;
 	private static readonly Regex _regex = new(@"\[((?>\d+)(?>, (?>\d+))*)\]", RegexOptions.Compiled);

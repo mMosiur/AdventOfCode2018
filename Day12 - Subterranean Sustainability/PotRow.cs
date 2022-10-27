@@ -2,7 +2,7 @@ using System.Text;
 
 namespace AdventOfCode.Year2018.Day12;
 
-public class PotRow
+class PotRow
 {
 	private int indexShift = 0;
 	private PotState outerValue = PotState.Empty;

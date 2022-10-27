@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day19.Device;
 
-public class Program
+class Program
 {
 	public IReadOnlyList<Declaration> Declarations { get; }
 	public IReadOnlyList<Instruction> Instructions { get; }
