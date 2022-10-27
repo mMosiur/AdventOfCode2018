@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day15.Map.Units;
 namespace AdventOfCode.Year2018.Day15.Exceptions;
 
 [Serializable]
-public class ElfKilledException : Exception
+class ElfKilledException : Exception
 {
 	public ElfUnit KilledElf { get; }
 	public GoblinUnit Killer { get; }

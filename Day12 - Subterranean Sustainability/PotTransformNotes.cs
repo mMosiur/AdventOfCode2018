@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day12;
 
-public class PotTransformNotes
+class PotTransformNotes
 {
 	private readonly Dictionary<byte, PotState> _notes;
 	private readonly PotState? _stateForAbsentNotes;

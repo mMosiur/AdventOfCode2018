@@ -5,7 +5,7 @@ using AdventOfCode.Year2018.Day15.Path;
 
 namespace AdventOfCode.Year2018.Day15.Combat;
 
-public class CombatSimulator
+class CombatSimulator
 {
 	private readonly MapSpotType[,] _rawMap;
 	private CombatMap _combatMap;

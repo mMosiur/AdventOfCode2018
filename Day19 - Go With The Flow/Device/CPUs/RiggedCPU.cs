@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day19.Device.CPUs;
 
-public class RiggedCPU : BaseCPU
+class RiggedCPU : BaseCPU
 {
 	private readonly uint initialR0;
 
@@ -192,7 +192,7 @@ public class RiggedCPU : BaseCPU
 }
 
 [Serializable]
-public class RiggedCPUException : InvalidOperationException
+class RiggedCPUException : InvalidOperationException
 {
 	public RiggedCPUException() { }
 	public RiggedCPUException(string message) : base(message) { }

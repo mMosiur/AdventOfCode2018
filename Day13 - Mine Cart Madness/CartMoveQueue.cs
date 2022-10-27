@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day13;
 
-public class CartMoveQueue
+class CartMoveQueue
 {
 	private readonly SortedDictionary<Coordinate, Cart> _queue;
 

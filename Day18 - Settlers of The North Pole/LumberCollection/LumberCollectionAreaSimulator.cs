@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day18.Geometry;
 
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public abstract class LumberCollectionAreaSimulator
+abstract class LumberCollectionAreaSimulator
 {
 	private LumberCollectionArea _nextArea;
 	public LumberCollectionArea Area { get; private set; }

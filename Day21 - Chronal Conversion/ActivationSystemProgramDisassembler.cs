@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day21.Device;
 
 namespace AdventOfCode.Year2018.Day21;
 
-public class ActivationSystemProgramDisassembler
+class ActivationSystemProgramDisassembler
 {
 	private readonly int _controlRegisterNumber;
 
@@ -113,7 +113,7 @@ public class ActivationSystemProgramDisassembler
 	}
 }
 
-public readonly struct DisassembledActivationSystemInfo
+readonly struct DisassembledActivationSystemInfo
 {
 	public int TargetInstructionIndex { get; }
 	public int TargetRegisterNumber { get; }

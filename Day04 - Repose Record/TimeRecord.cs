@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day04;
 
-public record struct TimeRecord(DateTime TimeStamp, EventType EventType, int? GuardId)
+record struct TimeRecord(DateTime TimeStamp, EventType EventType, int? GuardId)
 {
 
 	private static readonly Regex Regex = new Regex(

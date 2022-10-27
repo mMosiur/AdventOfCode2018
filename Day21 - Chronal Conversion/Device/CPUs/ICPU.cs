@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day21.Device.CPUs;
 
-public interface ICPU
+interface ICPU
 {
 	IReadOnlyRegisters Registers { get; }
 

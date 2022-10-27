@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day06;
 
-public record struct Point(int X, int Y)
+record struct Point(int X, int Y)
 {
 	private static readonly Regex PointRegex = new(@"^[^\S\r\n]*(?<x>\d+)[^\S\r\n]*,[^\S\r\n]*(?<y>\d+)[^\S\r\n]*$", RegexOptions.Compiled);
 	public static Point Parse(string s)

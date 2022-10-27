@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace AdventOfCode.Year2018.Day08;
 
-public class InvalidNumberStructure : ApplicationException
+class InvalidNumberStructure : ApplicationException
 {
 	public InvalidNumberStructure() { }
 	public InvalidNumberStructure(string message) : base(message) { }

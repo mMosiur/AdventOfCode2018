@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day09;
 
-public class MarbleGame
+class MarbleGame
 {
 	private readonly PriorityQueue<Marble, int> _marblesLeft;
 	private readonly long[] _playerScores;

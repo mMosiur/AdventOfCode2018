@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day19.Device.CPUs;
 
-public class CPU : BaseCPU
+class CPU : BaseCPU
 {
 	public CPU(int numberOfRegisters) : base(numberOfRegisters)
 	{

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day06;
 
-public class TotalDistanceCoverageAnalyzer
+class TotalDistanceCoverageAnalyzer
 {
 	private readonly IEnumerable<Point> _points;
 

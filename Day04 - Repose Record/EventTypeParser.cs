@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day04;
 
-public static class EventTypeParser
+static class EventTypeParser
 {
 	private static readonly Regex BeginsShiftRegex = new Regex(
 		pattern: @"^\s*Guard\s+#(?<id>\d+)\s+begins\sshift\s*$",

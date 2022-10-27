@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day12;
 
-public struct PotTransformNote
+struct PotTransformNote
 {
 	private readonly PotState[] _from;
 	private readonly PotState _to;

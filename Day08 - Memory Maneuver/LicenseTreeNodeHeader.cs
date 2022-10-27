@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day08;
 
-public struct LicenseTreeNodeHeader
+struct LicenseTreeNodeHeader
 {
 	public int ChildNodesCount { get; }
 	public int MetadataEntriesCount { get; }

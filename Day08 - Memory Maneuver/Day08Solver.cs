@@ -8,7 +8,7 @@ public class Day08Solver : DaySolver
 
 	private LicenseTree? _licenseTree;
 
-	public LicenseTree LicenseTree => _licenseTree ??= GenerateLicenseTree();
+	private LicenseTree LicenseTree => _licenseTree ??= GenerateLicenseTree();
 
 	public Day08Solver(Day08SolverOptions options) : base(options)
 	{

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day15.Map;
 
-public class Wall : MapSpot
+class Wall : MapSpot
 {
 	public override MapSpotType Type => MapSpotType.Wall;
 

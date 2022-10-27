@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day16.Device.CPUs;
 
-public class NamedOpcodeCPU : BaseCPU
+class NamedOpcodeCPU : BaseCPU
 {
 	private readonly Dictionary<string, Action<byte, byte, byte>> _operations;
 

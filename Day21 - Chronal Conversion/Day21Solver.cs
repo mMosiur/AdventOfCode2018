@@ -9,7 +9,7 @@ public class Day21Solver : DaySolver
 	private readonly Lazy<DisassembledActivationSystemInfo> _systemInfo;
 	private readonly int _numberOfRegisters;
 
-	public DisassembledActivationSystemInfo SystemInfo => _systemInfo.Value;
+	private DisassembledActivationSystemInfo SystemInfo => _systemInfo.Value;
 
 	public Day21Solver(Day21SolverOptions options) : base(options)
 	{

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day15.Path;
 
-public struct PathSignature : IComparable<PathSignature>, IEquatable<PathSignature>
+struct PathSignature : IComparable<PathSignature>, IEquatable<PathSignature>
 {
 	private readonly Coordinate? _firstStep;
 

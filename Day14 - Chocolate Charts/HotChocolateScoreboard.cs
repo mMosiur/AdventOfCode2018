@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day14;
 
-public class HotChocolateScoreboard
+class HotChocolateScoreboard
 {
 	private readonly List<byte> _scores;
 	private int _elf1Index;

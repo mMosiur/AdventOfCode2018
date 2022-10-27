@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day08;
 
-public class LicenseTreeNode
+class LicenseTreeNode
 {
 	public LicenseTreeNodeHeader Header { get; }
 	public IReadOnlyList<LicenseTreeNode> ChildNodes { get; }

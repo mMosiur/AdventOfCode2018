@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day17.Scan;
 
-public enum GroundType
+enum GroundType
 {
 	Sand,
 	Clay,
@@ -9,7 +9,7 @@ public enum GroundType
 	WaterSpring,
 }
 
-public static class GroundTypes
+static class GroundTypes
 {
 	public static GroundType FromChar(char c) => c switch
 	{

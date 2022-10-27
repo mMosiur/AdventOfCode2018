@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day03;
 
-public static class Extensions
+static class Extensions
 {
 	public static IEnumerable<Point> GetPoints(this ElfClaim claim)
 	{

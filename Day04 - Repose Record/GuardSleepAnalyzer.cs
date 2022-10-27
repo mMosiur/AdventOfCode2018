@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day04;
 
-public class GuardSleepAnalyzer
+class GuardSleepAnalyzer
 {
 	private readonly IReadOnlyList<GuardTimeRecord> _guardTimeRecords;
 

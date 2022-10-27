@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day10.Geometry;
 
 namespace AdventOfCode.Year2018.Day10;
 
-public class Sky
+class Sky
 {
 	private readonly ICollection<SkyPoint> _points;
 	private readonly char _emptySkyRepresentation;

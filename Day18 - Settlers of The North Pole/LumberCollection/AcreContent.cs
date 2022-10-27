@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public enum AcreContent : byte
+enum AcreContent : byte
 {
 	Unknown,
 
@@ -9,7 +9,7 @@ public enum AcreContent : byte
 	Lumberyard,
 }
 
-public static class AcreContents
+static class AcreContents
 {
 	public static AcreContent Parse(char c) => c switch
 	{

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day13;
 
-public struct Cart
+struct Cart
 {
 	private int _intersectionsCrossed;
 	private Orientation _orientation;

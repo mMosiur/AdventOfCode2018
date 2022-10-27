@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day09;
 
-public class MarbleCircle
+class MarbleCircle
 {
 	private readonly LinkedList<Marble> _marbles = new();
 	private LinkedListNode<Marble> _currentMarble;

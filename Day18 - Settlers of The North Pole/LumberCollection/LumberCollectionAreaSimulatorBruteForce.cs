@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
-public class LumberCollectionAreaSimulatorBruteForce : LumberCollectionAreaSimulator
+class LumberCollectionAreaSimulatorBruteForce : LumberCollectionAreaSimulator
 {
 	public LumberCollectionAreaSimulatorBruteForce(LumberCollectionArea area) : base(area)
 	{

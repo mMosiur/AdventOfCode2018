@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public class AreaBuilder
+class AreaBuilder
 {
 	private bool _initialized = false;
 	private int _minX = int.MaxValue;

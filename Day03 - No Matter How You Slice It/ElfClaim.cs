@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day03;
 
-public record struct ElfClaim(int Id, int Left, int Top, int Width, int Height)
+record struct ElfClaim(int Id, int Left, int Top, int Width, int Height)
 {
 	private static readonly Regex Regex = new Regex(@"\s*\#(\d+)\s*\@\s*(\d+)\s*,\s*(\d+)\s*:\s*(\d+)\s*x\s*(\d+)\s*", RegexOptions.Compiled);
 

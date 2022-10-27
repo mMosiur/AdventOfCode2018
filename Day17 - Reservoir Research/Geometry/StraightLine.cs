@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day17.Geometry;
 
-public static class StraightLine
+static class StraightLine
 {
 	private static readonly Regex _regex = new(@"^(?<vertical>x ?= ?(?<x>\d+),[ \t]*y ?= ?(?<y1>\d+)\.\.(?<y2>\d+))|(?<horizontal>y ?= ?(?<y>\d+),[ \t]*x ?= ?(?<x1>\d+)\.\.(?<x2>\d+))$", RegexOptions.Compiled);
 

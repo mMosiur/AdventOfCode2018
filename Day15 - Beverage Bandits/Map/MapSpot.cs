@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day15.Map.Units;
 
 namespace AdventOfCode.Year2018.Day15.Map;
 
-public abstract class MapSpot
+abstract class MapSpot
 {
 	public abstract MapSpotType Type { get; }
 

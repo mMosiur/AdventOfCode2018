@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day07;
 
-public class StepMap
+class StepMap
 {
 	public IReadOnlySet<Step> Steps { get; }
 

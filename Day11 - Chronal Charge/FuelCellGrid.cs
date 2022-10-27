@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day11;
 
-public class FuelCellGrid
+class FuelCellGrid
 {
 	private readonly int[,] _fuelCellsPowerLevels;
 

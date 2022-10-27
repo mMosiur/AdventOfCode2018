@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day08;
 
-public class LicenseTree
+class LicenseTree
 {
 	public LicenseTreeNode Root { get; }
 

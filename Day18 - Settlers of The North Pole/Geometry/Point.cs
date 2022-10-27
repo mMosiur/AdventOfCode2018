@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day18.Geometry;
 
-public readonly record struct Point(int Y, int X)
+readonly record struct Point(int Y, int X)
 {
 	public Point TopLeft => new(Y - 1, X - 1);
 	public Point Top => new(Y - 1, X);

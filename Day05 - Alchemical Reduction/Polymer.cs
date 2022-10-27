@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace AdventOfCode.Year2018.Day05;
 
-public class Polymer : IReadOnlyList<char>
+class Polymer : IReadOnlyList<char>
 {
 	private readonly string _polymerUnits;
 

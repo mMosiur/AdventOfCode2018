@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day02;
 
-public class CharAnalyzer
+class CharAnalyzer
 {
 	private IEnumerable<char>? _chars;
 	private Dictionary<int, IEnumerable<char>>? _charsByCount;

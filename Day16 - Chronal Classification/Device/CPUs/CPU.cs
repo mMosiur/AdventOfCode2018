@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day16.Device.CPUs;
 
-public class CPU : BaseCPU
+class CPU : BaseCPU
 {
 	private readonly Dictionary<byte, Action<byte, byte, byte>> _operations;
 

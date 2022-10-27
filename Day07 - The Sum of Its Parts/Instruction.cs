@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Year2018.Day07;
 
-public record struct Instruction(char StepLetter, char RequiredStepLetter)
+record struct Instruction(char StepLetter, char RequiredStepLetter)
 {
 	private static readonly Regex Regex = new(@"^\s*Step (?<requirement>\w) must be finished before step (?<step>\w) can begin.\s*$", RegexOptions.IgnoreCase);
 

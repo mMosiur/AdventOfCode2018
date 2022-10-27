@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day09;
 
-public class Marble
+class Marble
 {
 	public int Number { get; }
 

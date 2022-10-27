@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day15;
 
-public static class ExtendedMath
+static class ExtendedMath
 {
 	public static int ManhattanDistance(Coordinate coord1, Coordinate coord2)
 	{

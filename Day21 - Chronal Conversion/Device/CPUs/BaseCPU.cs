@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day21.Device.CPUs;
 
-public abstract class BaseCPU : ICPU
+abstract class BaseCPU : ICPU
 {
 	protected readonly Registers _registers;
 	protected Program? _program;

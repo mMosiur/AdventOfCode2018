@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace AdventOfCode.Year2018.Day15.Path;
 
-public class PathSignatureQueue : ICollection<PathSignature>
+class PathSignatureQueue : ICollection<PathSignature>
 {
 	private readonly SortedSet<PathSignature> _queue;
 

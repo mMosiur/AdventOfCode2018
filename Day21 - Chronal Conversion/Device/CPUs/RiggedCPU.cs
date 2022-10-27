@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day21.Device.CPUs;
 
-public class RiggedCPU
+class RiggedCPU
 {
 	private readonly ulong _targetRegisterResetValue;
 
