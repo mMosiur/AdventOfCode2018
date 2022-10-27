@@ -3,7 +3,7 @@ using AdventOfCode.Year2018.Day22.Geometry;
 
 namespace AdventOfCode.Year2018.Day22;
 
-public class InputParser
+class InputParser
 {
 	private static readonly Regex _depthRegex = new(@"[ \t]*depth:[ \t]*(\d+)[ \t]*$");
 	private static readonly Regex _targetRegex = new(@"^[ \t]*target:[ \t]*(\d+),[ \t]*(\d+)[ \t]*$");

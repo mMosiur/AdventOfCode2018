@@ -1,13 +1,13 @@
-namespace AdventOfCode.Year2018.Day22;
+namespace AdventOfCode.Year2018.Day22.Cave;
 
-public enum RegionType : byte
+enum RegionType : byte
 {
 	Rocky = 1,
 	Wet = 2,
 	Narrow = 3,
 }
 
-public static class RegionTypeExtensions
+static class RegionTypeExtensions
 {
 	public static char ToChar(this RegionType regionType) => regionType switch
 	{

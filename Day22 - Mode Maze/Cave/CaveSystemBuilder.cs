@@ -1,21 +1,15 @@
 using AdventOfCode.Year2018.Day22.Geometry;
 
-namespace AdventOfCode.Year2018.Day22;
+namespace AdventOfCode.Year2018.Day22.Cave;
 
-public class CaveSystemBuilder
+class CaveSystemBuilder
 {
+	private ushort? _padding;
 	private ushort? _depth;
 	private Coordinate? _targetCoordinate;
 	private CaveDataCalculator? _calculator;
 
-	public CaveSystemBuilder()
-	{
-	}
-
-	public CaveSystemBuilder(Coordinate targetCoordinate)
-	{
-		_targetCoordinate = targetCoordinate;
-	}
+	public ushort Padding => _padding ?? 0;
 
 	public CaveSystemBuilder WithTargetCoordinate(Coordinate targetCoordinate)
 	{
@@ -37,36 +31,49 @@ public class CaveSystemBuilder
 		return this;
 	}
 
+	public CaveSystemBuilder WithPadding(ushort padding)
+	{
+		if (_padding is not null)
+		{
+			throw new InvalidOperationException("Padding has already been set.");
+		}
+		_padding = padding;
+		return this;
+	}
+
 	private ushort[,] GenerateErosionLevels()
 	{
 		CaveDataCalculator calc = _calculator ?? throw new InvalidOperationException("Cave data calculator has not been created.");
 		Coordinate targetCoordinate = _targetCoordinate ?? throw new InvalidOperationException("Target coordinate has not been set.");
-		ushort width = Convert.ToUInt16(targetCoordinate.X + 1);
-		ushort height = Convert.ToUInt16(targetCoordinate.Y + 1);
+		ushort width = Convert.ToUInt16(targetCoordinate.X + 1 + Padding);
+		ushort height = Convert.ToUInt16(targetCoordinate.Y + 1 + Padding);
 		ushort[,] erosionLevels = new ushort[width, height];
 		erosionLevels[0, 0] = calc.CalculateErosionLevel(0);
-		for (ushort x = 1; x < width; x++)
+		for (int x = 1; x < width; x++)
 		{
-			const ushort y = 0;
-			ushort erosionLevel = calc.CalculateErosionLevel(new Coordinate(x, y));
-			erosionLevels[x, y] = erosionLevel;
+			erosionLevels[x, 0] = calc.GenerateEdgeErosionLevel(new Coordinate(x, 0));
 		}
-		for (ushort y = 1; y < height; y++)
+		for (int y = 1; y < height; y++)
 		{
-			const ushort x = 0;
-			erosionLevels[x, y] = calc.CalculateErosionLevel(new Coordinate(x, y));
+			erosionLevels[0, y] = calc.GenerateEdgeErosionLevel(new Coordinate(0, y));
 		}
-		for (ushort x = 1; x < width; x++)
+		for (int x = 1; x < width; x++)
 		{
-			for (ushort y = 1; y < height; y++)
+			for (int y = 1; y < height; y++)
 			{
-				erosionLevels[x, y] = calc.CalculateErosionLevel(
-					erosionLevelLeft: erosionLevels[x - 1, y],
-					erosionLevelAbove: erosionLevels[x, y - 1]
-				);
+				if (x == targetCoordinate.X && y == targetCoordinate.Y)
+				{
+					erosionLevels[x, y] = calc.CalculateErosionLevel(0);
+				}
+				else
+				{
+					erosionLevels[x, y] = calc.GenerateInteriorErosionLevel(
+						erosionLevelLeft: erosionLevels[x - 1, y],
+						erosionLevelAbove: erosionLevels[x, y - 1]
+					);
+				}
 			}
 		}
-		erosionLevels[width - 1, height - 1] = calc.CalculateErosionLevel(0);
 		return erosionLevels;
 	}
 
