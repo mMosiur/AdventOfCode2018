@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day20;
 
-public class Day20Solver : DaySolver
+public sealed class Day20Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 20;
+	public override string Title => "XD";
+
 	private readonly int _partTwoMinDistance;
 	private readonly Lazy<RoomDistances> _roomDistances;
 
@@ -15,8 +19,12 @@ public class Day20Solver : DaySolver
 		_roomDistances = new Lazy<RoomDistances>(GenerateRoomDistances);
 	}
 
-	public Day20Solver(Action<Day20SolverOptions>? configure = null)
+	public Day20Solver(Action<Day20SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day20Solver() : this(Day20SolverOptions.Default)
 	{
 	}
 

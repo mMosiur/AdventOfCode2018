@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day04;
 
-public class Day04Solver : DaySolver
+public sealed class Day04Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 4;
+	public override string Title => "XD";
+
 	private readonly List<GuardTimeRecord> _timeRecords;
 
 	public Day04Solver(Day04SolverOptions options) : base(options)
@@ -22,8 +26,12 @@ public class Day04Solver : DaySolver
 		}).ToList();
 	}
 
-	public Day04Solver(Action<Day04SolverOptions>? configure = null)
+	public Day04Solver(Action<Day04SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day04Solver() : this(Day04SolverOptions.Default)
 	{
 	}
 

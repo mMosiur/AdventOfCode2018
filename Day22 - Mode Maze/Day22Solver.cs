@@ -4,8 +4,12 @@ using AdventOfCode.Year2018.Day22.Geometry;
 
 namespace AdventOfCode.Year2018.Day22;
 
-public class Day22Solver : DaySolver
+public sealed class Day22Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 22;
+	public override string Title => "XD";
+
 	private readonly ushort _depth;
 	private readonly Coordinate _targetCoordinate;
 	private readonly Day22SolverOptions _options;
@@ -27,8 +31,12 @@ public class Day22Solver : DaySolver
 		_caveSystem = new Lazy<CaveSystem>(GenerateCaveSystem);
 	}
 
-	public Day22Solver(Action<Day22SolverOptions>? configure = null)
+	public Day22Solver(Action<Day22SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day22Solver() : this(Day22SolverOptions.Default)
 	{
 	}
 

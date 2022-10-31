@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day08;
 
-public class Day08Solver : DaySolver
+public sealed class Day08Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 8;
+	public override string Title => "XD";
+
 	private readonly int[] _numbers;
 
 	private LicenseTree? _licenseTree;
@@ -21,8 +25,12 @@ public class Day08Solver : DaySolver
 	private LicenseTree GenerateLicenseTree()
 		=> LicenseTree.BuildFromNumberStructure(_numbers);
 
-	public Day08Solver(Action<Day08SolverOptions>? configure = null)
+	public Day08Solver(Action<Day08SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day08Solver() : this(Day08SolverOptions.Default)
 	{
 	}
 

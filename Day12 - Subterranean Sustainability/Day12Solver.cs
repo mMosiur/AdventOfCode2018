@@ -3,8 +3,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day12;
 
-public class Day12Solver : DaySolver
+public sealed class Day12Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 12;
+	public override string Title => "XD";
+
 	private const int NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF = 100;
 	private readonly PotTransformNotes _notes;
 	private readonly IEnumerable<PotState> _initialPots;
@@ -31,8 +35,12 @@ public class Day12Solver : DaySolver
 		_initialPots = initialPots;
 	}
 
-	public Day12Solver(Action<Day12SolverOptions>? configure = null)
+	public Day12Solver(Action<Day12SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day12Solver() : this(Day12SolverOptions.Default)
 	{
 	}
 

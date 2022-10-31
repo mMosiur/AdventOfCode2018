@@ -2,14 +2,22 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day02;
 
-public class Day02Solver : DaySolver
+public sealed class Day02Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 2;
+	public override string Title => "XD";
+
 	public Day02Solver(Day02SolverOptions options) : base(options)
 	{
 	}
 
-	public Day02Solver(Action<Day02SolverOptions>? configure = null)
+	public Day02Solver(Action<Day02SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day02Solver() : this(Day02SolverOptions.Default)
 	{
 	}
 

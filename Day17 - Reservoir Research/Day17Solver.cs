@@ -5,8 +5,12 @@ using AdventOfCode.Year2018.Day17.Scan;
 
 namespace AdventOfCode.Year2018.Day17;
 
-public class Day17Solver : DaySolver
+public sealed class Day17Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 17;
+	public override string Title => "XD";
+
 	private readonly IEnumerable<ILine> _veinsOfClay;
 	private readonly Point _springOfWaterPosition;
 
@@ -19,8 +23,12 @@ public class Day17Solver : DaySolver
 		_veinsOfClay = InputLines.Select(StraightLine.Parse);
 	}
 
-	public Day17Solver(Action<Day17SolverOptions>? configure = null)
+	public Day17Solver(Action<Day17SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day17Solver() : this(Day17SolverOptions.Default)
 	{
 	}
 

@@ -3,8 +3,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day09;
 
-public class Day09Solver : DaySolver
+public sealed class Day09Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 9;
+	public override string Title => "XD";
+
 	private int PlayerCount { get; }
 	private int LastMarbleValue { get; }
 
@@ -23,8 +27,12 @@ public class Day09Solver : DaySolver
 		}
 	}
 
-	public Day09Solver(Action<Day09SolverOptions>? configure = null)
+	public Day09Solver(Action<Day09SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day09Solver() : this(Day09SolverOptions.Default)
 	{
 	}
 

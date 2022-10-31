@@ -4,8 +4,12 @@ using AdventOfCode.Year2018.Day19.Device.CPUs;
 
 namespace AdventOfCode.Year2018.Day19;
 
-public class Day19Solver : DaySolver
+public sealed class Day19Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 19;
+	public override string Title => "XD";
+
 	private readonly Device.Program _program;
 	private readonly Day19SolverOptions _options;
 
@@ -15,8 +19,12 @@ public class Day19Solver : DaySolver
 		_program = Device.Program.Parse(Input);
 	}
 
-	public Day19Solver(Action<Day19SolverOptions>? configure = null)
+	public Day19Solver(Action<Day19SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day19Solver() : this(Day19SolverOptions.Default)
 	{
 	}
 
