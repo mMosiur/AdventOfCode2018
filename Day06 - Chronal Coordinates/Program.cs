@@ -41,6 +41,9 @@ try
 		options.MaxTotalDistance = maxTotalDistance ?? options.MaxTotalDistance;
 	});
 
+	Console.WriteLine($"Advent of Code {solver.Year}");
+	Console.WriteLine($"--- Day {solver.Day}: {solver.Title} ---");
+
 	Console.Write("Part 1: ");
 	string part1 = solver.SolvePart1();
 	Console.WriteLine(part1);

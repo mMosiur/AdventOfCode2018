@@ -6,7 +6,7 @@ public sealed class Day06Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 6;
-	public override string Title => "XD";
+	public override string Title => "Chronal Coordinates";
 
 	private readonly int _maxTotalDistance;
 	private readonly Point[] _points;

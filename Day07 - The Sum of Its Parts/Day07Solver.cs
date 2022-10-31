@@ -6,7 +6,7 @@ public sealed class Day07Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 7;
-	public override string Title => "XD";
+	public override string Title => "The Sum of Its Parts";
 
 	private readonly IReadOnlyList<Instruction> _instructions;
 	private readonly Lazy<StepMap> _stepMap;

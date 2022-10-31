@@ -8,7 +8,7 @@ public sealed class Day19Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 19;
-	public override string Title => "XD";
+	public override string Title => "Go With The Flow";
 
 	private readonly Device.Program _program;
 	private readonly Day19SolverOptions _options;

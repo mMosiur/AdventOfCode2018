@@ -7,7 +7,7 @@ public sealed class Day12Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 12;
-	public override string Title => "XD";
+	public override string Title => "Subterranean Sustainability";
 
 	private const int NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF = 100;
 	private readonly PotTransformNotes _notes;

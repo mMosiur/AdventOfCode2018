@@ -6,7 +6,7 @@ public sealed class Day14Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 14;
-	public override string Title => "XD";
+	public override string Title => "Chocolate Charts";
 
 	private readonly int _inputNumber;
 	private readonly byte[] _inputSequence;

@@ -20,7 +20,7 @@ try
 	Console.WriteLine($"Advent of Code {solver.Year}");
 	Console.WriteLine($"--- Day {solver.Day}: {solver.Title} ---");
 
-	Console.Write("Part one: ");
+	Console.WriteLine("Part one: ");
 	string part1 = solver.SolvePart1();
 	Console.WriteLine(part1);
 

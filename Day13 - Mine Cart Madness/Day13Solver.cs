@@ -6,7 +6,7 @@ public sealed class Day13Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 13;
-	public override string Title => "XD";
+	public override string Title => "Mine Cart Madness";
 
 	private readonly TrackSymbol[,] _map;
 

@@ -6,7 +6,7 @@ public sealed class Day08Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 8;
-	public override string Title => "XD";
+	public override string Title => "Memory Maneuver";
 
 	private readonly int[] _numbers;
 

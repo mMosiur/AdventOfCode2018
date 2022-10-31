@@ -7,7 +7,7 @@ public sealed class Day18Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 18;
-	public override string Title => "XD";
+	public override string Title => "Settlers of The North Pole";
 
 	private readonly Day18SolverOptions _options;
 	private readonly LumberCollectionArea _initialArea;

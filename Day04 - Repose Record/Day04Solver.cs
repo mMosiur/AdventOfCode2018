@@ -6,7 +6,7 @@ public sealed class Day04Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 4;
-	public override string Title => "XD";
+	public override string Title => "Repose Record";
 
 	private readonly List<GuardTimeRecord> _timeRecords;
 

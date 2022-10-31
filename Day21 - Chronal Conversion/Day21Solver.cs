@@ -7,7 +7,7 @@ public sealed class Day21Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 21;
-	public override string Title => "XD";
+	public override string Title => "Chronal Conversion";
 
 	private readonly Device.Program _program;
 	private readonly Lazy<DisassembledActivationSystemInfo> _systemInfo;

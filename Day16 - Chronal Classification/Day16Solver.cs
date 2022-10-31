@@ -9,7 +9,7 @@ public sealed class Day16Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 16;
-	public override string Title => "XD";
+	public override string Title => "Chronal Classification";
 
 	private static readonly Lazy<Regex> _inputFileRegexLazy = new(
 		() => new Regex(@"(?>\r?\n){2,}", RegexOptions.Compiled)

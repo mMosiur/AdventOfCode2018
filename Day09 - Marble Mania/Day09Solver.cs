@@ -7,7 +7,7 @@ public sealed class Day09Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 9;
-	public override string Title => "XD";
+	public override string Title => "Marble Mania";
 
 	private int PlayerCount { get; }
 	private int LastMarbleValue { get; }

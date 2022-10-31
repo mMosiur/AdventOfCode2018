@@ -6,7 +6,7 @@ public sealed class Day05Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 5;
-	public override string Title => "XD";
+	public override string Title => "Alchemical Reduction";
 
 	private readonly string _polymerUnits;
 

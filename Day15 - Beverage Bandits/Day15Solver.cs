@@ -9,7 +9,7 @@ public sealed class Day15Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 15;
-	public override string Title => "XD";
+	public override string Title => "Beverage Bandits";
 
 	private readonly MapSpotType[,] _rawMap;
 

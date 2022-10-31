@@ -8,7 +8,7 @@ public sealed class Day22Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 22;
-	public override string Title => "XD";
+	public override string Title => "Mode Maze";
 
 	private readonly ushort _depth;
 	private readonly Coordinate _targetCoordinate;

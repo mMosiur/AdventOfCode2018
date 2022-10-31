@@ -6,7 +6,7 @@ public sealed class Day03Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 3;
-	public override string Title => "XD";
+	public override string Title => "No Matter How You Slice It";
 
 	private readonly IReadOnlyList<ElfClaim> _claims;
 

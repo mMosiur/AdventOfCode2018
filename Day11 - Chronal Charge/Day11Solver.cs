@@ -6,7 +6,7 @@ public sealed class Day11Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 11;
-	public override string Title => "XD";
+	public override string Title => "Chronal Charge";
 
 	private readonly int _inputNumber;
 

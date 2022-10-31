@@ -6,7 +6,7 @@ public sealed class Day10Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 10;
-	public override string Title => "XD";
+	public override string Title => "The Stars Align";
 
 	private readonly IEnumerable<SkyPoint> _points;
 	private readonly SkySimulator _simulator;

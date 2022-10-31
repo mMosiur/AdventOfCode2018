@@ -6,7 +6,7 @@ public sealed class Day02Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 2;
-	public override string Title => "XD";
+	public override string Title => "Inventory Management System";
 
 	public Day02Solver(Day02SolverOptions options) : base(options)
 	{

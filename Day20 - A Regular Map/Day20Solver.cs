@@ -6,7 +6,7 @@ public sealed class Day20Solver : DaySolver
 {
 	public override int Year => 2018;
 	public override int Day => 20;
-	public override string Title => "XD";
+	public override string Title => "A Regular Map";
 
 	private readonly int _partTwoMinDistance;
 	private readonly Lazy<RoomDistances> _roomDistances;
