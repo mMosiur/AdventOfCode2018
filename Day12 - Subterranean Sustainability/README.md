@@ -1,4 +1,4 @@
-# [Day 12](https://adventofcode.com/2018/day/12)
+# [Day 12: Subterranean Sustainability](https://adventofcode.com/2018/day/12)
 
 ## Part One
 
