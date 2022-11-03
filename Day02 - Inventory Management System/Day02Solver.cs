@@ -25,7 +25,7 @@ public sealed class Day02Solver : DaySolver
 	{
 		int twos = 0;
 		int threes = 0;
-		var analyzer = new CharAnalyzer();
+		CharAnalyzer analyzer = new();
 		foreach (string line in InputLines)
 		{
 			analyzer.Chars = line;
@@ -44,8 +44,8 @@ public sealed class Day02Solver : DaySolver
 
 	private (string First, string Second, int DifferencePosition) GetFirstPairThatDiffersByOne()
 	{
-		var lines = InputLines.ToList();
-		var analyzer = new CharAnalyzer();
+		List<string> lines = InputLines.ToList();
+		CharAnalyzer analyzer = new();
 		for (int i = 0; i < lines.Count; i++)
 		{
 			string line = lines[i];
@@ -53,7 +53,7 @@ public sealed class Day02Solver : DaySolver
 			for (int j = i + 1; j < lines.Count; j++)
 			{
 				string other = lines[j];
-				var positions = analyzer.GetPositionsOfDifferences(other);
+				IEnumerable<int> positions = analyzer.GetPositionsOfDifferences(other);
 				int differences = positions.Count();
 				if (differences == 1)
 				{
@@ -66,10 +66,10 @@ public sealed class Day02Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		var pair = GetFirstPairThatDiffersByOne();
+		(string first, _, int differencePosition) = GetFirstPairThatDiffersByOne();
 		string result =
-			pair.First.Substring(0, pair.DifferencePosition)
-			+ pair.First.Substring(pair.DifferencePosition + 1);
+			first.Substring(0, differencePosition)
+			+ first.Substring(differencePosition + 1);
 		return result;
 	}
 }

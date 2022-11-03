@@ -4,17 +4,17 @@ namespace AdventOfCode.Year2018.Day04;
 
 static class EventTypeParser
 {
-	private static readonly Regex BeginsShiftRegex = new Regex(
+	private static readonly Regex BeginsShiftRegex = new(
 		pattern: @"^\s*Guard\s+#(?<id>\d+)\s+begins\sshift\s*$",
 		options: RegexOptions.Compiled | RegexOptions.IgnoreCase
 	);
 
-	private static readonly Regex FallsAsleepRegex = new Regex(
+	private static readonly Regex FallsAsleepRegex = new(
 		pattern: @"^\s*falls\s+asleep\s*$",
 		options: RegexOptions.Compiled | RegexOptions.IgnoreCase
 	);
 
-	private static readonly Regex WakesUpRegex = new Regex(
+	private static readonly Regex WakesUpRegex = new(
 		pattern: @"^\s*wakes\s+up\s*$",
 		options: RegexOptions.Compiled | RegexOptions.IgnoreCase
 	);

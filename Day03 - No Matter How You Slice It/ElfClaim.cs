@@ -4,11 +4,11 @@ namespace AdventOfCode.Year2018.Day03;
 
 record struct ElfClaim(int Id, int Left, int Top, int Width, int Height)
 {
-	private static readonly Regex Regex = new Regex(@"\s*\#(\d+)\s*\@\s*(\d+)\s*,\s*(\d+)\s*:\s*(\d+)\s*x\s*(\d+)\s*", RegexOptions.Compiled);
+	private static readonly Regex Regex = new(@"\s*\#(\d+)\s*\@\s*(\d+)\s*,\s*(\d+)\s*:\s*(\d+)\s*x\s*(\d+)\s*", RegexOptions.Compiled);
 
 	public static ElfClaim Parse(string s)
 	{
-		var match = Regex.Match(s);
+		Match match = Regex.Match(s);
 		if (!match.Success)
 		{
 			throw new FormatException($"Failed to parse {s}");

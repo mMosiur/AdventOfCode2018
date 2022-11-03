@@ -35,10 +35,10 @@ class ActivationSystemProgramDisassembler
 			AssertInstruction(instructions[14], Opcode.AddRegister, a: temp2RegisterNumber, b: instructionPointerRegister, c: instructionPointerRegister);
 			AssertInstruction(instructions[15], Opcode.AddImmediate, a: instructionPointerRegister, b: temp2RegisterNumber, c: instructionPointerRegister);
 			AssertInstruction(instructions[16], Opcode.SetImmediate, a: 27, c: instructionPointerRegister);
-			var targetInstruction = RetrieveTargetInstructionIndexAndRegister(program);
+			(int targetInstructionIndex, int targetInstructionRegister) = RetrieveTargetInstructionIndexAndRegister(program);
 			return new DisassembledActivationSystemInfo(
-				targetInstruction.Index,
-				targetInstruction.Register,
+				targetInstructionIndex,
+				targetInstructionRegister,
 				targetRegisterResetValue
 			);
 		}

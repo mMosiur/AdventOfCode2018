@@ -47,9 +47,8 @@ class GuardSleepAnalyzer
 		{
 			throw new DaySolverException("Guard time records are not complete.");
 		}
-		var result = guardSleepTimes.MaxBy(kvp => kvp.Value);
-		minutesSlept = result.Value;
-		return result.Key;
+		(int result, minutesSlept) = guardSleepTimes.MaxBy(kvp => kvp.Value);
+		return result;
 	}
 
 	public IEnumerable<DateTime> EnumerateMinutesAsleep(int guardId)

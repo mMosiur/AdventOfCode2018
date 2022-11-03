@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2018.Day04;
 record struct TimeRecord(DateTime TimeStamp, EventType EventType, int? GuardId)
 {
 
-	private static readonly Regex Regex = new Regex(
+	private static readonly Regex Regex = new(
 		pattern: @"^\s*\[\s*(?<timestamp>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s*)\]\s+(?<type>.+)(?<!\s)\s*$",
 		options: RegexOptions.Compiled | RegexOptions.IgnoreCase
 	);

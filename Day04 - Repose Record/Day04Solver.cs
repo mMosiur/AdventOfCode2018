@@ -37,7 +37,7 @@ public sealed class Day04Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		var analyzer = new GuardSleepAnalyzer(_timeRecords);
+		GuardSleepAnalyzer analyzer = new(_timeRecords);
 		int mostSleepyGuardId = analyzer.GetLongestSleepingGuardId();
 		int mostOftenSleptMinute = analyzer
 			.EnumerateMinutesAsleep(mostSleepyGuardId)
@@ -50,7 +50,7 @@ public sealed class Day04Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		var analyzer = new GuardSleepAnalyzer(_timeRecords);
+		GuardSleepAnalyzer analyzer = new(_timeRecords);
 		HashSet<(int GuardId, int Minute, int Count)> sleepStatsByMinute = new();
 		foreach (int guardId in analyzer.GuardIds())
 		{
@@ -65,8 +65,8 @@ public sealed class Day04Solver : DaySolver
 			}
 			sleepStatsByMinute.Add((guardId, grouping.Key.Minute, grouping.Count()));
 		}
-		var longestSleepStatsByMinute = sleepStatsByMinute.MaxBy(value => value.Count);
-		int result = longestSleepStatsByMinute.GuardId * longestSleepStatsByMinute.Minute;
+		(int longestSleepGuardId, int longestSleepMinute, _) = sleepStatsByMinute.MaxBy(value => value.Count);
+		int result = longestSleepGuardId * longestSleepMinute;
 		return result.ToString();
 	}
 }
