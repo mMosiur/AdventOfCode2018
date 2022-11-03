@@ -44,6 +44,7 @@
     <ProjectReference Include="..\Day20 - A Regular Map\Day20.csproj" />
     <ProjectReference Include="..\Day21 - Chronal Conversion\Day21.csproj" />
     <ProjectReference Include="..\Day22 - Mode Maze\Day22.csproj" />
+    <ProjectReference Include="..\Day23 - Experimental Emergency Teleportation\Day23.csproj" />
   </ItemGroup>
 
    <ItemGroup>
