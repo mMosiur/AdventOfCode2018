@@ -1,4 +1,4 @@
-# [Day 22 - Mode Maze](https://adventofcode.com/2018/day/22)
+# [Day 22: Mode Maze](https://adventofcode.com/2018/day/22)
 
 ## Part One
 

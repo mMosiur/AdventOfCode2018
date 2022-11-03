@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day06;
 
-public class Day06Solver : DaySolver
+public sealed class Day06Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 6;
+	public override string Title => "Chronal Coordinates";
+
 	private readonly int _maxTotalDistance;
 	private readonly Point[] _points;
 
@@ -13,8 +17,12 @@ public class Day06Solver : DaySolver
 		_points = InputLines.Select(Point.Parse).ToArray();
 	}
 
-	public Day06Solver(Action<Day06SolverOptions>? configure = null)
+	public Day06Solver(Action<Day06SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day06Solver() : this(Day06SolverOptions.Default)
 	{
 	}
 

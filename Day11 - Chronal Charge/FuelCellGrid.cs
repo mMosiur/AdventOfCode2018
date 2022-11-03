@@ -21,10 +21,7 @@ class FuelCellGrid
 		}
 	}
 
-	public int this[int x, int y]
-	{
-		get => _fuelCellsPowerLevels[x - 1, y - 1];
-	}
+	public int this[int x, int y] => _fuelCellsPowerLevels[x - 1, y - 1];
 
 	public static int CalculateFuelCellPowerLevel(int x, int y, int gridSerialNumber)
 	{

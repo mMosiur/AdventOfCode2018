@@ -42,7 +42,7 @@ class FuelCellGridCalculator
 		}
 		if (maxSum == int.MinValue)
 		{
-			throw new ApplicationException("No max sum found.");
+			throw new DaySolverException("No max sum found.");
 		}
 		return (maxSumTopLeftX, maxSumTopLeftY);
 	}

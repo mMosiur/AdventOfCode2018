@@ -22,7 +22,7 @@ class FrequencyDriftAnalyzer
 	public int GetFirstFrequencyReachedTwice(IReadOnlyList<int> frequencyChanges, bool loopFrequencyChanges = false)
 	{
 		int currentFrequency = StartingFrequency;
-		var frequenciesReached = new HashSet<int> { currentFrequency };
+		HashSet<int> frequenciesReached = new() { currentFrequency };
 		while (loopFrequencyChanges)
 		{
 			foreach (int change in frequencyChanges)
@@ -35,6 +35,6 @@ class FrequencyDriftAnalyzer
 				}
 			}
 		}
-		throw new ApplicationException("No frequency was reached twice without looping frequency changes.");
+		throw new DaySolverException("No frequency was reached twice without looping frequency changes.");
 	}
 }

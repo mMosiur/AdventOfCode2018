@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day07;
 
-public class Day07Solver : DaySolver
+public sealed class Day07Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 7;
+	public override string Title => "The Sum of Its Parts";
+
 	private readonly IReadOnlyList<Instruction> _instructions;
 	private readonly Lazy<StepMap> _stepMap;
 
@@ -20,9 +24,14 @@ public class Day07Solver : DaySolver
 		StepOverheadDuration = options.StepOverheadDuration;
 	}
 
-	public Day07Solver(Action<Day07SolverOptions>? configure = null)
+	public Day07Solver(Action<Day07SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
-	{ }
+	{
+	}
+
+	public Day07Solver() : this(Day07SolverOptions.Default)
+	{
+	}
 
 	private StepMap GenerateStepMap()
 	{

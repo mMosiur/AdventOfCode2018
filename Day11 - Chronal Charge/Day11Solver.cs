@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day11;
 
-public class Day11Solver : DaySolver
+public sealed class Day11Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 11;
+	public override string Title => "Chronal Charge";
+
 	private readonly int _inputNumber;
 
 	private readonly Lazy<FuelCellGrid> _grid;
@@ -19,12 +23,16 @@ public class Day11Solver : DaySolver
 		}
 		catch (FormatException e)
 		{
-			throw new ApplicationException("Invalid input.", e);
+			throw new InputException("Invalid input.", e);
 		}
 	}
 
-	public Day11Solver(Action<Day11SolverOptions>? configure = null)
+	public Day11Solver(Action<Day11SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day11Solver() : this(Day11SolverOptions.Default)
 	{
 	}
 

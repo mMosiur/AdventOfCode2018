@@ -3,8 +3,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day12;
 
-public class Day12Solver : DaySolver
+public sealed class Day12Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 12;
+	public override string Title => "Subterranean Sustainability";
+
 	private const int NOF_REPETITIONS_TO_ASSUME_STABLE_DIFF = 100;
 	private readonly PotTransformNotes _notes;
 	private readonly IEnumerable<PotState> _initialPots;
@@ -25,14 +29,18 @@ public class Day12Solver : DaySolver
 			{
 				'#' => PotState.Plant,
 				'.' => PotState.Empty,
-				_ => throw new ApplicationException($"Invalid pot state: {initialState[i]}")
+				_ => throw new InputException($"Invalid pot state: {initialState[i]}")
 			};
 		}
 		_initialPots = initialPots;
 	}
 
-	public Day12Solver(Action<Day12SolverOptions>? configure = null)
+	public Day12Solver(Action<Day12SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day12Solver() : this(Day12SolverOptions.Default)
 	{
 	}
 
@@ -87,7 +95,7 @@ public class Day12Solver : DaySolver
 		long generationPassedToRepeat = GENERATIONS_TO_SIMULATE - generationPassed;
 		checked
 		{
-			long result = lastSum + generationPassedToRepeat * lastSumDiff;
+			long result = lastSum + (generationPassedToRepeat * lastSumDiff);
 			return result.ToString();
 		}
 	}

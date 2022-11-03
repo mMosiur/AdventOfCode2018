@@ -3,8 +3,12 @@ using AdventOfCode.Year2018.Day21.Device.CPUs;
 
 namespace AdventOfCode.Year2018.Day21;
 
-public class Day21Solver : DaySolver
+public sealed class Day21Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 21;
+	public override string Title => "Chronal Conversion";
+
 	private readonly Device.Program _program;
 	private readonly Lazy<DisassembledActivationSystemInfo> _systemInfo;
 	private readonly int _numberOfRegisters;
@@ -22,8 +26,12 @@ public class Day21Solver : DaySolver
 		_numberOfRegisters = options.NumberOfRegisters;
 	}
 
-	public Day21Solver(Action<Day21SolverOptions>? configure = null)
+	public Day21Solver(Action<Day21SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day21Solver() : this(Day21SolverOptions.Default)
 	{
 	}
 

@@ -1,15 +1,24 @@
 using AdventOfCode.Abstractions;
+using System;
 
 namespace AdventOfCode.Year2018.Day02;
 
-public class Day02Solver : DaySolver
+public sealed class Day02Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 2;
+	public override string Title => "Inventory Management System";
+
 	public Day02Solver(Day02SolverOptions options) : base(options)
 	{
 	}
 
-	public Day02Solver(Action<Day02SolverOptions>? configure = null)
+	public Day02Solver(Action<Day02SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day02Solver() : this(Day02SolverOptions.Default)
 	{
 	}
 
@@ -17,7 +26,7 @@ public class Day02Solver : DaySolver
 	{
 		int twos = 0;
 		int threes = 0;
-		var analyzer = new CharAnalyzer();
+		CharAnalyzer analyzer = new();
 		foreach (string line in InputLines)
 		{
 			analyzer.Chars = line;
@@ -36,8 +45,8 @@ public class Day02Solver : DaySolver
 
 	private (string First, string Second, int DifferencePosition) GetFirstPairThatDiffersByOne()
 	{
-		var lines = InputLines.ToList();
-		var analyzer = new CharAnalyzer();
+		List<string> lines = InputLines.ToList();
+		CharAnalyzer analyzer = new();
 		for (int i = 0; i < lines.Count; i++)
 		{
 			string line = lines[i];
@@ -45,7 +54,7 @@ public class Day02Solver : DaySolver
 			for (int j = i + 1; j < lines.Count; j++)
 			{
 				string other = lines[j];
-				var positions = analyzer.GetPositionsOfDifferences(other);
+				IEnumerable<int> positions = analyzer.GetPositionsOfDifferences(other);
 				int differences = positions.Count();
 				if (differences == 1)
 				{
@@ -53,15 +62,13 @@ public class Day02Solver : DaySolver
 				}
 			}
 		}
-		throw new ApplicationException("No pair that differs by 1 found");
+		throw new DaySolverException("No pair that differs by 1 found");
 	}
 
 	public override string SolvePart2()
 	{
-		var pair = GetFirstPairThatDiffersByOne();
-		string result =
-			pair.First.Substring(0, pair.DifferencePosition)
-			+ pair.First.Substring(pair.DifferencePosition + 1);
+		(string first, _, int differencePosition) = GetFirstPairThatDiffersByOne();
+		string result = string.Concat(first.AsSpan(0, differencePosition), first.AsSpan(differencePosition + 1));
 		return result;
 	}
 }

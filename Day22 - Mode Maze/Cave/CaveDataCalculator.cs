@@ -50,7 +50,7 @@ class CaveDataCalculator
 			0 => RegionType.Rocky,
 			1 => RegionType.Wet,
 			2 => RegionType.Narrow,
-			_ => throw new Exception("Erosion level calculation error.")
+			_ => throw new InvalidOperationException("Erosion level calculation error.")
 		};
 	}
 #pragma warning restore CA1822

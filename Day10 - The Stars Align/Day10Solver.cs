@@ -2,8 +2,12 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day10;
 
-public class Day10Solver : DaySolver
+public sealed class Day10Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 10;
+	public override string Title => "The Stars Align";
+
 	private readonly IEnumerable<SkyPoint> _points;
 	private readonly SkySimulator _simulator;
 
@@ -13,8 +17,12 @@ public class Day10Solver : DaySolver
 		_simulator = new SkySimulator(_points.ToList(), options);
 	}
 
-	public Day10Solver(Action<Day10SolverOptions>? configure = null)
+	public Day10Solver(Action<Day10SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day10Solver() : this(Day10SolverOptions.Default)
 	{
 	}
 

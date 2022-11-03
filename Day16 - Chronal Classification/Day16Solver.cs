@@ -5,8 +5,12 @@ using AdventOfCode.Year2018.Day16.Device.CPUs;
 
 namespace AdventOfCode.Year2018.Day16;
 
-public class Day16Solver : DaySolver
+public sealed class Day16Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 16;
+	public override string Title => "Chronal Classification";
+
 	private static readonly Lazy<Regex> _inputFileRegexLazy = new(
 		() => new Regex(@"(?>\r?\n){2,}", RegexOptions.Compiled)
 	);
@@ -30,8 +34,12 @@ public class Day16Solver : DaySolver
 			.ToList();
 	}
 
-	public Day16Solver(Action<Day16SolverOptions>? configure = null)
+	public Day16Solver(Action<Day16SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day16Solver() : this(Day16SolverOptions.Default)
 	{
 	}
 

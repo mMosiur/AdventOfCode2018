@@ -1,3 +1,4 @@
+using AdventOfCode;
 using AdventOfCode.Year2018.Day06;
 
 try
@@ -22,23 +23,26 @@ try
 			}
 			catch (FormatException e)
 			{
-				throw new ApplicationException(
+				throw new CommandLineException(
 					$"Invalid argument: second argument should be non-negative integers, and was \"{args[1]}\".",
 					innerException: e
 				);
 			}
 			break;
 		default:
-			throw new ApplicationException(
+			throw new CommandLineException(
 				$"Program was called with too many arguments. Proper usage: \"dotnet run [<input filepath> [<max total distance>]]\"."
 			);
 	}
 
-	var solver = new Day06Solver(options =>
+	Day06Solver solver = new(options =>
 	{
 		options.InputFilepath = filepath ?? options.InputFilepath;
 		options.MaxTotalDistance = maxTotalDistance ?? options.MaxTotalDistance;
 	});
+
+	Console.WriteLine($"Advent of Code {solver.Year}");
+	Console.WriteLine($"--- Day {solver.Day}: {solver.Title} ---");
 
 	Console.Write("Part 1: ");
 	string part1 = solver.SolvePart1();
@@ -48,19 +52,22 @@ try
 	string part2 = solver.SolvePart2();
 	Console.WriteLine(part2);
 }
-catch (FileNotFoundException e)
+catch (Exception e)
 {
+	string? errorPrefix = e switch
+	{
+		CommandLineException => "Command line error",
+		InputException => "Input error",
+		DaySolverException => "Day solver error",
+		_ => null
+	};
+	if (errorPrefix is null)
+	{
+		throw;
+	}
 	ConsoleColor previousColor = Console.ForegroundColor;
 	Console.ForegroundColor = ConsoleColor.Red;
-	Console.Error.WriteLine(e.Message);
-	Console.ForegroundColor = previousColor;
-	Environment.Exit(1);
-}
-catch (ApplicationException e)
-{
-	ConsoleColor previousColor = Console.ForegroundColor;
-	Console.ForegroundColor = ConsoleColor.Red;
-	Console.Error.WriteLine($"Error: {e.Message}");
+	Console.Error.WriteLine($"{errorPrefix}: {e.Message}");
 	Console.ForegroundColor = previousColor;
 	Environment.Exit(1);
 }

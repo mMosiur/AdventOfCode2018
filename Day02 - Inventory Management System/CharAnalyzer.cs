@@ -34,16 +34,16 @@ class CharAnalyzer
 
 	public IEnumerable<int> GetPositionsOfDifferences(IEnumerable<char> other)
 	{
-		var result = Enumerable.Zip(Chars, other)
+		IEnumerable<int> result = Enumerable.Zip(Chars, other)
 			.Select((pair, index) => (pair.First, pair.Second, Index: index))
 			.Where(pair => pair.First != pair.Second)
 			.Select(pair => pair.Index);
-		var thisCharsAfterCount = Chars.Select((c, i) => i).Skip(other.Count());
+		IEnumerable<int> thisCharsAfterCount = Chars.Select((c, i) => i).Skip(other.Count());
 		if (thisCharsAfterCount.Any())
 		{
 			result = result.Concat(thisCharsAfterCount);
 		}
-		var otherCharsAfterCount = other.Select((c, i) => i).Skip(Chars.Count());
+		IEnumerable<int> otherCharsAfterCount = other.Select((c, i) => i).Skip(Chars.Count());
 		if (otherCharsAfterCount.Any())
 		{
 			result = result.Concat(otherCharsAfterCount);

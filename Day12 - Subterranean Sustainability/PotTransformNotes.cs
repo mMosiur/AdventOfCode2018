@@ -55,7 +55,7 @@ class PotTransformNotes
 		catch (KeyNotFoundException e)
 		{
 			string potsRepresentation = string.Join(',', pots.ToArray());
-			throw new ApplicationException($"No note found for pots: {potsRepresentation}", e);
+			throw new DaySolverException($"No note found for pots: {potsRepresentation}", e);
 		}
 	}
 }

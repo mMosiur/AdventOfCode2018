@@ -5,8 +5,12 @@ using AdventOfCode.Year2018.Day15.Map;
 
 namespace AdventOfCode.Year2018.Day15;
 
-public class Day15Solver : DaySolver
+public sealed class Day15Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 15;
+	public override string Title => "Beverage Bandits";
+
 	private readonly MapSpotType[,] _rawMap;
 
 	public Day15Solver(Day15SolverOptions options) : base(options)
@@ -32,8 +36,12 @@ public class Day15Solver : DaySolver
 		_rawMap = rawMap;
 	}
 
-	public Day15Solver(Action<Day15SolverOptions>? configure = null)
+	public Day15Solver(Action<Day15SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day15Solver() : this(Day15SolverOptions.Default)
 	{
 	}
 

@@ -2,6 +2,7 @@ using AdventOfCode.Abstractions;
 
 namespace AdventOfCode.Year2018.Day05;
 
-public class Day05SolverOptions : DaySolverOptions
+public sealed class Day05SolverOptions : DaySolverOptions
 {
+	public static Day05SolverOptions Default => new();
 }

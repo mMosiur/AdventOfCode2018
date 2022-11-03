@@ -58,7 +58,7 @@ class Sky
 			int y = point.Position.Y - boundingBox.MinY;
 			stars[x, y] = true;
 		}
-		StringBuilder builder = new(boundingBox.Height * (boundingBox.Width + 1));
+		StringBuilder builder = new(boundingBox.Height * (boundingBox.Width + Environment.NewLine.Length));
 		for (int y = 0; y < boundingBox.Height; y++)
 		{
 			for (int x = 0; x < boundingBox.Width; x++)
@@ -66,9 +66,9 @@ class Sky
 				bool hasStart = stars[x, y];
 				builder.Append(hasStart ? _starInSkyRepresentation : _emptySkyRepresentation);
 			}
-			builder.Append('\n');
+			builder.AppendLine();
 		}
-		builder.Remove(builder.Length - 1, 1);
+		builder.Remove(builder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
 		return builder.ToString();
 	}
 }

@@ -14,7 +14,7 @@ class StepMapBuilder
 		}
 		if (!stepRequirements.Add(requiredStepLetter))
 		{
-			throw new ApplicationException($"Step '{stepLetter}' already has requirement '{requiredStepLetter}'.");
+			throw new DaySolverException($"Step '{stepLetter}' already has requirement '{requiredStepLetter}'.");
 		}
 		_allRegisteredSteps.Add(stepLetter);
 		_allRegisteredSteps.Add(requiredStepLetter);
@@ -38,7 +38,7 @@ class StepMapBuilder
 			}
 			catch (KeyNotFoundException e)
 			{
-				throw new ApplicationException($"Step letter '{letter}' was not registered.", e);
+				throw new DaySolverException($"Step letter '{letter}' was not registered.", e);
 			}
 		}
 		HashSet<Step> steps = singleStepBuilders.Values.Select(step =>

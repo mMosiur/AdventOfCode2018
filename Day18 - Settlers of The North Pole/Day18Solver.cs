@@ -3,8 +3,12 @@ using AdventOfCode.Year2018.Day18.LumberCollection;
 
 namespace AdventOfCode.Year2018.Day18;
 
-public class Day18Solver : DaySolver
+public sealed class Day18Solver : DaySolver
 {
+	public override int Year => 2018;
+	public override int Day => 18;
+	public override string Title => "Settlers of The North Pole";
+
 	private readonly Day18SolverOptions _options;
 	private readonly LumberCollectionArea _initialArea;
 
@@ -14,8 +18,12 @@ public class Day18Solver : DaySolver
 		_initialArea = LumberCollectionArea.Parse(Input);
 	}
 
-	public Day18Solver(Action<Day18SolverOptions>? configure = null)
+	public Day18Solver(Action<Day18SolverOptions> configure)
 		: this(DaySolverOptions.FromConfigureAction(configure))
+	{
+	}
+
+	public Day18Solver() : this(Day18SolverOptions.Default)
 	{
 	}
 

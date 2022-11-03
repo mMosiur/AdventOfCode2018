@@ -11,7 +11,7 @@ record struct Instruction(char StepLetter, char RequiredStepLetter)
 		Match match = Regex.Match(line);
 		if (!match.Success)
 		{
-			throw new ApplicationException($"Invalid input line: \"{line}\"");
+			throw new InputException($"Invalid input line: \"{line}\"");
 		}
 		char requirement = char.ToUpperInvariant(match.Groups["requirement"].ValueSpan[0]);
 		char step = char.ToUpperInvariant(match.Groups["step"].ValueSpan[0]);
