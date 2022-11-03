@@ -42,7 +42,7 @@ public sealed class Day03Solver : DaySolver
 	public override string SolvePart2()
 	{
 		Dictionary<Point, int> claimMap = new();
-		HashSet<int> nonOverlapingClaimIds = _claims.Select(c => c.Id).ToHashSet();
+		HashSet<int> nonOverlappingClaimIds = _claims.Select(c => c.Id).ToHashSet();
 		foreach (ElfClaim claim in _claims)
 		{
 			foreach (Point point in claim.GetPoints())
@@ -52,24 +52,24 @@ public sealed class Day03Solver : DaySolver
 					continue;
 				}
 				// If we get here, the point is already claimed by another claim, so we have an overlap.
-				nonOverlapingClaimIds.Remove(claim.Id);
+				nonOverlappingClaimIds.Remove(claim.Id);
 				int otherClaimId = claimMap[point];
 				if (otherClaimId >= 0) // if otherClaimId is -1, it's already been marked as overlapping
 				{
-					nonOverlapingClaimIds.Remove(otherClaimId);
+					nonOverlappingClaimIds.Remove(otherClaimId);
 					claimMap[point] = -1; // mark as overlapping
 				}
 			}
 		}
 		try
 		{
-			int nonOverlapingClaimId = nonOverlapingClaimIds.Single();
-			return nonOverlapingClaimId.ToString();
+			int nonOverlappingClaimId = nonOverlappingClaimIds.Single();
+			return nonOverlappingClaimId.ToString();
 		}
 		catch (InvalidOperationException exception)
 		{
 			throw new DaySolverException(
-				$"More than one ({nonOverlapingClaimIds.Count}) non-overlapping claims found",
+				$"More than one ({nonOverlappingClaimIds.Count}) non-overlapping claims found",
 				exception
 			);
 		}
