@@ -23,7 +23,7 @@ public sealed class Day09Solver : DaySolver
 		}
 		catch (FormatException e)
 		{
-			throw new ApplicationException("Could not parse input.", e);
+			throw new InputException("Could not parse input.", e);
 		}
 	}
 

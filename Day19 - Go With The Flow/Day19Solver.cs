@@ -54,7 +54,7 @@ public sealed class Day19Solver : DaySolver
 	{
 		if (!CheckBaseProgramOnRiggedCPU())
 		{
-			throw new ApplicationException("Base program does not work on rigged CPU.");
+			throw new DaySolverException("Base program does not work on rigged CPU.");
 		}
 		Registers registers = new(_options.NumberOfRegisters)
 		{
@@ -68,7 +68,7 @@ public sealed class Day19Solver : DaySolver
 		}
 		catch (RiggedCPUException e)
 		{
-			throw new ApplicationException("The disassembled program is not compatible with the rigged CPU.", e);
+			throw new DaySolverException("The disassembled program is not compatible with the rigged CPU.", e);
 		}
 	}
 }

@@ -6,7 +6,7 @@ record struct GuardTimeRecord(DateTime TimeStamp, EventType EventType, int Guard
 	{
 		if (timeRecord.GuardId.HasValue && timeRecord.GuardId.Value != guardId)
 		{
-			throw new ApplicationException("Guard id mismatch");
+			throw new DaySolverException("Guard id mismatch");
 		}
 		return new GuardTimeRecord(timeRecord.TimeStamp, timeRecord.EventType, guardId);
 	}

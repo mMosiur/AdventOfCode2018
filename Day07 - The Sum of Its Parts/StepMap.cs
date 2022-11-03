@@ -38,7 +38,7 @@ class StepMap
 			}
 			if (firstFinishedStepIndex < 0)
 			{
-				throw new ApplicationException("No steps could be completed.");
+				throw new DaySolverException("No steps could be completed.");
 			}
 			yield return stepsLeft[firstFinishedStepIndex];
 			stepsLeft.RemoveAt(firstFinishedStepIndex);
@@ -50,7 +50,7 @@ class StepMap
 	private static int CalculateStepTime(Step step, int stepOverheadDuration)
 	{
 		int time = step.Letter - 'A' + 1;
-		if (time < 1 || time > 26) throw new Exception("Unexpected step letter.");
+		if (time < 1 || time > 26) throw new DaySolverException("Unexpected step letter.");
 		time += stepOverheadDuration;
 		return time;
 	}

@@ -61,7 +61,7 @@ public sealed class Day02Solver : DaySolver
 				}
 			}
 		}
-		throw new ApplicationException("No pair that differs by 1 found");
+		throw new DaySolverException("No pair that differs by 1 found");
 	}
 
 	public override string SolvePart2()

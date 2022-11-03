@@ -69,7 +69,7 @@ public sealed class Day03Solver : DaySolver
 		}
 		catch (InvalidOperationException exception)
 		{
-			throw new ApplicationException(
+			throw new DaySolverException(
 				$"More than one ({nonOverlapingClaimIds.Count}) non-overlapping claims found",
 				exception
 			);

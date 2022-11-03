@@ -11,7 +11,7 @@ class CartCrashAnalyzer
 		_map = (TrackSymbol[,])map.Clone();
 		if (!TrackMapParser.ExtractCartsFromMap(_map, out List<Cart>? carts))
 		{
-			throw new ApplicationException("No carts were found.");
+			throw new DaySolverException("No carts were found.");
 		}
 		_carts = carts;
 	}
@@ -63,7 +63,7 @@ class CartCrashAnalyzer
 	{
 		if (_carts.Count < 2)
 		{
-			throw new ApplicationException("At least two carts are required for a crash to occur.");
+			throw new DaySolverException("At least two carts are required for a crash to occur.");
 		}
 		return EnumerateCrashPositions().First();
 	}
@@ -72,12 +72,12 @@ class CartCrashAnalyzer
 	{
 		if (_carts.Count % 2 == 0)
 		{
-			throw new ApplicationException("There are an even number of carts, so there is no last standing cart.");
+			throw new DaySolverException("There are an even number of carts, so there is no last standing cart.");
 		}
 		try
 		{
 			_ = EnumerateCrashPositions().Last();
-			throw new ApplicationException("No lone cart left after crashes.");
+			throw new DaySolverException("No lone cart left after crashes.");
 		}
 		catch (LoneCartLeftException e)
 		{

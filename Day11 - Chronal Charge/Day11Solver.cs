@@ -23,7 +23,7 @@ public sealed class Day11Solver : DaySolver
 		}
 		catch (FormatException e)
 		{
-			throw new ApplicationException("Invalid input.", e);
+			throw new InputException("Invalid input.", e);
 		}
 	}
 

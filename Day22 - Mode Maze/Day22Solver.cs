@@ -26,7 +26,7 @@ public sealed class Day22Solver : DaySolver
 		}
 		catch (FormatException e)
 		{
-			throw new ApplicationException("Input was not in the expected format.", e);
+			throw new InputException("Input was not in the expected format.", e);
 		}
 		_caveSystem = new Lazy<CaveSystem>(GenerateCaveSystem);
 	}

@@ -20,11 +20,11 @@ public sealed class Day14Solver : DaySolver
 		}
 		catch (Exception e) when (e is FormatException || e is ArgumentNullException)
 		{
-			throw new ApplicationException("Input was not a number.");
+			throw new InputException("Input was not a number.");
 		}
 		catch (Exception e) when (e is OverflowException)
 		{
-			throw new ApplicationException("Input number was too large.");
+			throw new InputException("Input number was too large.");
 		}
 	}
 
@@ -97,6 +97,6 @@ public sealed class Day14Solver : DaySolver
 			}
 			scoresToTheLeftCount += 1; // Move for next batch search
 		}
-		throw new ApplicationException($"Input sequence not found to upper range of {MaxSearchRange}.");
+		throw new DaySolverException($"Input sequence not found to upper range of {MaxSearchRange}.");
 	}
 }

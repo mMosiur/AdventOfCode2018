@@ -29,7 +29,7 @@ public sealed class Day12Solver : DaySolver
 			{
 				'#' => PotState.Plant,
 				'.' => PotState.Empty,
-				_ => throw new ApplicationException($"Invalid pot state: {initialState[i]}")
+				_ => throw new InputException($"Invalid pot state: {initialState[i]}")
 			};
 		}
 		_initialPots = initialPots;

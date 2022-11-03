@@ -92,7 +92,7 @@ class PotRow
 			{
 				PotState.Empty => '.',
 				PotState.Plant => '#',
-				_ => throw new ApplicationException($"Unexpected pot state: {this[i]}")
+				_ => throw new DaySolverException($"Unexpected pot state: {this[i]}")
 			};
 			builder.Append(c);
 		}

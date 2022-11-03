@@ -31,7 +31,7 @@ class OpcodeDictionaryResolver : OpcodeDictionary
 			}
 			if (!somethingChanged)
 			{
-				throw new ApplicationException("Unable to fully resolve opcode dictionary");
+				throw new DaySolverException("Unable to fully resolve opcode dictionary");
 			}
 		}
 		return this;
@@ -46,7 +46,7 @@ class OpcodeDictionaryResolver : OpcodeDictionary
 			cpu.ForceExecuteOperation(resolvedOperation, sample.Operation);
 			if (!cpu.CheckRegistersEquality(sample.RegistersAfterOperation))
 			{
-				throw new ApplicationException("Contradictory sample found.");
+				throw new DaySolverException("Contradictory sample found.");
 			}
 			return false;
 		}
@@ -67,7 +67,7 @@ class OpcodeDictionaryResolver : OpcodeDictionary
 		}
 		if (resolvedOperation is null)
 		{
-			throw new ApplicationException("No matches found for sample.");
+			throw new DaySolverException("No matches found for sample.");
 		}
 		_unresolvedOperations.Remove(resolvedOperation);
 		_resolvedOpcodeNumberToNameDictionary.Add(sample.Operation.Opcode, resolvedOperation);

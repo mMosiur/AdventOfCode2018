@@ -11,9 +11,9 @@ class SkySimulator
 
 	public int SecondsPassed => _sky.SecondsPassed;
 	public string SmallestSkyRepresentation => _smallestSkyRepresentation
-		?? throw new ApplicationException("The simulation has not been run yet");
+		?? throw new DaySolverException("The simulation has not been run yet");
 	public int SecondsToSmallestSky => _secondsToSmallestSky
-		?? throw new ApplicationException("The simulation has not been run yet");
+		?? throw new DaySolverException("The simulation has not been run yet");
 
 	public SkySimulator(ICollection<SkyPoint> points, Day10SolverOptions options)
 	{
@@ -45,7 +45,7 @@ class SkySimulator
 			nextBoundingBox = _sky.GetBoundingBox();
 		}
 		_smallestSkyRepresentation = currentRepresentation
-			?? throw new ApplicationException("The converged representation was too large to display");
+			?? throw new DaySolverException("The converged representation was too large to display");
 		_secondsToSmallestSky = secondsPassed;
 		return secondsPassed;
 	}

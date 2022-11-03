@@ -16,7 +16,7 @@ public sealed class Day04Solver : DaySolver
 		timeRecords.Sort((tr1, tr2) => tr1.TimeStamp.CompareTo(tr2.TimeStamp));
 		if (timeRecords.First().GuardId is null)
 		{
-			throw new ApplicationException("First time records guard ID couldn't be inferred.");
+			throw new DaySolverException("First time records guard ID couldn't be inferred.");
 		}
 		int id = 0;
 		_timeRecords = timeRecords.Select(timeRecord =>
@@ -43,7 +43,7 @@ public sealed class Day04Solver : DaySolver
 			.EnumerateMinutesAsleep(mostSleepyGuardId)
 			.GroupBy(dt => TimeOnly.FromDateTime(dt))
 			.MaxBy(g => g.Count())?.Key.Minute
-			?? throw new ApplicationException("No minutes were slept.");
+			?? throw new DaySolverException("No minutes were slept.");
 		int result = mostSleepyGuardId * mostOftenSleptMinute;
 		return result.ToString();
 	}

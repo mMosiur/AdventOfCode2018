@@ -64,6 +64,6 @@ class CaveTravelSimulator
 				queue.Enqueue(possibleNextState, possibleNextTime);
 			}
 		}
-		throw new ApplicationException("No path to target found.");
+		throw new DaySolverException("No path to target found.");
 	}
 }
