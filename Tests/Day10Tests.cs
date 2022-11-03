@@ -17,7 +17,7 @@ public class Day10Tests : BaseDayTests<Day10Solver, Day10SolverOptions>
 			new string[]
 			{
 				"example-input.txt",
-				string.Join('\n',
+				string.Join(Environment.NewLine,
 					"#...#..###",
 					"#...#...#.",
 					"#...#...#.",
@@ -31,7 +31,7 @@ public class Day10Tests : BaseDayTests<Day10Solver, Day10SolverOptions>
 			new string[]
 			{
 				"my-input.txt",
-				string.Join('\n',
+				string.Join(Environment.NewLine,
 					"..##....#....#..######...####...#####...#....#..######..######",
 					".#..#...#....#..#.......#....#..#....#..#...#...#.......#.....",
 					"#....#..#....#..#.......#.......#....#..#..#....#.......#.....",
