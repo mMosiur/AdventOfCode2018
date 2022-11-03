@@ -95,7 +95,7 @@ public sealed class Day12Solver : DaySolver
 		long generationPassedToRepeat = GENERATIONS_TO_SIMULATE - generationPassed;
 		checked
 		{
-			long result = lastSum + generationPassedToRepeat * lastSumDiff;
+			long result = lastSum + (generationPassedToRepeat * lastSumDiff);
 			return result.ToString();
 		}
 	}

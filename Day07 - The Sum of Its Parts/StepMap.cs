@@ -50,7 +50,7 @@ class StepMap
 	private static int CalculateStepTime(Step step, int stepOverheadDuration)
 	{
 		int time = step.Letter - 'A' + 1;
-		if (time < 1 || time > 26) throw new DaySolverException("Unexpected step letter.");
+		if (time is < 1 or > 26) throw new DaySolverException("Unexpected step letter.");
 		time += stepOverheadDuration;
 		return time;
 	}

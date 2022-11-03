@@ -1,4 +1,5 @@
 using AdventOfCode.Abstractions;
+using System;
 
 namespace AdventOfCode.Year2018.Day02;
 
@@ -67,9 +68,7 @@ public sealed class Day02Solver : DaySolver
 	public override string SolvePart2()
 	{
 		(string first, _, int differencePosition) = GetFirstPairThatDiffersByOne();
-		string result =
-			first.Substring(0, differencePosition)
-			+ first.Substring(differencePosition + 1);
+		string result = string.Concat(first.AsSpan(0, differencePosition), first.AsSpan(differencePosition + 1));
 		return result;
 	}
 }

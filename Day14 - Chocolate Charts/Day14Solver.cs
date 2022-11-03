@@ -18,7 +18,7 @@ public sealed class Day14Solver : DaySolver
 			_inputNumber = int.Parse(Input);
 			_inputSequence = Input.Trim().Select(c => Convert.ToByte(char.GetNumericValue(c))).ToArray();
 		}
-		catch (Exception e) when (e is FormatException || e is ArgumentNullException)
+		catch (Exception e) when (e is FormatException or ArgumentNullException)
 		{
 			throw new InputException("Input was not a number.");
 		}

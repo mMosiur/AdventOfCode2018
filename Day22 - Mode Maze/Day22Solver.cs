@@ -42,7 +42,7 @@ public sealed class Day22Solver : DaySolver
 
 	private CaveSystem GenerateCaveSystem()
 	{
-		ushort swapToMoveTimeRatio = Convert.ToUInt16(Math.Floor((double)_options.TimeToSwapTools / _options.TimeToCrossRegion + 1.0));
+		ushort swapToMoveTimeRatio = Convert.ToUInt16(Math.Floor(((double)_options.TimeToSwapTools / _options.TimeToCrossRegion) + 1.0));
 		ushort distToClosestBorder = Convert.ToUInt16(Math.Min(_targetCoordinate.X, _targetCoordinate.Y) + 1);
 		ushort padding = Convert.ToUInt16(swapToMoveTimeRatio * distToClosestBorder);
 		return new CaveSystemBuilder()

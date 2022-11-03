@@ -31,8 +31,7 @@ public sealed class Day03Solver : DaySolver
 		{
 			foreach (Point point in claim.GetPoints())
 			{
-				int claimCountAtThatPoint = 0;
-				claimMap.TryGetValue(point, out claimCountAtThatPoint);
+				claimMap.TryGetValue(point, out int claimCountAtThatPoint);
 				claimMap[point] = claimCountAtThatPoint + 1;
 			}
 		}
