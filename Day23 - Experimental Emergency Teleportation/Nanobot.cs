@@ -2,7 +2,7 @@ using AdventOfCode.Year2018.Day23.Geometry;
 
 namespace AdventOfCode.Year2018.Day23;
 
-class Nanobot
+sealed class Nanobot
 {
 	public Point Position { get; }
 	public int Radius { get; }

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day23;
 
-class NanobotFormationAnalyzer
+sealed class NanobotFormationAnalyzer
 {
 	private readonly Nanobot[] _nanobots;
 
