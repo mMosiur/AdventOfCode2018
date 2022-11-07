@@ -34,3 +34,4 @@ dotnet_diagnostic.IDE0026.severity = suggestion
 dotnet_diagnostic.IDE0048.severity = suggestion
 dotnet_diagnostic.IDE0001.severity = suggestion
 dotnet_diagnostic.IDE0130.severity = suggestion
+dotnet_diagnostic.CA2231.severity = suggestion
