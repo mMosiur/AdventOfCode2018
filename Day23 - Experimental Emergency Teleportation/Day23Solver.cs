@@ -40,7 +40,10 @@ public sealed class Day23Solver : DaySolver
 	public override string SolvePart1()
 	{
 		NanobotFormationAnalyzer analyzer = new(GenerateNanobots());
-		int result = analyzer.NanobotsInRangeOfStrongestNanobot().Count();
+		Nanobot strongestNanobot = analyzer.GetStrongestNanobot();
+		int result = analyzer
+			.NanobotsInRangeOf(strongestNanobot)
+			.Count();
 		return result.ToString();
 	}
 

@@ -12,11 +12,18 @@ sealed class NanobotFormationAnalyzer
 	}
 
 	public Nanobot GetStrongestNanobot()
-		=> _nanobots.MaxBy(n => n.Radius) ?? throw new DaySolverException("No nanobots.");
-
-	public IEnumerable<Nanobot> NanobotsInRangeOfStrongestNanobot()
 	{
-		Nanobot strongestNanobot = GetStrongestNanobot();
-		return _nanobots.Where(n => strongestNanobot.IsInRange(n));
+		Nanobot? strongestNanobot = _nanobots.MaxBy(n => n.Radius);
+		if (strongestNanobot is null)
+		{
+			throw new InvalidOperationException("No nanobots in formation.");
+		}
+		return strongestNanobot;
+	}
+
+	public IEnumerable<Nanobot> NanobotsInRangeOf(Nanobot nanobot)
+	{
+		ArgumentNullException.ThrowIfNull(nanobot);
+		return _nanobots.Where(n => nanobot.IsInRange(n));
 	}
 }
