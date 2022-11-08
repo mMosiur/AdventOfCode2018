@@ -16,11 +16,7 @@ sealed class NanobotFormationAnalyzer
 	public Nanobot FindStrongestNanobot()
 	{
 		Nanobot? strongestNanobot = _nanobots.MaxBy(n => n.Radius);
-		if (strongestNanobot is null)
-		{
-			throw new InvalidOperationException("No nanobots in formation.");
-		}
-		return strongestNanobot;
+		return strongestNanobot ?? throw new InvalidOperationException("No nanobots in formation.");
 	}
 
 	public IEnumerable<Nanobot> NanobotsInRangeOf(Nanobot nanobot)
