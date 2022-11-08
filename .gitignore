@@ -6,4 +6,7 @@ obj/
 .vscode
 
 # Ignore example input file I put in for testing and debugging
-example.txt
+example*.txt
+
+# Do not ignore example inputs in the Tests project
+!Tests/Inputs/*/example*.txt
