@@ -41,7 +41,7 @@ public sealed class Day23Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		NanobotFormationAnalyzer analyzer = new(GenerateNanobots());
+		NanobotFormationAnalyzer analyzer = new(GenerateNanobots(), _origin);
 		Nanobot strongestNanobot = analyzer.FindStrongestNanobot();
 		int result = analyzer
 			.NanobotsInRangeOf(strongestNanobot)
@@ -51,7 +51,7 @@ public sealed class Day23Solver : DaySolver
 
 	public override string SolvePart2()
 	{
-		NanobotFormationAnalyzer analyzer = new(GenerateNanobots());
+		NanobotFormationAnalyzer analyzer = new(GenerateNanobots(), _origin);
 		(_, Point point) = analyzer.FindPointInRangeOfMostNanobots();
 		int result = ExtendedMath.ManhattanDistance(_origin, point);
 		return $"{result}";

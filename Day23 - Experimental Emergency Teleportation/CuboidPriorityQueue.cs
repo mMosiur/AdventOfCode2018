@@ -6,10 +6,10 @@ sealed class CuboidPriorityQueue
 {
 	private readonly PriorityQueue<byte, State> _queue;
 
-	public CuboidPriorityQueue()
+	public CuboidPriorityQueue(Point origin)
 	{
 		_queue = new(
-			comparer: new StateQueuePriorityComparer()
+			comparer: new StateQueuePriorityComparer(origin)
 		);
 	}
 
@@ -33,6 +33,13 @@ sealed class CuboidPriorityQueue
 
 	private sealed class StateQueuePriorityComparer : IComparer<State>
 	{
+		private readonly Point _origin;
+
+		public StateQueuePriorityComparer(Point origin)
+		{
+			_origin = origin;
+		}
+
 		public int Compare(State s1, State s2)
 		{
 			// Negated result because we want the bigger value to be first.
@@ -49,7 +56,16 @@ sealed class CuboidPriorityQueue
 			{
 				return result;
 			}
-			return 0;
+			// In case of a tie we want to process the cuboid that is
+			// closest to the origin first, as per puzzle description:
+			// "if there are multiple, choose one closest to your position".
+			Point p1 = ExtendedMath.GetCuboidPointClosestToPoint(s1.Cuboid, _origin);
+			Point p2 = ExtendedMath.GetCuboidPointClosestToPoint(s2.Cuboid, _origin);
+			int distanceToOrigin1 = ExtendedMath.ManhattanDistance(_origin, p1);
+			int distanceToOrigin2 = ExtendedMath.ManhattanDistance(_origin, p2);
+			// NON-negated result because we want the smaller value to be first.
+			result = distanceToOrigin1.CompareTo(distanceToOrigin2);
+			return result;
 		}
 	}
 

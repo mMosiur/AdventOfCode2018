@@ -5,11 +5,11 @@ namespace AdventOfCode.Year2018.Day23;
 sealed class NanobotFormationAnalyzer
 {
 	private readonly Nanobot[] _nanobots;
+	private readonly Point _origin;
 
-	public IReadOnlyCollection<Nanobot> Nanobots => _nanobots;
-
-	public NanobotFormationAnalyzer(IEnumerable<Nanobot> nanobots)
+	public NanobotFormationAnalyzer(IEnumerable<Nanobot> nanobots, Point origin)
 	{
+		_origin = origin;
 		_nanobots = nanobots.ToArray();
 	}
 
@@ -27,26 +27,14 @@ sealed class NanobotFormationAnalyzer
 
 	public static bool CanNanobotReachCuboid(Nanobot nanobot, Cuboid cuboid)
 	{
-		int x = nanobot.Position.X;
-		if (x < cuboid.XRange.Start) x = cuboid.XRange.Start;
-		else if (x > cuboid.XRange.End) x = cuboid.XRange.End;
-
-		int y = nanobot.Position.Y;
-		if (y < cuboid.YRange.Start) y = cuboid.YRange.Start;
-		else if (y > cuboid.YRange.End) y = cuboid.YRange.End;
-
-		int z = nanobot.Position.Z;
-		if (z < cuboid.ZRange.Start) z = cuboid.ZRange.Start;
-		else if (z > cuboid.ZRange.End) z = cuboid.ZRange.End;
-
-		Point cuboidClosestPoint = new(x, y, z);
-		int cuboidClosestPointDistance = ExtendedMath.ManhattanDistance(nanobot.Position, cuboidClosestPoint);
-		return cuboidClosestPointDistance <= nanobot.Radius;
+		Point closestPoint = ExtendedMath.GetCuboidPointClosestToPoint(cuboid, nanobot.Position);
+		int closestPointDistance = ExtendedMath.ManhattanDistance(nanobot.Position, closestPoint);
+		return closestPointDistance <= nanobot.Radius;
 	}
 
-	public int CountNanobotsThatCanReach(Cuboid cuboid)
+	public IEnumerable<Nanobot> NanobotsThatCanReachCuboid(Cuboid cuboid)
 	{
-		return _nanobots.Count(n => CanNanobotReachCuboid(n, cuboid));
+		return _nanobots.Where(n => CanNanobotReachCuboid(n, cuboid));
 	}
 
 	public Cuboid GenerateBoundingCuboid()
@@ -59,9 +47,9 @@ sealed class NanobotFormationAnalyzer
 
 	public (int NanobotsInRangeCount, Point Point) FindPointInRangeOfMostNanobots()
 	{
-		CuboidPriorityQueue queue = new();
+		CuboidPriorityQueue queue = new(_origin);
 		Cuboid boundingCuboid = GenerateBoundingCuboid();
-		queue.Enqueue(CountNanobotsThatCanReach(boundingCuboid), boundingCuboid);
+		queue.Enqueue(NanobotsThatCanReachCuboid(boundingCuboid).Count(), boundingCuboid);
 		while (queue.TryDequeue(out int nanobotsInRangeCount, out Cuboid cuboid))
 		{
 			if (cuboid.Volume == 1)
@@ -70,7 +58,7 @@ sealed class NanobotFormationAnalyzer
 			}
 			foreach (Cuboid newCuboid in CuboidSplitter.Split(cuboid))
 			{
-				int newNanobotsInRangeCount = CountNanobotsThatCanReach(newCuboid);
+				int newNanobotsInRangeCount = NanobotsThatCanReachCuboid(newCuboid).Count();
 				queue.Enqueue(newNanobotsInRangeCount, newCuboid);
 			}
 		}
