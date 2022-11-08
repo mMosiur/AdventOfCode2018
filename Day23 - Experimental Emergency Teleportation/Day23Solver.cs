@@ -10,6 +10,7 @@ public sealed class Day23Solver : DaySolver
 	public override string Title => "Experimental Emergency Teleportation";
 
 	private readonly (Point Position, int Radius)[] _nanobotInfo;
+	private readonly Point _origin;
 
 	private IEnumerable<Nanobot> GenerateNanobots()
 	{
@@ -18,6 +19,7 @@ public sealed class Day23Solver : DaySolver
 
 	public Day23Solver(Day23SolverOptions options) : base(options)
 	{
+		_origin = new Point(options.MyPositionX, options.MyPositionY, options.MyPositionZ);
 		try
 		{
 			_nanobotInfo = InputLines.Select(InputParser.ParseNanobotInfo).ToArray();
@@ -40,15 +42,18 @@ public sealed class Day23Solver : DaySolver
 	public override string SolvePart1()
 	{
 		NanobotFormationAnalyzer analyzer = new(GenerateNanobots());
-		Nanobot strongestNanobot = analyzer.GetStrongestNanobot();
+		Nanobot strongestNanobot = analyzer.FindStrongestNanobot();
 		int result = analyzer
 			.NanobotsInRangeOf(strongestNanobot)
 			.Count();
-		return result.ToString();
+		return $"{result}";
 	}
 
 	public override string SolvePart2()
 	{
-		return "UNSOLVED";
+		NanobotFormationAnalyzer analyzer = new(GenerateNanobots());
+		(_, Point point) = analyzer.FindPointInRangeOfMostNanobots();
+		int result = ExtendedMath.ManhattanDistance(_origin, point);
+		return $"{result}";
 	}
 }

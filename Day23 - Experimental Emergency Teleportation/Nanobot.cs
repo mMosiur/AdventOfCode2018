@@ -15,6 +15,6 @@ sealed class Nanobot
 
 	public bool IsInRange(Nanobot nanobot)
 	{
-		return Geometry.Math.ManhattanDistance(Position, nanobot.Position) <= Radius;
+		return ExtendedMath.ManhattanDistance(Position, nanobot.Position) <= Radius;
 	}
 }
