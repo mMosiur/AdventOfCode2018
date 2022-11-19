@@ -12,9 +12,6 @@ public sealed class Day24Solver : DaySolver
 
 	public Day24Solver(Day24SolverOptions options) : base(options)
 	{
-		// Initialize Day24 solver here.
-		// Property `Input` contains the raw input text.
-		// Property `InputLines` enumerates lines in the input text.
 	}
 
 	public Day24Solver(Action<Day24SolverOptions> configure)
@@ -28,7 +25,13 @@ public sealed class Day24Solver : DaySolver
 
 	public override string SolvePart1()
 	{
-		return "UNSOLVED";
+		(Army army1, Army army2) = InputParser.Parse(InputLines);
+		CombatSimulator simulator = new(army1, army2);
+		simulator.Simulate();
+		int army1units = army1.ActiveGroups.Sum(g => g.UnitCount);
+		int army2units = army2.ActiveGroups.Sum(g => g.UnitCount);
+		int result = army1units + army2units;
+		return result.ToString();
 	}
 
 	public override string SolvePart2()
