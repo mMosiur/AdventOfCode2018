@@ -1,0 +1,405 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build all",
+            "command": "dotnet",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "build",
+                "${workspaceFolder}/AdventOfCode2018.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 01",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day01 - Chronal Calibration"
+            },
+            "args": [
+                "build",
+                "./Day01.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 02",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day02 - Inventory Management System"
+            },
+            "args": [
+                "build",
+                "./Day02.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 03",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day03 - No Matter How You Slice It"
+            },
+            "args": [
+                "build",
+                "./Day03.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 04",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day04 - Repose Record"
+            },
+            "args": [
+                "build",
+                "./Day04.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 05",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day05 - Alchemical Reduction"
+            },
+            "args": [
+                "build",
+                "./Day05.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 06",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day06 - Chronal Coordinates"
+            },
+            "args": [
+                "build",
+                "./Day06.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 07",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day07 - The Sum of Its Parts"
+            },
+            "args": [
+                "build",
+                "./Day07.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 08",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day08 - Memory Maneuver"
+            },
+            "args": [
+                "build",
+                "./Day08.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 09",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day09 - Marble Mania"
+            },
+            "args": [
+                "build",
+                "./Day09.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 10",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day10 - The Stars Align"
+            },
+            "args": [
+                "build",
+                "./Day10.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 11",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day11 - Chronal Charge"
+            },
+            "args": [
+                "build",
+                "./Day11.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 12",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day12 - Subterranean Sustainability"
+            },
+            "args": [
+                "build",
+                "./Day12.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 13",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day13 - Mine Cart Madness"
+            },
+            "args": [
+                "build",
+                "./Day13.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 14",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day14 - Chocolate Charts"
+            },
+            "args": [
+                "build",
+                "./Day14.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 15",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day15 - Beverage Bandits"
+            },
+            "args": [
+                "build",
+                "./Day15.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 16",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day16 - Chronal Classification"
+            },
+            "args": [
+                "build",
+                "./Day16.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 17",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day17 - Reservoir Research"
+            },
+            "args": [
+                "build",
+                "./Day17.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 18",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day18 - Settlers of The North Pole"
+            },
+            "args": [
+                "build",
+                "./Day18.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 19",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day19 - Go With The Flow"
+            },
+            "args": [
+                "build",
+                "./Day19.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 20",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day20 - A Regular Map"
+            },
+            "args": [
+                "build",
+                "./Day20.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 21",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day21 - Chronal Conversion"
+            },
+            "args": [
+                "build",
+                "./Day21.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 22",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day22 - Mode Maze"
+            },
+            "args": [
+                "build",
+                "./Day22.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 23",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day23 - Experimental Emergency Teleportation"
+            },
+            "args": [
+                "build",
+                "./Day23.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build day 24",
+            "command": "dotnet",
+            "type": "process",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Day24 - Immune System Simulator 20XX"
+            },
+            "args": [
+                "build",
+                "./Day24.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+    ]
+}
