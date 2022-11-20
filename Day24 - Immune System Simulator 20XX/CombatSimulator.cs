@@ -1,8 +1,10 @@
+using System.Diagnostics;
+
 namespace AdventOfCode.Year2018.Day24;
 
-class CombatSimulator
+partial class CombatSimulator
 {
-	private IEnumerable<Group> ActiveGroups => Army1.ActiveGroups.Concat(Army2.ActiveGroups);
+	private IEnumerable<Group> AllActiveGroups => Army1.ActiveGroups.Concat(Army2.ActiveGroups);
 
 	public Army Army1 { get; }
 	public Army Army2 { get; }
@@ -15,7 +17,7 @@ class CombatSimulator
 
 	public void Simulate()
 	{
-		while (Army1.ActiveGroups.Any() && Army2.ActiveGroups.Any())
+		while (!(Army1.IsDefeated || Army2.IsDefeated))
 		{
 			Fight();
 		}
@@ -29,14 +31,25 @@ class CombatSimulator
 
 	private Dictionary<Group, Group> TargetSelectionPhase()
 	{
-		Dictionary<Group, Group> selectedTargets = new(ActiveGroups.Count());
-		HashSet<Group> availableTargets = new(ActiveGroups);
-		GroupTargetChooserOrderComparer orderComparer = new();
-		IEnumerable<Group> orderedGroups = ActiveGroups.Order(orderComparer);
+		Dictionary<Group, Group> selectedTargets = new(AllActiveGroups.Count());
+		HashSet<Group> availableTargets1 = new(Army1.ActiveGroups);
+		HashSet<Group> availableTargets2 = new(Army2.ActiveGroups);
+		IEnumerable<Group> orderedGroups = AllActiveGroups.Order(comparer: new GroupTargetChooserOrderComparer());
 		foreach (Group group in orderedGroups)
 		{
-			GroupTargetingOrderComparer targetComparer = new(group);
-			Group target = availableTargets.Order(targetComparer).First();
+			HashSet<Group> availableTargets = group.Army switch
+			{
+				Army army1 when ReferenceEquals(army1, Army1) => availableTargets2,
+				Army army2 when ReferenceEquals(army2, Army2) => availableTargets1,
+				_ => throw new UnreachableException("Unexpected third army."),
+			};
+			if (availableTargets.Count == 0)
+			{
+				continue;
+			}
+			Group target = availableTargets
+				.Order(comparer: new GroupTargetingOrderComparer(group))
+				.First();
 			if (group.CalculateDamageTowards(target) == 0)
 			{
 				continue;
@@ -50,7 +63,7 @@ class CombatSimulator
 	private void AttackingPhase(Dictionary<Group, Group> targets)
 	{
 		GroupAttackOrderComparer attackOrderComparer = new();
-		IEnumerable<Group> orderedGroups = ActiveGroups.Order(attackOrderComparer);
+		IEnumerable<Group> orderedGroups = AllActiveGroups.Order(attackOrderComparer);
 		foreach (Group group in orderedGroups)
 		{
 			if (group.UnitCount == 0)
@@ -61,65 +74,7 @@ class CombatSimulator
 			{
 				continue;
 			}
-			bool defeated = group.Attack(target);
+			group.Attack(target);
 		}
-	}
-}
-
-class GroupTargetChooserOrderComparer : IComparer<Group>
-{
-	public int Compare(Group? a, Group? b)
-	{
-		ArgumentNullException.ThrowIfNull(a);
-		ArgumentNullException.ThrowIfNull(b);
-		int result = b.EffectivePower.CompareTo(a.EffectivePower);
-		if (result != 0)
-		{
-			return -result; // Descending order of effective power.
-		}
-		result = b.Initiative.CompareTo(a.Initiative);
-		return -result; // Descending order of initiative.
-	}
-}
-
-class GroupTargetingOrderComparer : IComparer<Group>
-{
-	private readonly Group _attacker;
-
-	public GroupTargetingOrderComparer(Group attacker)
-	{
-		ArgumentNullException.ThrowIfNull(attacker);
-		_attacker = attacker;
-	}
-
-	public int Compare(Group? a, Group? b)
-	{
-		ArgumentNullException.ThrowIfNull(a);
-		ArgumentNullException.ThrowIfNull(b);
-		int damageToA = _attacker.CalculateDamageTowards(a);
-		int damageToB = _attacker.CalculateDamageTowards(b);
-		int result = damageToA.CompareTo(damageToB);
-		if (result != 0)
-		{
-			return -result; // Descending order of damage.
-		}
-		result = a.EffectivePower.CompareTo(b.EffectivePower);
-		if (result != 0)
-		{
-			return -result; // Descending order of effective power.
-		}
-		result = a.Initiative.CompareTo(b.Initiative);
-		return -result; // Descending order of initiative.
-	}
-}
-
-class GroupAttackOrderComparer : IComparer<Group>
-{
-	public int Compare(Group? a, Group? b)
-	{
-		ArgumentNullException.ThrowIfNull(a);
-		ArgumentNullException.ThrowIfNull(b);
-		int result = b.Initiative.CompareTo(a.Initiative);
-		return -result; // Descending order of initiative.
 	}
 }

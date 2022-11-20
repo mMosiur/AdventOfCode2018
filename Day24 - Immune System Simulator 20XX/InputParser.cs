@@ -23,15 +23,9 @@ static partial class InputParser
 			throw new FormatException($"Expected army header, got '{it.Current}'.");
 		}
 		string armyName1 = match.Groups["name"].Value;
+		Army army1 = new(armyName1);
 		SkipToNextNonEmptyLine(it, "No first army info in input.");
-		List<Group> armyGroups1 = new();
-		while (!string.IsNullOrWhiteSpace(it.Current))
-		{
-			Group group = ParseGroup(it.Current);
-			armyGroups1.Add(group);
-			EnsureMoveNext(it, "No second army info in input.");
-		}
-		Army army1 = new(armyName1, armyGroups1);
+		AddArmyGroups(it, army1);
 		SkipToNextNonEmptyLine(it, "No second army info in input.");
 		match = ArmyHeaderRegex().Match(it.Current);
 		if (!match.Success)
@@ -39,18 +33,9 @@ static partial class InputParser
 			throw new FormatException($"Expected army header, got '{it.Current}'.");
 		}
 		string armyName2 = match.Groups["name"].Value;
+		Army army2 = new(armyName2);
 		SkipToNextNonEmptyLine(it, "No second army info in input.");
-		List<Group> armyGroups2 = new();
-		while (!string.IsNullOrWhiteSpace(it.Current))
-		{
-			Group group = ParseGroup(it.Current);
-			armyGroups2.Add(group);
-			if (!it.MoveNext())
-			{
-				break;
-			}
-		}
-		Army army2 = new(armyName2, armyGroups2);
+		AddArmyGroups(it, army2);
 		return (army1, army2);
 	}
 
@@ -72,23 +57,31 @@ static partial class InputParser
 		}
 	}
 
-	private static Group ParseGroup(string inputLine)
+	private static bool AddArmyGroups(IEnumerator<string> it, Army army)
 	{
-		Match match = GroupRegex().Match(inputLine);
-		if (!match.Success)
+		while (!string.IsNullOrWhiteSpace(it.Current))
 		{
-			throw new FormatException("Input line was not in the expected format.");
+			Match match = GroupRegex().Match(it.Current);
+			if (!match.Success)
+			{
+				throw new FormatException("Input line was not in the expected group format.");
+			}
+			(string[]? weaknesses, string[]? immunities) = ParseModifiers(match.Groups["modifiers"].Value);
+			army.AddGroup(
+				int.Parse(match.Groups["units"].ValueSpan),
+				int.Parse(match.Groups["hitPoints"].ValueSpan),
+				int.Parse(match.Groups["attackDamage"].ValueSpan),
+				match.Groups["attackType"].Value,
+				int.Parse(match.Groups["initiative"].ValueSpan),
+				weaknesses,
+				immunities
+			);
+			if (!it.MoveNext())
+			{
+				return false;
+			}
 		}
-		(string[]? weaknesses, string[]? immunities) = ParseModifiers(match.Groups["modifiers"].Value);
-		return new Group(
-			int.Parse(match.Groups["units"].ValueSpan),
-			int.Parse(match.Groups["hitPoints"].ValueSpan),
-			int.Parse(match.Groups["attackDamage"].ValueSpan),
-			match.Groups["attackType"].Value,
-			int.Parse(match.Groups["initiative"].ValueSpan),
-			weaknesses,
-			immunities
-		);
+		return true;
 	}
 
 	private static (string[]? Weaknesses, string[]? Immunities) ParseModifiers(string s)
@@ -109,7 +102,7 @@ static partial class InputParser
 				{
 					throw new FormatException("Weaknesses defined multiple times.");
 				}
-				weaknesses = s[WEAKNESSES_START.Length..].Split(',', StringSplitOptions.TrimEntries);
+				weaknesses = part[WEAKNESSES_START.Length..].Split(',', StringSplitOptions.TrimEntries);
 			}
 			else if (part.StartsWith(IMMUNITIES_START))
 			{
@@ -117,7 +110,7 @@ static partial class InputParser
 				{
 					throw new FormatException("Immunities defined multiple times.");
 				}
-				immunities = s[IMMUNITIES_START.Length..].Split(',', StringSplitOptions.TrimEntries);
+				immunities = part[IMMUNITIES_START.Length..].Split(',', StringSplitOptions.TrimEntries);
 			}
 			else
 			{
@@ -126,6 +119,4 @@ static partial class InputParser
 		}
 		return (weaknesses, immunities);
 	}
-
 }
-// 4485 units each with 2961 hit points (immune to radiation; weak to fire, cold) with an attack that does 12 slashing damage at initiative 4
