@@ -2,6 +2,7 @@ namespace AdventOfCode.Year2018.Day24;
 
 abstract class Group
 {
+	private readonly int _baseAttackDamage;
 	private readonly string[] _weaknesses;
 	private readonly string[] _immunities;
 
@@ -16,9 +17,10 @@ abstract class Group
 	}
 
 	public Army Army { get; }
+	public int FullUnitCount { get; }
 	public int UnitCount { get; private set; }
 	public int HitPoints { get; }
-	public int AttackDamage { get; }
+	public int AttackDamage => _baseAttackDamage + Army.AttackBoost;
 	public string AttackType { get; }
 	public int Initiative { get; }
 	public IReadOnlyCollection<string> Weaknesses => _weaknesses;
@@ -34,7 +36,8 @@ abstract class Group
 		{
 			throw new ArgumentOutOfRangeException(nameof(unitCount), unitCount, "Unit count must be non-negative.");
 		}
-		UnitCount = unitCount;
+		FullUnitCount = unitCount;
+		UnitCount = FullUnitCount;
 		if (hitPoints < 0)
 		{
 			throw new ArgumentOutOfRangeException(nameof(hitPoints), hitPoints, "Hit points must be non-negative.");
@@ -44,7 +47,7 @@ abstract class Group
 		{
 			throw new ArgumentOutOfRangeException(nameof(attackDamage), attackDamage, "Attack damage must be non-negative.");
 		}
-		AttackDamage = attackDamage;
+		_baseAttackDamage = attackDamage;
 		if (string.IsNullOrWhiteSpace(attackType))
 		{
 			throw new ArgumentException("Attack type must be non-empty.", nameof(attackType));
@@ -93,6 +96,11 @@ abstract class Group
 			defender.OnGroupDefeated(attacker: this);
 		}
 		return casualties;
+	}
+
+	public void Reset()
+	{
+		UnitCount = FullUnitCount;
 	}
 }
 

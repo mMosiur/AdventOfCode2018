@@ -15,18 +15,76 @@ partial class CombatSimulator
 		Army2 = army2;
 	}
 
-	public void Simulate()
+	public Army? Simulate()
 	{
-		while (!(Army1.IsDefeated || Army2.IsDefeated))
+		Reset();
+		while (true)
 		{
-			Fight();
+			switch ((Army1.IsDefeated, Army2.IsDefeated))
+			{
+				case (false, true):
+					return Army1;
+				case (true, false):
+					return Army2;
+				case (true, true):
+					return null;
+			}
+			bool fightContinues = Fight();
+			if (!fightContinues)
+			{
+				return null;
+			}
 		}
 	}
 
-	private void Fight()
+	public int FindAndSetSmallestBootValueForArmyToWin(string armyNameToBoost, in int lowerBoostBound, in int upperBoostBound)
+	{
+		ArgumentException.ThrowIfNullOrEmpty(armyNameToBoost);
+		Army armyToBoost = armyNameToBoost switch
+		{
+			string armyName1 when Army1.Name.Equals(armyName1, StringComparison.OrdinalIgnoreCase) => Army1,
+			string armyName2 when Army2.Name.Equals(armyName2, StringComparison.OrdinalIgnoreCase) => Army2,
+			_ => throw new DaySolverException($"Army with name '{armyNameToBoost}' not found.")
+		};
+		int minBoostSearchValue = lowerBoostBound;
+		int maxBoostSearchValue = upperBoostBound;
+		while (minBoostSearchValue <= maxBoostSearchValue)
+		{
+			int boost = (minBoostSearchValue + maxBoostSearchValue) / 2;
+			armyToBoost.AttackBoost = boost;
+			Army? winner = Simulate();
+			if (armyToBoost == winner)
+			{
+				maxBoostSearchValue = boost - 1;
+			}
+			else
+			{
+				minBoostSearchValue = boost + 1;
+			}
+		}
+		if (minBoostSearchValue > upperBoostBound)
+		{
+			throw new DaySolverException($"No boost value found that results in a win for \"{armyNameToBoost}\".");
+		}
+		armyToBoost.AttackBoost = minBoostSearchValue;
+		return minBoostSearchValue;
+	}
+
+	public void Reset()
+	{
+		Army1.Reset();
+		Army2.Reset();
+	}
+
+	private bool Fight()
 	{
 		Dictionary<Group, Group> targets = TargetSelectionPhase();
+		if (targets.Count == 0)
+		{
+			return false;
+		}
 		AttackingPhase(targets);
+		return true;
 	}
 
 	private Dictionary<Group, Group> TargetSelectionPhase()

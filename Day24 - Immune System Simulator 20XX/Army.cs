@@ -10,6 +10,7 @@ sealed class Army : IReadOnlyCollection<Group>
 	public string Name { get; }
 	public IReadOnlyCollection<Group> ActiveGroups => _activeGroups;
 	public IReadOnlyCollection<Group> DefeatedGroups => _defeatedGroups;
+	public int AttackBoost { get; set; }
 	public int Count => _activeGroups.Count + _defeatedGroups.Count;
 	public bool IsDefeated => _activeGroups.Count == 0;
 
@@ -45,6 +46,21 @@ sealed class Army : IReadOnlyCollection<Group>
 
 	public IEnumerator<Group> GetEnumerator() => _activeGroups.Concat(_defeatedGroups).GetEnumerator();
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+	public void Reset()
+	{
+		foreach (Group group in _activeGroups)
+		{
+			group.Reset();
+		}
+		foreach (Group group in _defeatedGroups)
+		{
+			group.Reset();
+			_activeGroups.Add(group);
+			group.GroupDefeated += OnGroupDefeated;
+		}
+		_defeatedGroups.Clear();
+	}
 
 	sealed class ArmyGroup : Group
 	{
