@@ -13,4 +13,10 @@
     <PackageReference Include="mMosiur.AdventOfCode.Common" Version="0.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="*.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

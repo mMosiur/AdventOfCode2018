@@ -13,4 +13,10 @@
     <PackageReference Include="mMosiur.AdventOfCode.Abstractions" Version="4.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="*.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
