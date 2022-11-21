@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day23", "Day23 - Experiment
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day24", "Day24 - Immune System Simulator 20XX\Day24.csproj", "{9139AA88-0AC6-4293-BD4E-201ADF64739D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day25", "Day25 - Four-Dimensional Adventure\Day25.csproj", "{F7D186D0-40E0-43D5-83F7-990A817C773D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -156,5 +158,9 @@ Global
 		{9139AA88-0AC6-4293-BD4E-201ADF64739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9139AA88-0AC6-4293-BD4E-201ADF64739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9139AA88-0AC6-4293-BD4E-201ADF64739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D186D0-40E0-43D5-83F7-990A817C773D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D186D0-40E0-43D5-83F7-990A817C773D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D186D0-40E0-43D5-83F7-990A817C773D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D186D0-40E0-43D5-83F7-990A817C773D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

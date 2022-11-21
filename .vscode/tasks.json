@@ -401,5 +401,21 @@
       ],
       "problemMatcher": "$msCompile"
     },
+    {
+      "label": "build day 25",
+      "command": "dotnet",
+      "type": "process",
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/Day25 - Four-Dimensional Adventure"
+      },
+      "args": [
+        "build",
+        "./Day25.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    }
   ]
 }
