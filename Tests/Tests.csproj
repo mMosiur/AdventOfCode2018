@@ -46,6 +46,7 @@
     <ProjectReference Include="..\Day22 - Mode Maze\Day22.csproj" />
     <ProjectReference Include="..\Day23 - Experimental Emergency Teleportation\Day23.csproj" />
     <ProjectReference Include="..\Day24 - Immune System Simulator 20XX\Day24.csproj" />
+    <ProjectReference Include="..\Day25 - Four-Dimensional Adventure\Day25.csproj" />
   </ItemGroup>
 
    <ItemGroup>
