@@ -265,5 +265,16 @@
       "console": "internalConsole",
       "stopAtEntry": false
     },
+    {
+      "name": "Launch Day 25",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build day 25",
+      "program": "./bin/Debug/net7.0/Day25.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Day25 - Four-Dimensional Adventure",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
   ]
 }
