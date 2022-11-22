@@ -37,8 +37,5 @@ public sealed class Day25Solver : DaySolver
 		return $"{result}";
 	}
 
-	public override string SolvePart2()
-	{
-		return "UNSOLVED";
-	}
+	public override string SolvePart2() => "¡Feliz Navidad!";
 }
