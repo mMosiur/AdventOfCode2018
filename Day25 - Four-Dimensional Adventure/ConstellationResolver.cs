@@ -4,28 +4,30 @@ namespace AdventOfCode.Year2018.Day25;
 
 class ConstellationResolver
 {
-	private readonly Dictionary<Point, int?> _constellationMap;
-
-	public IReadOnlyCollection<Point> Points => _constellationMap.Keys;
+	private readonly IReadOnlyCollection<Point> _points;
 
 	public ConstellationResolver(IReadOnlyCollection<Point> points)
 	{
-		_constellationMap = points.ToDictionary(p => p, p => (int?)null);
+		_points = points;
 	}
-}
 
-class Constellation
-{
-	// TODO: Implement this class
-}
-
-class ConstellationPoint
-{
-	public Point Point { get; }
-	public Constellation? Constellation { get; set; }
-
-	public ConstellationPoint(Point point)
+	public IReadOnlySet<Constellation> Resolve(int maxDistanceInConstellation)
 	{
-		Point = point;
+		ConstellationPoint[] constellationPoints = _points.Select(p => new ConstellationPoint(p)).ToArray();
+		for (int i = 0; i < constellationPoints.Length; i++)
+		{
+			ConstellationPoint point1 = constellationPoints[i];
+			for (int j = i + 1; j < constellationPoints.Length; j++)
+			{
+				ConstellationPoint point2 = constellationPoints[j];
+				int distance = ExtendedMath.ManhattanDistance(point1.Point, point2.Point);
+				if (distance <= maxDistanceInConstellation)
+				{
+					if (point1.Constellation == point2.Constellation) continue;
+					point1.Constellation.MergeFrom(point2.Constellation);
+				}
+			}
+		}
+		return constellationPoints.Select(p => p.Constellation).ToHashSet();
 	}
 }

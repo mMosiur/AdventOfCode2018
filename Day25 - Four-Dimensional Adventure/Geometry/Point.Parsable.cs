@@ -24,7 +24,7 @@ readonly partial struct Point : IParsable<Point>
 				if (i >= 4) throw new FormatException($"Too many coordinates, needed 4, found at least {i}.");
 				coords[i++] = int.Parse(splitter.Current, provider);
 			}
-			if (i < 4) throw new FormatException("Too few coordinates, needed 4, found {i}.");
+			if (i < 4) throw new FormatException($"Too few coordinates, needed 4, found {i}.");
 			return new Point(coords[0], coords[1], coords[2], coords[3]);
 		}
 		catch (Exception e) when (e is FormatException or OverflowException)
@@ -33,44 +33,33 @@ readonly partial struct Point : IParsable<Point>
 		}
 	}
 
-	public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out Point result)
+	public static bool TryParse([NotNullWhen(true)] string? s, out Point result)
+		=> TryParse(s, null, out result);
+
+	public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out Point result)
 	{
 		ArgumentNullException.ThrowIfNull(s);
 		return TryParse(s.AsSpan(), provider, out result);
 	}
 
-	public static bool TryParse([NotNullWhen(true)] string? s, [MaybeNullWhen(false)] out Point result)
-		=> TryParse(s, null, out result);
+	public static bool TryParse(ReadOnlySpan<char> span, out Point result)
+		=> TryParse(span, null, out result);
 
-	public static bool TryParse(ReadOnlySpan<char> span, IFormatProvider? provider, [MaybeNullWhen(false)] out Point result)
+	public static bool TryParse(ReadOnlySpan<char> span, IFormatProvider? provider, out Point result)
 	{
+		result = default;
 		ReadOnlySpan<char> trimmedSpan = span.TrimStart().TrimStart('(').TrimEnd(')').TrimEnd();
 		Span<int> coords = stackalloc int[4];
 		SpanSplitEnumerator<char> splitter = trimmedSpan.Split(',');
 		int i = 0;
 		while (splitter.MoveNext())
 		{
-			if (i >= 4)
-			{
-				result = default;
-				return false;
-			}
-			if (!int.TryParse(splitter.Current, provider, out int parsed))
-			{
-				result = default;
-				return false;
-			}
+			if (i >= 4) return false;
+			if (!int.TryParse(splitter.Current, provider, out int parsed)) return false;
 			coords[i++] = parsed;
 		}
-		if (i < 4)
-		{
-			result = default;
-			return false;
-		}
+		if (i < 4) return false;
 		result = new Point(coords[0], coords[1], coords[2], coords[3]);
 		return true;
 	}
-
-	public static bool TryParse(ReadOnlySpan<char> span, [MaybeNullWhen(false)] out Point result)
-		=> TryParse(span, null, out result);
 }

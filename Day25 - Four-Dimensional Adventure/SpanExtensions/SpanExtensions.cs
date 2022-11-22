@@ -12,7 +12,7 @@ ref struct SpanSplitEnumerator<T> where T : IEquatable<T>
 {
 	private readonly ReadOnlySpan<T> _span;
 	private ReadOnlySpan<T> _current;
-	private int _position;
+	private ReadOnlySpan<T> _rest;
 	private bool _finished;
 	private readonly T _separator;
 
@@ -20,7 +20,7 @@ ref struct SpanSplitEnumerator<T> where T : IEquatable<T>
 	{
 		_span = span;
 		_current = default;
-		_position = 0;
+		_rest = span;
 		_finished = false;
 		_separator = separator;
 	}
@@ -28,23 +28,23 @@ ref struct SpanSplitEnumerator<T> where T : IEquatable<T>
 	public bool MoveNext()
 	{
 		if (_finished) return false;
-		int sepIndex = _span.IndexOf(_separator);
+		int sepIndex = _rest.IndexOf(_separator);
 		if (sepIndex == -1)
 		{
-			_current = _span[_position..];
-			_position = _span.Length;
+			_current = _rest;
+			_rest = default;
 			_finished = true;
 			return true;
 		}
-		_current = _span[_position..sepIndex];
-		_position += sepIndex + 1;
+		_current = _rest[..sepIndex];
+		_rest = _rest[(sepIndex + 1)..];
 		return true;
 	}
 
 	public void Reset()
 	{
 		_current = default;
-		_position = 0;
+		_rest = _span;
 		_finished = false;
 	}
 

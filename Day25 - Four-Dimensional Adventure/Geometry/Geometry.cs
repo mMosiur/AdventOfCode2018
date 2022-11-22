@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2018.Day25.Geometry;
 
-static class Geometry
+static class ExtendedMath
 {
 	public static int ManhattanDistance(Point a, Point b)
 	{
