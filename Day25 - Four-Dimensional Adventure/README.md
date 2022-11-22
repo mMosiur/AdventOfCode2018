@@ -24,7 +24,7 @@ You explain that your device isn't capable of going forward in time. "I... see. 
 
 The list of fixed points in spacetime (your puzzle input) is a set of four-dimensional coordinates. To align your device, acquire the hot chocolate, and save the reindeer, you just need to find the **number of constellations** of points in the list.
 
-Two points are in the same **constellation** if their manhattan distance apart is no more than 3 or if they can form a chain of points, each a manhattan distance **no more than 3** from the last, between the two of them. (That is, if a point is close enough to a constellation, it "joins" that constellation.) For example:
+Two points are in the same **constellation** if their manhattan distance apart is **no more than 3** or if they can form a chain of points, each a manhattan distance no more than 3 from the last, between the two of them. (That is, if a point is close enough to a constellation, it "joins" that constellation.) For example:
 
 ```
  0,0,0,0

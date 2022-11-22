@@ -1,18 +1,19 @@
 using AdventOfCode.Abstractions;
+using AdventOfCode.Year2018.Day25.Geometry;
 
 namespace AdventOfCode.Year2018.Day25;
 
 public sealed class Day25Solver : DaySolver
 {
+	private readonly IReadOnlyCollection<Point> _points;
+
 	public override int Year => 2018;
 	public override int Day => 25;
 	public override string Title => "Four-Dimensional Adventure";
 
 	public Day25Solver(Day25SolverOptions options) : base(options)
 	{
-		// Initialize Day25 solver here.
-		// Property `Input` contains the raw input text.
-		// Property `InputLines` enumerates lines in the input text.
+		_points = InputLines.Select(s => Point.Parse(s)).ToArray();
 	}
 
 	public Day25Solver(Action<Day25SolverOptions> configure)
