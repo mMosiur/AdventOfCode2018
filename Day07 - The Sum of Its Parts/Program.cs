@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using AdventOfCode;
 using AdventOfCode.Year2018.Day07;
 
@@ -47,7 +48,6 @@ try
 		options.StepOverheadDuration = stepOverheadDuration ?? options.StepOverheadDuration;
 	});
 
-	Console.WriteLine($"Advent of Code {solver.Year}");
 	Console.WriteLine($"--- Day {solver.Day}: {solver.Title} ---");
 
 	Console.Write("Part 1: ");
@@ -58,22 +58,18 @@ try
 	string part2 = solver.SolvePart2();
 	Console.WriteLine(part2);
 }
-catch (Exception e)
+catch (Exception e) when (e is CommandLineException or InputException or DaySolverException)
 {
-	string? errorPrefix = e switch
+	string errorPrefix = e switch
 	{
 		CommandLineException => "Command line error",
 		InputException => "Input error",
 		DaySolverException => "Day solver error",
-		_ => null
+		_ => throw new UnreachableException()
 	};
-	if (errorPrefix is null)
-	{
-		throw;
-	}
-	ConsoleColor previousColor = Console.ForegroundColor;
+
 	Console.ForegroundColor = ConsoleColor.Red;
 	Console.Error.WriteLine($"{errorPrefix}: {e.Message}");
-	Console.ForegroundColor = previousColor;
+	Console.ResetColor();
 	Environment.Exit(1);
 }
