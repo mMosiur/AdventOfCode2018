@@ -23,6 +23,7 @@ trim_trailing_whitespace = false
 
 # Config for dotnet analyzer rules
 [*.{cs,vb}]
+dotnet_diagnostic.SYSLIB1045.severity = none
 dotnet_diagnostic.CA1845.severity = suggestion
 dotnet_diagnostic.CA2201.severity = suggestion
 dotnet_diagnostic.CA2231.severity = suggestion
