@@ -32,7 +32,7 @@ public sealed class Day09Solver : DaySolver
 	{
 	}
 
-	public Day09Solver() : this(Day09SolverOptions.Default)
+	public Day09Solver() : this(new Day09SolverOptions())
 	{
 	}
 

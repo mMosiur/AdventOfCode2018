@@ -40,7 +40,7 @@ public sealed class Day12Solver : DaySolver
 	{
 	}
 
-	public Day12Solver() : this(Day12SolverOptions.Default)
+	public Day12Solver() : this(new Day12SolverOptions())
 	{
 	}
 
