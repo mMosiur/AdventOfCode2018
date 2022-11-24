@@ -4,7 +4,7 @@ namespace AdventOfCode.Year2018.Day16;
 
 public sealed class Day16SolverOptions : DaySolverOptions
 {
-	public int RegisterSize { get; init; } = 4;
-	public int PartOneMinimumBehaviorMatches { get; init; } = 3;
-	public int PartTwoResultValueRegister { get; init; } = 0;
+	public int RegisterSize { get; set; } = 4;
+	public int PartOneMinimumBehaviorMatches { get; set; } = 3;
+	public int PartTwoResultValueRegister { get; set; } = 0;
 }
