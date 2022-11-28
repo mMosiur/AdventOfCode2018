@@ -27,8 +27,8 @@ sealed class NanobotFormationAnalyzer
 
 	public static bool CanNanobotReachCuboid(Nanobot nanobot, Cuboid cuboid)
 	{
-		Point closestPoint = ExtendedMath.GetCuboidPointClosestToPoint(cuboid, nanobot.Position);
-		int closestPointDistance = ExtendedMath.ManhattanDistance(nanobot.Position, closestPoint);
+		Point closestPoint = cuboid.GetPointClosestToExternalPoint(nanobot.Position);
+		int closestPointDistance = MathG.ManhattanDistance(nanobot.Position, closestPoint);
 		return closestPointDistance <= nanobot.Radius;
 	}
 

@@ -32,6 +32,15 @@ readonly struct Cuboid : IEquatable<Cuboid>
 		}
 	}
 
+	public Point GetPointClosestToExternalPoint(Point point)
+	{
+		return new(
+			x: Math.Clamp(point.X, XRange.Start, XRange.End),
+			y: Math.Clamp(point.Y, YRange.Start, YRange.End),
+			z: Math.Clamp(point.Z, ZRange.Start, ZRange.End)
+		);
+	}
+
 	#region IEquatable<Cuboid>
 	public bool Equals(Cuboid other) => XRange == other.XRange && YRange == other.YRange && ZRange == other.ZRange;
 	public override bool Equals(object? obj) => obj is Cuboid cuboid && Equals(cuboid);

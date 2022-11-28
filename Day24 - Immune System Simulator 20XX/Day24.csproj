@@ -10,13 +10,16 @@
 
   <ItemGroup>
     <PackageReference Include="mMosiur.AdventOfCode.Abstractions" Version="4.2.0" />
-    <PackageReference Include="mMosiur.AdventOfCode.Common" Version="0.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="*.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Source\Common.csproj" />
   </ItemGroup>
 
 </Project>

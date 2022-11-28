@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day18.Geometry;
-
 namespace AdventOfCode.Year2018.Day18.LumberCollection;
 
 abstract class LumberCollectionAreaSimulator

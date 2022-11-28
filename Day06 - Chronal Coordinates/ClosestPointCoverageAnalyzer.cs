@@ -56,7 +56,7 @@ class ClosestPointCoverageAnalyzer
 		bool multipleClosest = false;
 		foreach (Point target in targets)
 		{
-			int distance = Math.ManhattanDistance(origin, target);
+			int distance = MathG.ManhattanDistance(origin, target);
 			if (closestDistance is null || distance < closestDistance)
 			{
 				closestTarget = target;

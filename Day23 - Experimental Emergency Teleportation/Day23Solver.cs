@@ -53,7 +53,7 @@ public sealed class Day23Solver : DaySolver
 	{
 		NanobotFormationAnalyzer analyzer = new(GenerateNanobots(), _origin);
 		(_, Point point) = analyzer.FindPointInRangeOfMostNanobots();
-		int result = ExtendedMath.ManhattanDistance(_origin, point);
+		int result = MathG.ManhattanDistance(_origin, point);
 		return $"{result}";
 	}
 }

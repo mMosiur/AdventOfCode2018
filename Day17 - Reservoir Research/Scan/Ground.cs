@@ -47,9 +47,9 @@ class Ground : IEnumerable<GroundType>
 	{
 		bool hasSpread = false;
 		bool blocked = false;
-		while (Area.Contains(point.Below))
+		while (Area.Contains(point.GetBelow()))
 		{
-			Point pointBelow = point.Below;
+			Point pointBelow = point.GetBelow();
 			GroundType groundBelow = this[pointBelow];
 			if (!groundBelow.IsPassable())
 			{
@@ -67,9 +67,9 @@ class Ground : IEnumerable<GroundType>
 	{
 		bool hasSpread = false;
 		bool blocked = false;
-		while (Area.Contains(point.Left) && Area.Contains(point.Below) && this[point.Below].IsBlocked())
+		while (Area.Contains(point.GetLeft()) && Area.Contains(point.GetBelow()) && this[point.GetBelow()].IsBlocked())
 		{
-			Point pointLeft = point.Left;
+			Point pointLeft = point.GetLeft();
 			GroundType groundLeft = this[pointLeft];
 			if (!groundLeft.IsPassable())
 			{
@@ -87,9 +87,9 @@ class Ground : IEnumerable<GroundType>
 	{
 		bool hasSpread = false;
 		bool blocked = false;
-		while (Area.Contains(point.Right) && Area.Contains(point.Below) && this[point.Below].IsBlocked())
+		while (Area.Contains(point.GetRight()) && Area.Contains(point.GetBelow()) && this[point.GetBelow()].IsBlocked())
 		{
-			Point pointRight = point.Right;
+			Point pointRight = point.GetRight();
 			GroundType groundRight = this[pointRight];
 			if (!groundRight.IsPassable())
 			{
@@ -105,18 +105,18 @@ class Ground : IEnumerable<GroundType>
 
 	private StabilizeResult TryStabilize(Point pointToConsider)
 	{
-		if (this[pointToConsider] is not GroundType.WaterFlowing || !Area.Contains(pointToConsider.Below))
+		if (this[pointToConsider] is not GroundType.WaterFlowing || !Area.Contains(pointToConsider.GetBelow()))
 		{
 			return StabilizeResult.NotStabilized;
 		}
 		Point leftmostPoint = pointToConsider;
 		while (this[leftmostPoint] is GroundType.WaterFlowing)
 		{
-			if (!this[leftmostPoint.Below].IsBlocked())
+			if (!this[leftmostPoint.GetBelow()].IsBlocked())
 			{
 				return StabilizeResult.NotStabilized;
 			}
-			leftmostPoint = leftmostPoint.Left;
+			leftmostPoint = leftmostPoint.GetLeft();
 			if (!Area.Contains(leftmostPoint))
 			{
 				return StabilizeResult.NotStabilized;
@@ -126,15 +126,15 @@ class Ground : IEnumerable<GroundType>
 		{
 			return StabilizeResult.NotStabilized;
 		}
-		leftmostPoint = leftmostPoint.Right;
+		leftmostPoint = leftmostPoint.GetRight();
 		Point rightmostPoint = pointToConsider;
 		while (this[rightmostPoint] is GroundType.WaterFlowing)
 		{
-			if (!this[rightmostPoint.Below].IsBlocked())
+			if (!this[rightmostPoint.GetBelow()].IsBlocked())
 			{
 				return StabilizeResult.NotStabilized;
 			}
-			rightmostPoint = rightmostPoint.Right;
+			rightmostPoint = rightmostPoint.GetRight();
 			if (!Area.Contains(rightmostPoint))
 			{
 				return StabilizeResult.NotStabilized;
@@ -144,13 +144,13 @@ class Ground : IEnumerable<GroundType>
 		{
 			return StabilizeResult.NotStabilized;
 		}
-		rightmostPoint = rightmostPoint.Left;
+		rightmostPoint = rightmostPoint.GetLeft();
 		Point stabilizingPoint = leftmostPoint;
-		Point rightEdgePoint = rightmostPoint.Right;
+		Point rightEdgePoint = rightmostPoint.GetRight();
 		while (stabilizingPoint != rightEdgePoint)
 		{
 			this[stabilizingPoint] = GroundType.WaterResting;
-			stabilizingPoint = stabilizingPoint.Right;
+			stabilizingPoint = stabilizingPoint.GetRight();
 		}
 		return StabilizeResult.Stabilized(leftmostPoint, rightmostPoint);
 	}
@@ -187,15 +187,15 @@ class Ground : IEnumerable<GroundType>
 			if (stabilizeResult.HasStabilized)
 			{
 				hasChanged = true;
-				Point potentialNewActiveWaterPoint = stabilizeResult.LeftmostStabilizedPoint.Above;
-				Point aboveStabilizationEdgePoint = stabilizeResult.RightmostStabilizedPoint.Right.Above;
+				Point potentialNewActiveWaterPoint = stabilizeResult.LeftmostStabilizedPoint.GetAbove();
+				Point aboveStabilizationEdgePoint = stabilizeResult.RightmostStabilizedPoint.GetRight().GetAbove();
 				while (potentialNewActiveWaterPoint != aboveStabilizationEdgePoint)
 				{
 					if (this[potentialNewActiveWaterPoint].IsSpreading())
 					{
 						_activeWaterPoints.Add(potentialNewActiveWaterPoint);
 					}
-					potentialNewActiveWaterPoint = potentialNewActiveWaterPoint.Right;
+					potentialNewActiveWaterPoint = potentialNewActiveWaterPoint.GetRight();
 				}
 			}
 		}
@@ -212,15 +212,15 @@ class Ground : IEnumerable<GroundType>
 			if (stabilizeResult.HasStabilized)
 			{
 				hasChanged = true;
-				Point potentialNewActiveWaterPoint = stabilizeResult.LeftmostStabilizedPoint.Above;
-				Point aboveStabilizationEdgePoint = stabilizeResult.RightmostStabilizedPoint.Right.Above;
+				Point potentialNewActiveWaterPoint = stabilizeResult.LeftmostStabilizedPoint.GetAbove();
+				Point aboveStabilizationEdgePoint = stabilizeResult.RightmostStabilizedPoint.GetRight().GetAbove();
 				while (potentialNewActiveWaterPoint != aboveStabilizationEdgePoint)
 				{
 					if (this[potentialNewActiveWaterPoint].IsSpreading())
 					{
 						_activeWaterPoints.Add(potentialNewActiveWaterPoint);
 					}
-					potentialNewActiveWaterPoint = potentialNewActiveWaterPoint.Right;
+					potentialNewActiveWaterPoint = potentialNewActiveWaterPoint.GetRight();
 				}
 			}
 		}
