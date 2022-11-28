@@ -48,10 +48,10 @@ class GroundBuilder
 			throw new InvalidOperationException("Spring of water position must be set.");
 		}
 		Area area = _areaBuilder.Build();
-		GroundType[,] groundScan = new GroundType[area.Width, area.Height];
-		for (int x = 0; x < area.Width; x++)
+		GroundType[,] groundScan = new GroundType[area.GetWidth(), area.GetHeight()];
+		for (int x = 0; x < area.GetWidth(); x++)
 		{
-			for (int y = 0; y < area.Height; y++)
+			for (int y = 0; y < area.GetHeight(); y++)
 			{
 				groundScan[x, y] = GroundType.Sand;
 			}

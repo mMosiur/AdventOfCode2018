@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day22.Geometry;
-
 namespace AdventOfCode.Year2018.Day22.Cave;
 
 class CaveDataCalculator

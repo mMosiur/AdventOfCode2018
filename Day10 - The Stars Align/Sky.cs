@@ -1,5 +1,5 @@
 using System.Text;
-using AdventOfCode.Year2018.Day10.Geometry;
+using AdventOfCode.Common.Numerics;
 
 namespace AdventOfCode.Year2018.Day10;
 
@@ -40,28 +40,30 @@ class Sky
 			maxX = Math.Max(maxX, point.Position.X);
 			maxY = Math.Max(maxY, point.Position.Y);
 		}
-		return new(minX, minY, maxX, maxY);
+		Interval<int> xRange = new(minX, maxX);
+		Interval<int> yRange = new(minY, maxY);
+		return new(xRange, yRange);
 	}
 
 	public string? GetRepresentation(int maxArea)
 	{
 		Rectangle boundingBox = GetBoundingBox();
-		long boundingBoxArea = Math.BigMul(boundingBox.Width, boundingBox.Height);
+		long boundingBoxArea = Math.BigMul(boundingBox.GetWidth(), boundingBox.GetHeight());
 		if (boundingBoxArea > maxArea)
 		{
 			return null;
 		}
-		bool[,] stars = new bool[boundingBox.Width, boundingBox.Height];
+		bool[,] stars = new bool[boundingBox.GetWidth(), boundingBox.GetHeight()];
 		foreach (SkyPoint point in _points)
 		{
-			int x = point.Position.X - boundingBox.MinX;
-			int y = point.Position.Y - boundingBox.MinY;
+			int x = point.Position.X - boundingBox.XRange.Start;
+			int y = point.Position.Y - boundingBox.YRange.Start;
 			stars[x, y] = true;
 		}
-		StringBuilder builder = new(boundingBox.Height * (boundingBox.Width + Environment.NewLine.Length));
-		for (int y = 0; y < boundingBox.Height; y++)
+		StringBuilder builder = new(boundingBox.GetHeight() * (boundingBox.GetWidth() + Environment.NewLine.Length));
+		for (int y = 0; y < boundingBox.GetHeight(); y++)
 		{
-			for (int x = 0; x < boundingBox.Width; x++)
+			for (int x = 0; x < boundingBox.GetWidth(); x++)
 			{
 				bool hasStart = stars[x, y];
 				builder.Append(hasStart ? _starInSkyRepresentation : _emptySkyRepresentation);

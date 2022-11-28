@@ -9,17 +9,17 @@ class Ground : IEnumerable<GroundType>
 	private readonly HashSet<Point> _activeWaterPoints;
 	public readonly Area Area;
 
-	public int Width => Area.Width;
-	public int Height => Area.Height;
+	public int GetWidth() => Area.XRange.Count;
+	public int GetHeight() => Area.YRange.Count;
 
 	protected Ground(GroundType[,] ground, Area area)
 	{
 		ArgumentNullException.ThrowIfNull(ground);
-		if (ground.GetLength(0) != area.Width)
+		if (ground.GetLength(0) != area.GetWidth())
 		{
 			throw new ArgumentException("Ground width does not match specified ground area.", nameof(area));
 		}
-		if (ground.GetLength(1) != area.Height)
+		if (ground.GetLength(1) != area.GetHeight())
 		{
 			throw new ArgumentException("Ground height does not match specified ground area.", nameof(area));
 		}
@@ -27,7 +27,7 @@ class Ground : IEnumerable<GroundType>
 		Area = area;
 		_activeWaterPoints = new HashSet<Point>()
 		{
-			area.EnumeratePoints().Single(p => this[p] is GroundType.WaterSpring)
+			area.Points.Single(p => this[p] is GroundType.WaterSpring)
 		};
 	}
 
@@ -268,7 +268,7 @@ class Ground : IEnumerable<GroundType>
 		{
 			throw new ArgumentException("Area is not fully contained in the ground.");
 		}
-		return area.EnumeratePoints().Select(p => this[p]);
+		return area.Points.Select(p => this[p]);
 	}
 
 	private readonly record struct FlowResult(bool HasSpread, bool Blocked, Point FinalActivePoint);

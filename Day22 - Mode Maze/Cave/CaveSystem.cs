@@ -12,7 +12,7 @@ class CaveSystem
 
 	public CaveSystem(uint depth, Coordinate targetCoordinate, RegionType[,] regions)
 	{
-		Area = new Area(0, regions.GetLength(0) - 1, 0, regions.GetLength(1) - 1);
+		Area = new Area(new(0, regions.GetLength(0) - 1), new(0, regions.GetLength(1) - 1));
 		if (!Area.Contains(targetCoordinate))
 		{
 			throw new ArgumentException("The target coordinate is not within the area of regions array.", nameof(targetCoordinate));
@@ -26,7 +26,7 @@ class CaveSystem
 	public RegionType this[Coordinate coordinate] => this[coordinate.X, coordinate.Y];
 
 	public IEnumerable<RegionType> EnumerateRegions()
-		=> Area.EnumerateCoordinates().Select(coordinate => this[coordinate]);
+		=> Area.Points.Select(coordinate => this[coordinate]);
 
 	public IEnumerable<RegionType> EnumerateRegions(Area subArea)
 	{
@@ -34,7 +34,7 @@ class CaveSystem
 		{
 			throw new ArgumentException("The area is not within the cave system.", nameof(subArea));
 		}
-		return subArea.EnumerateCoordinates().Select(coordinate => this[coordinate]);
+		return subArea.Points.Select(coordinate => this[coordinate]);
 	}
 
 	public IEnumerable<Coordinate> EnumerateNeighbors(Coordinate coordinate)

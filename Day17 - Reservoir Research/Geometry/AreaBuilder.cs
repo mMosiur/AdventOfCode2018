@@ -67,6 +67,6 @@ class AreaBuilder
 		{
 			throw new InvalidOperationException("Nothing was added to AreaBuilder.");
 		}
-		return new Area(_minX, _maxX, _minY, _maxY);
+		return new Area(new(_minX, _maxX), new(_minY, _maxY));
 	}
 }
