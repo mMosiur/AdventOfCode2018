@@ -1,5 +1,4 @@
 using AdventOfCode.Abstractions;
-using AdventOfCode.Year2018.Day23.Geometry;
 
 namespace AdventOfCode.Year2018.Day23;
 

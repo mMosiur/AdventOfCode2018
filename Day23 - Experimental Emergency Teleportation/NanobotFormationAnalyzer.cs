@@ -39,9 +39,9 @@ sealed class NanobotFormationAnalyzer
 
 	public Cuboid GenerateBoundingCuboid()
 	{
-		Geometry.Range xRange = new(_nanobots.Min(n => n.Position.X), _nanobots.Max(n => n.Position.X));
-		Geometry.Range yRange = new(_nanobots.Min(n => n.Position.Y), _nanobots.Max(n => n.Position.Y));
-		Geometry.Range zRange = new(_nanobots.Min(n => n.Position.Z), _nanobots.Max(n => n.Position.Z));
+		Range xRange = new(_nanobots.Min(n => n.Position.X), _nanobots.Max(n => n.Position.X));
+		Range yRange = new(_nanobots.Min(n => n.Position.Y), _nanobots.Max(n => n.Position.Y));
+		Range zRange = new(_nanobots.Min(n => n.Position.Z), _nanobots.Max(n => n.Position.Z));
 		return new Cuboid(xRange, yRange, zRange);
 	}
 

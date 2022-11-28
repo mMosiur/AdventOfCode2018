@@ -1,12 +1,11 @@
 using System.Text.RegularExpressions;
-using AdventOfCode.Year2018.Day22.Geometry;
 
 namespace AdventOfCode.Year2018.Day22;
 
 class InputParser
 {
 	private static readonly Regex _depthRegex = new(@"[ \t]*depth:[ \t]*(\d+)[ \t]*$");
-	private static readonly Regex _targetRegex = new(@"^[ \t]*target:[ \t]*(\d+),[ \t]*(\d+)[ \t]*$");
+	private static readonly Regex _targetRegex = new(@"^[ \t]*target:[ \t]*(\d+,[ \t]*\d+)[ \t]*$");
 
 	public static (ushort depth, Coordinate target) Parse(string input)
 	{
@@ -33,9 +32,7 @@ class InputParser
 				{
 					throw new InputException("Input contained multiple target lines.");
 				}
-				int x = int.Parse(targetMatch.Groups[1].ValueSpan);
-				int y = int.Parse(targetMatch.Groups[2].ValueSpan);
-				target = new Coordinate(x, y);
+				target = Coordinate.Parse(targetMatch.Groups[1].ValueSpan);
 				continue;
 			}
 			throw new InputException($"Unrecognized input line: \"{line}\".");

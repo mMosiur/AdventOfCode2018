@@ -5,8 +5,8 @@ readonly struct Area
 	public Range XRange { get; }
 	public Range YRange { get; }
 
-	public int Width => XRange.Length;
-	public int Height => YRange.Length;
+	public int Width => XRange.Count;
+	public int Height => YRange.Count;
 
 	public Area(Range xRange, Range yRange)
 	{

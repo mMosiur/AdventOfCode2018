@@ -68,8 +68,8 @@ class CaveDataCalculator
 	public int CalculateRiskLevel(CaveSystem caveSystem)
 	{
 		Area areaOfInterest = new(
-			xRange: new Geometry.Range(0, caveSystem.TargetCoordinate.X),
-			yRange: new Geometry.Range(0, caveSystem.TargetCoordinate.Y)
+			xRange: new Range(0, caveSystem.TargetCoordinate.X),
+			yRange: new Range(0, caveSystem.TargetCoordinate.Y)
 		);
 		return caveSystem.EnumerateRegions(areaOfInterest)
 			.Sum(CalculateRiskLevel);

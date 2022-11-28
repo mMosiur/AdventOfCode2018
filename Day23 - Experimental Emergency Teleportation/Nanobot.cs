@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day23.Geometry;
-
 namespace AdventOfCode.Year2018.Day23;
 
 sealed class Nanobot

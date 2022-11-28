@@ -6,7 +6,7 @@ readonly struct Cuboid : IEquatable<Cuboid>
 	public Range YRange { get; }
 	public Range ZRange { get; }
 
-	public int Volume => XRange.Length * YRange.Length * ZRange.Length;
+	public int Volume => XRange.Count * YRange.Count * ZRange.Count;
 
 	public Cuboid(Range xRange, Range yRange, Range zRange)
 	{
