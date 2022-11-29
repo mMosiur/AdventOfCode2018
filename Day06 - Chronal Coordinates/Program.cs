@@ -52,14 +52,14 @@ try
 	string part2 = solver.SolvePart2();
 	Console.WriteLine(part2);
 }
-catch (Exception e) when (e is CommandLineException or InputException or DaySolverException)
+catch (AdventOfCodeException e)
 {
 	string errorPrefix = e switch
 	{
 		CommandLineException => "Command line error",
 		InputException => "Input error",
 		DaySolverException => "Day solver error",
-		_ => throw new UnreachableException()
+		_ => throw new UnreachableException($"Unknown exception type \"{e.GetType()}\".")
 	};
 
 	Console.ForegroundColor = ConsoleColor.Red;
