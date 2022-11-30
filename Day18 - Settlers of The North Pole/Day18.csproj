@@ -10,7 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
-    <PackageReference Include="mMosiur.AdventOfCode.Abstractions" Version="4.1.0" />
+    <PackageReference Include="mMosiur.AdventOfCode.Abstractions" Version="4.3.1" />
+    <PackageReference Include="mMosiur.AdventOfCode.Common" Version="0.0.2" />
   </ItemGroup>
 
   <ItemGroup>

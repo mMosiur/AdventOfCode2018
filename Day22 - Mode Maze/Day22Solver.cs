@@ -1,6 +1,5 @@
 using AdventOfCode.Abstractions;
 using AdventOfCode.Year2018.Day22.Cave;
-using AdventOfCode.Year2018.Day22.Geometry;
 
 namespace AdventOfCode.Year2018.Day22;
 
@@ -36,7 +35,7 @@ public sealed class Day22Solver : DaySolver
 	{
 	}
 
-	public Day22Solver() : this(Day22SolverOptions.Default)
+	public Day22Solver() : this(new Day22SolverOptions())
 	{
 	}
 

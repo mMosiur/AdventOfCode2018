@@ -1,5 +1,4 @@
 using System.Collections;
-using AdventOfCode.Year2018.Day20.Geometry;
 
 namespace AdventOfCode.Year2018.Day20;
 

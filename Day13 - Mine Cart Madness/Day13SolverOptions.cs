@@ -4,5 +4,4 @@ namespace AdventOfCode.Year2018.Day13;
 
 public sealed class Day13SolverOptions : DaySolverOptions
 {
-	public static Day13SolverOptions Default => new();
 }

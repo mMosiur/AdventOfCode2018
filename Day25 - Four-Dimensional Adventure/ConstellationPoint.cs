@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day25.Geometry;
-
 namespace AdventOfCode.Year2018.Day25;
 
 class ConstellationPoint

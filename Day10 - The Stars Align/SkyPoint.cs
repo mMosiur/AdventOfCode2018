@@ -1,12 +1,11 @@
 using System.Text.RegularExpressions;
-using AdventOfCode.Year2018.Day10.Geometry;
 
 namespace AdventOfCode.Year2018.Day10;
 
 class SkyPoint
 {
 	private static readonly Regex _regex = new(
-		@"^(?: |\t)*position(?: |\t)*=(?: |\t)*<(?: |\t)*(?<positionX>\-?\d+)(?: |\t)*,(?: |\t)*(?<positionY>\-?\d+)(?: |\t)*>(?: |\t)*velocity(?: |\t)*=(?: |\t)*<(?: |\t)*(?<velocityX>\-?\d+)(?: |\t)*,(?: |\t)*(?<velocityY>\-?\d+)(?: |\t)*>(?: |\t)*$",
+		@"^\s*position\s*=\s*<(?<position>\s*\-?\d+\s*,\s*\-?\d+\s*)>\s*velocity\s*=\s*<(?<velocity>\s*\-?\d+\s*,\s*\-?\d+\s*)>\s*$",
 		RegexOptions.Compiled | RegexOptions.IgnoreCase
 	);
 
@@ -26,11 +25,9 @@ class SkyPoint
 		{
 			throw new FormatException($"Invalid format: {s}");
 		}
-		int positionX = int.Parse(match.Groups["positionX"].ValueSpan);
-		int positionY = int.Parse(match.Groups["positionY"].ValueSpan);
-		int velocityX = int.Parse(match.Groups["velocityX"].ValueSpan);
-		int velocityY = int.Parse(match.Groups["velocityY"].ValueSpan);
-		return new(new(positionX, positionY), new(velocityX, velocityY));
+		Point position = Point.Parse(match.Groups["position"].ValueSpan);
+		Vector velocity = Vector.Parse(match.Groups["velocity"].ValueSpan);
+		return new(position, velocity);
 	}
 
 	public void Move()

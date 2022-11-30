@@ -48,7 +48,7 @@ class TotalDistanceCoverageAnalyzer
 		int totalDistance = 0;
 		foreach (Point target in targets)
 		{
-			totalDistance += Math.ManhattanDistance(origin, target);
+			totalDistance += MathG.ManhattanDistance(origin, target);
 		}
 		return totalDistance;
 	}

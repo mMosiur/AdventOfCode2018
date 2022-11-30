@@ -32,14 +32,15 @@ struct PathSignature : IComparable<PathSignature>, IEquatable<PathSignature>
 	{
 		int distResult = Distance.CompareTo(other.Distance);
 		if (distResult != 0) return distResult;
-		int endCoordinateResult = End.CompareTo(other.End);
+		CoordinateComparer coordComparer = new();
+		int endCoordinateResult = coordComparer.Compare(End, other.End);
 		if (endCoordinateResult != 0) return endCoordinateResult;
 		return (_firstStep, other._firstStep) switch
 		{
 			(null, null) => 0,
 			(null, _) => -1,
 			(_, null) => 1,
-			_ => _firstStep.Value.CompareTo(other._firstStep.Value)
+			_ => coordComparer.Compare(_firstStep.Value, other._firstStep.Value)
 		};
 	}
 

@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day20.Geometry;
-
 namespace AdventOfCode.Year2018.Day20;
 
 class PathRegex
@@ -76,7 +74,7 @@ class PathRegex
 			if (DirectionHelpers.TryParse(c, out Direction direction))
 			{
 				Position previousRoomPosition = currentRoomPosition;
-				currentRoomPosition += Vector.FromDirection(direction);
+				currentRoomPosition += direction.ToVector();
 				int newDistance = distances[previousRoomPosition] + 1;
 				if (distances.TryGetValue(currentRoomPosition, out int prevDistance))
 				{

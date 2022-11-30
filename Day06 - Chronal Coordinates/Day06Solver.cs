@@ -14,7 +14,7 @@ public sealed class Day06Solver : DaySolver
 	public Day06Solver(Day06SolverOptions options) : base(options)
 	{
 		_maxTotalDistance = options.MaxTotalDistance;
-		_points = InputLines.Select(Point.Parse).ToArray();
+		_points = InputLines.Select(s => Point.Parse(s)).ToArray();
 	}
 
 	public Day06Solver(Action<Day06SolverOptions> configure)
@@ -22,7 +22,7 @@ public sealed class Day06Solver : DaySolver
 	{
 	}
 
-	public Day06Solver() : this(Day06SolverOptions.Default)
+	public Day06Solver() : this(new Day06SolverOptions())
 	{
 	}
 

@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day25.Geometry;
-
 namespace AdventOfCode.Year2018.Day25;
 
 class ConstellationResolver
@@ -20,7 +18,7 @@ class ConstellationResolver
 			for (int j = i + 1; j < constellationPoints.Length; j++)
 			{
 				ConstellationPoint point2 = constellationPoints[j];
-				int distance = ExtendedMath.ManhattanDistance(point1.Point, point2.Point);
+				int distance = MathG.ManhattanDistance(point1.Point, point2.Point);
 				if (distance <= maxDistanceInConstellation)
 				{
 					if (point1.Constellation == point2.Constellation) continue;

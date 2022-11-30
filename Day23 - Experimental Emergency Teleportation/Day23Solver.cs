@@ -1,5 +1,4 @@
 using AdventOfCode.Abstractions;
-using AdventOfCode.Year2018.Day23.Geometry;
 
 namespace AdventOfCode.Year2018.Day23;
 
@@ -35,7 +34,7 @@ public sealed class Day23Solver : DaySolver
 	{
 	}
 
-	public Day23Solver() : this(Day23SolverOptions.Default)
+	public Day23Solver() : this(new Day23SolverOptions())
 	{
 	}
 
@@ -53,7 +52,7 @@ public sealed class Day23Solver : DaySolver
 	{
 		NanobotFormationAnalyzer analyzer = new(GenerateNanobots(), _origin);
 		(_, Point point) = analyzer.FindPointInRangeOfMostNanobots();
-		int result = ExtendedMath.ManhattanDistance(_origin, point);
+		int result = MathG.ManhattanDistance(_origin, point);
 		return $"{result}";
 	}
 }

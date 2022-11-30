@@ -4,6 +4,5 @@ namespace AdventOfCode.Year2018.Day20;
 
 public sealed class Day20SolverOptions : DaySolverOptions
 {
-	public static Day20SolverOptions Default => new();
-	public int PartTwoMinDistance { get; } = 1000;
+	public int PartTwoMinDistance { get; set; } = 1000;
 }

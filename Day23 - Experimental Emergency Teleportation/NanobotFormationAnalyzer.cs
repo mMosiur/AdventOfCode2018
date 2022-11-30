@@ -27,8 +27,8 @@ sealed class NanobotFormationAnalyzer
 
 	public static bool CanNanobotReachCuboid(Nanobot nanobot, Cuboid cuboid)
 	{
-		Point closestPoint = ExtendedMath.GetCuboidPointClosestToPoint(cuboid, nanobot.Position);
-		int closestPointDistance = ExtendedMath.ManhattanDistance(nanobot.Position, closestPoint);
+		Point closestPoint = cuboid.GetPointClosestToExternalPoint(nanobot.Position);
+		int closestPointDistance = MathG.ManhattanDistance(nanobot.Position, closestPoint);
 		return closestPointDistance <= nanobot.Radius;
 	}
 
@@ -39,9 +39,9 @@ sealed class NanobotFormationAnalyzer
 
 	public Cuboid GenerateBoundingCuboid()
 	{
-		Geometry.Range xRange = new(_nanobots.Min(n => n.Position.X), _nanobots.Max(n => n.Position.X));
-		Geometry.Range yRange = new(_nanobots.Min(n => n.Position.Y), _nanobots.Max(n => n.Position.Y));
-		Geometry.Range zRange = new(_nanobots.Min(n => n.Position.Z), _nanobots.Max(n => n.Position.Z));
+		Range xRange = new(_nanobots.Min(n => n.Position.X), _nanobots.Max(n => n.Position.X));
+		Range yRange = new(_nanobots.Min(n => n.Position.Y), _nanobots.Max(n => n.Position.Y));
+		Range zRange = new(_nanobots.Min(n => n.Position.Z), _nanobots.Max(n => n.Position.Z));
 		return new Cuboid(xRange, yRange, zRange);
 	}
 

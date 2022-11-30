@@ -1,5 +1,4 @@
 using AdventOfCode.Abstractions;
-using AdventOfCode.Year2018.Day25.Geometry;
 
 namespace AdventOfCode.Year2018.Day25;
 
@@ -25,7 +24,7 @@ public sealed class Day25Solver : DaySolver
 	{
 	}
 
-	public Day25Solver() : this(Day25SolverOptions.Default)
+	public Day25Solver() : this(new Day25SolverOptions())
 	{
 	}
 

@@ -20,7 +20,7 @@ public sealed class Day13Solver : DaySolver
 	{
 	}
 
-	public Day13Solver() : this(Day13SolverOptions.Default)
+	public Day13Solver() : this(new Day13SolverOptions())
 	{
 	}
 
@@ -28,13 +28,15 @@ public sealed class Day13Solver : DaySolver
 	{
 		CartCrashAnalyzer analyzer = new(_map);
 		Coordinate firstCrashPosition = analyzer.FindFirstCrashPosition();
-		return firstCrashPosition.ToString();
+		(int x, int y) = firstCrashPosition;
+		return $"{x},{y}";
 	}
 
 	public override string SolvePart2()
 	{
 		CartCrashAnalyzer analyzer = new(_map);
 		Coordinate lastStandingCartPosition = analyzer.FindLastStandingCartPosition();
-		return lastStandingCartPosition.ToString();
+		(int x, int y) = lastStandingCartPosition;
+		return $"{x},{y}";
 	}
 }

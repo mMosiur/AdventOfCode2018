@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day23.Geometry;
-
 namespace AdventOfCode.Year2018.Day23;
 
 sealed class Nanobot
@@ -15,6 +13,6 @@ sealed class Nanobot
 
 	public bool IsInRange(Nanobot nanobot)
 	{
-		return ExtendedMath.ManhattanDistance(Position, nanobot.Position) <= Radius;
+		return MathG.ManhattanDistance(Position, nanobot.Position) <= Radius;
 	}
 }

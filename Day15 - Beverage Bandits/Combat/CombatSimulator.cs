@@ -85,7 +85,10 @@ class CombatSimulator
 			{
 				// Enemies in range found, attack
 				int minHitPoints = inRangeEnemyPositions.Select(p => (Unit)_combatMap[p]!).Min(u => u.HitPoints);
-				Coordinate attackTargetPosition = inRangeEnemyPositions.Where(p => ((Unit)_combatMap[p]!).HitPoints == minHitPoints).OrderBy(p => p).First();
+				Coordinate attackTargetPosition = inRangeEnemyPositions
+					.Where(p => ((Unit)_combatMap[p]!).HitPoints == minHitPoints)
+					.OrderBy(p => p, new CoordinateComparer())
+					.First();
 				Unit targetUnit = _combatMap[attackTargetPosition] as Unit ?? throw new InvalidOperationException("No unit at attack target position.");
 				AttackResult attackResult = unit.Attack(targetUnit);
 				if (attackResult.TargetKilled)

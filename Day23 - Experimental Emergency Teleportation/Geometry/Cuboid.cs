@@ -6,7 +6,7 @@ readonly struct Cuboid : IEquatable<Cuboid>
 	public Range YRange { get; }
 	public Range ZRange { get; }
 
-	public int Volume => XRange.Length * YRange.Length * ZRange.Length;
+	public int Volume => XRange.Count * YRange.Count * ZRange.Count;
 
 	public Cuboid(Range xRange, Range yRange, Range zRange)
 	{
@@ -30,6 +30,15 @@ readonly struct Cuboid : IEquatable<Cuboid>
 				}
 			}
 		}
+	}
+
+	public Point GetPointClosestToExternalPoint(Point point)
+	{
+		return new(
+			x: Math.Clamp(point.X, XRange.Start, XRange.End),
+			y: Math.Clamp(point.Y, YRange.Start, YRange.End),
+			z: Math.Clamp(point.Z, ZRange.Start, ZRange.End)
+		);
 	}
 
 	#region IEquatable<Cuboid>

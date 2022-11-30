@@ -59,10 +59,10 @@ sealed class CuboidPriorityQueue
 			// In case of a tie we want to process the cuboid that is
 			// closest to the origin first, as per puzzle description:
 			// "if there are multiple, choose one closest to your position".
-			Point p1 = ExtendedMath.GetCuboidPointClosestToPoint(s1.Cuboid, _origin);
-			Point p2 = ExtendedMath.GetCuboidPointClosestToPoint(s2.Cuboid, _origin);
-			int distanceToOrigin1 = ExtendedMath.ManhattanDistance(_origin, p1);
-			int distanceToOrigin2 = ExtendedMath.ManhattanDistance(_origin, p2);
+			Point p1 = s1.Cuboid.GetPointClosestToExternalPoint(_origin);
+			Point p2 = s2.Cuboid.GetPointClosestToExternalPoint(_origin);
+			int distanceToOrigin1 = MathG.ManhattanDistance(_origin, p1);
+			int distanceToOrigin2 = MathG.ManhattanDistance(_origin, p2);
 			// NON-negated result because we want the smaller value to be first.
 			result = distanceToOrigin1.CompareTo(distanceToOrigin2);
 			return result;

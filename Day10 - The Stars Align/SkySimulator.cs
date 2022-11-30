@@ -1,5 +1,3 @@
-using AdventOfCode.Year2018.Day10.Geometry;
-
 namespace AdventOfCode.Year2018.Day10;
 
 class SkySimulator
@@ -36,7 +34,7 @@ class SkySimulator
 		Rectangle nextBoundingBox = boundingBox;
 		string? currentRepresentation = null;
 		int secondsPassed = -1;
-		while (nextBoundingBox.Width <= boundingBox.Width || nextBoundingBox.Height <= boundingBox.Height)
+		while (nextBoundingBox.GetWidth() <= boundingBox.GetWidth() || nextBoundingBox.GetHeight() <= boundingBox.GetHeight())
 		{
 			secondsPassed++;
 			currentRepresentation = _sky.GetRepresentation(_maxAreaToDisplay);
